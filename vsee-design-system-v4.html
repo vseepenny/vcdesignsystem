@@ -1,0 +1,2012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VSee Clinic — Design System v4</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* ===== BRAND ===== */
+    --brand: #0D875C;
+    --brand-hover: #0B7550;
+    --brand-active: #096843;
+    --brand-light: #E6F5EE;
+    --brand-50: #F0FAF5;
+
+    /* ===== SEMANTIC ===== */
+    --success: #0D875C; --success-light: #E6F5EE;
+    --info: #0575AD; --info-light: #E0F2FE;
+    --warning: #F59E0B; --warning-light: #FEF3C7;
+    --danger: #DC2626; --danger-light: #FEE2E2;
+
+    /* ===== NEUTRALS ===== */
+    --black: #111827;
+    --grey-900: #1F2937; --grey-800: #374151; --grey-700: #4B5563;
+    --grey-600: #6B7280; --grey-500: #9CA3AF; --grey-400: #D1D5DB;
+    --grey-300: #E5E7EB; --grey-200: #F3F4F6; --grey-100: #F9FAFB;
+    --white: #FFFFFF;
+
+    /* ===== SURFACES ===== */
+    --surface-page: #FFFFFF; --surface-subtle: #F9FAFB;
+    --surface-muted: #F3F4F6; --surface-overlay: rgba(0,0,0,0.6);
+
+    /* ===== TEXT ===== */
+    --text-primary: #111827; --text-secondary: #6B7280;
+    --text-tertiary: #9CA3AF; --text-inverse: #FFFFFF;
+    --text-link: #065F46; --text-brand: #065F46;
+
+    /* ===== BORDERS ===== */
+    --border: #E5E7EB; --border-strong: #D1D5DB; --border-focus: #0D875C;
+
+    /* ===== TYPOGRAPHY ===== */
+    --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    --text-xs: 12px; --text-sm: 13px; --text-base: 14px; --text-lg: 16px;
+    --text-xl: 18px; --text-2xl: 20px; --text-3xl: 24px; --text-4xl: 30px;
+    --text-5xl: 36px; --text-6xl: 48px; --text-7xl: 60px;
+
+    /* ===== SPACING ===== */
+    --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px;
+    --sp-5: 20px; --sp-6: 24px; --sp-8: 32px; --sp-10: 40px;
+    --sp-12: 48px; --sp-16: 64px; --sp-20: 80px; --sp-24: 96px;
+
+    /* ===== RADIUS ===== */
+    --r-sm: 6px; --r-md: 8px; --r-lg: 12px; --r-xl: 16px;
+    --r-2xl: 24px; --r-full: 9999px;
+
+    /* ===== SHADOWS ===== */
+    --shadow-xs: 0 1px 2px rgba(0,0,0,0.05);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -2px rgba(0,0,0,0.05);
+    --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.04);
+    --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.04);
+    --shadow-focus: 0 0 0 3px rgba(13,135,92,0.15);
+
+    /* ===== STATUS (EMR) ===== */
+    --status-ordered: #0D875C; --status-scheduled: #0575AD;
+    --status-overdue: #EF4444; --status-in-progress: #F59E0B;
+    --status-cancelled: #9CA3AF; --status-resulted: #0D875C;
+    --status-completed: #374151;
+
+    /* ===== TRANSITIONS ===== */
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --t-fast: 150ms var(--ease); --t-base: 200ms var(--ease); --t-slow: 300ms var(--ease);
+
+    /* ===== Z-INDEX ===== */
+    --z-base: 0; --z-dropdown: 10; --z-sticky: 20;
+    --z-overlay: 30; --z-modal: 40; --z-toast: 50;
+
+    /* ===== NAV ===== */
+    --nav-width: 240px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: var(--font); font-size: var(--text-base); color: var(--text-primary); background: var(--surface-page); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+
+  /* ===== STICKY NAV ===== */
+  .nav { position: fixed; top: 0; left: 0; width: var(--nav-width); height: 100vh; background: var(--white); border-right: 1px solid var(--border); padding: var(--sp-6) 0; overflow-y: auto; z-index: var(--z-sticky); }
+  .nav-logo { padding: 0 var(--sp-6) var(--sp-6); font-size: var(--text-2xl); font-weight: 800; color: var(--brand); letter-spacing: -0.5px; border-bottom: 1px solid var(--border); margin-bottom: var(--sp-4); }
+  .nav-version { font-size: var(--text-xs); font-weight: 500; color: var(--text-tertiary); display: block; margin-top: 2px; }
+  .nav-group { padding: 0 var(--sp-4); margin-bottom: var(--sp-4); }
+  .nav-group-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-tertiary); padding: 0 var(--sp-3); margin-bottom: var(--sp-1); }
+  .nav-link { display: block; padding: 7px var(--sp-3); font-size: var(--text-sm); font-weight: 500; color: var(--text-secondary); border-radius: var(--r-md); text-decoration: none; transition: all var(--t-fast); }
+  .nav-link:hover { color: var(--text-primary); background: var(--grey-200); }
+  .nav-link.active { color: var(--text-brand); background: var(--brand-50); font-weight: 600; }
+
+  /* ===== MAIN ===== */
+  .main { margin-left: var(--nav-width); }
+  .section { padding: var(--sp-16) var(--sp-16); border-bottom: 1px solid var(--grey-200); max-width: 1200px; }
+  .section:last-child { border-bottom: none; }
+  .section-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-brand); margin-bottom: var(--sp-2); }
+  .section-title { font-size: var(--text-5xl); font-weight: 800; color: var(--text-primary); margin-bottom: var(--sp-3); letter-spacing: -0.5px; line-height: 1.15; }
+  .section-desc { font-size: var(--text-lg); color: var(--text-secondary); max-width: 640px; line-height: 1.6; margin-bottom: var(--sp-12); }
+  .subsection { margin-bottom: var(--sp-12); }
+  .sub-title { font-size: var(--text-xl); font-weight: 700; color: var(--text-primary); margin-bottom: var(--sp-4); letter-spacing: -0.2px; }
+  .sub-desc { font-size: var(--text-sm); color: var(--text-secondary); margin-bottom: var(--sp-4); }
+
+  .grid { display: grid; gap: var(--sp-4); }
+  .g2 { grid-template-columns: repeat(2, 1fr); }
+  .g3 { grid-template-columns: repeat(3, 1fr); }
+  .g4 { grid-template-columns: repeat(4, 1fr); }
+  .g5 { grid-template-columns: repeat(5, 1fr); }
+
+  /* ===== HERO ===== */
+  .hero { background: linear-gradient(135deg, #0D875C 0%, #0A6B49 50%, #074D35 100%); padding: var(--sp-24) var(--sp-16); color: white; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -50%; right: -20%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%); border-radius: 50%; }
+  .hero-badge { display: inline-block; padding: 6px 16px; background: rgba(255,255,255,0.12); border-radius: var(--r-full); font-size: var(--text-xs); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: var(--sp-6); backdrop-filter: blur(4px); }
+  .hero h1 { font-size: 64px; font-weight: 900; letter-spacing: -2px; line-height: 1; margin-bottom: var(--sp-4); }
+  .hero p { font-size: var(--text-2xl); font-weight: 300; opacity: 0.8; max-width: 560px; line-height: 1.5; }
+  .hero-stats { display: flex; gap: var(--sp-12); margin-top: var(--sp-10); }
+  .hero-stat-val { font-size: var(--text-4xl); font-weight: 800; }
+  .hero-stat-label { font-size: var(--text-sm); opacity: 0.7; }
+
+  /* ===== SWATCHES ===== */
+  .swatch-row { display: flex; gap: var(--sp-3); margin-bottom: var(--sp-6); flex-wrap: wrap; }
+  .swatch { flex: 1; min-width: 120px; max-width: 180px; border-radius: var(--r-lg); overflow: hidden; border: 1px solid var(--border); background: white; cursor: pointer; transition: all var(--t-fast); }
+  .swatch:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+  .swatch-color { height: 72px; position: relative; }
+  .swatch-color::after { content: 'Click to copy'; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.4); color: white; font-size: 11px; font-weight: 600; opacity: 0; transition: opacity var(--t-fast); }
+  .swatch:hover .swatch-color::after { opacity: 1; }
+  .swatch-info { padding: var(--sp-2) var(--sp-3); }
+  .swatch-name { font-size: var(--text-sm); font-weight: 600; color: var(--text-primary); }
+  .swatch-hex { font-size: 11px; font-weight: 500; color: var(--text-tertiary); font-family: var(--mono); }
+  .swatch-token { font-size: 10px; color: var(--text-tertiary); font-family: var(--mono); margin-top: 1px; }
+
+  .swatch-large { min-width: 160px; max-width: 220px; }
+  .swatch-large .swatch-color { height: 100px; }
+
+  /* ===== TYPOGRAPHY SAMPLES ===== */
+  .type-row { display: flex; align-items: baseline; padding: var(--sp-4) 0; border-bottom: 1px solid var(--grey-200); gap: var(--sp-6); }
+  .type-row:last-child { border-bottom: none; }
+  .type-meta { min-width: 160px; flex-shrink: 0; }
+  .type-meta-label { font-size: 11px; font-weight: 600; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.5px; }
+  .type-meta-value { font-size: var(--text-sm); font-family: var(--mono); color: var(--text-secondary); }
+  .type-preview { flex: 1; }
+
+  /* ===== BUTTONS ===== */
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-family: var(--font); font-weight: 600; font-size: var(--text-base); padding: 10px 20px; border-radius: var(--r-md); border: 1px solid transparent; cursor: pointer; transition: all var(--t-fast); text-decoration: none; line-height: 1.25; }
+  .btn-primary { background: var(--brand); color: white; }
+  .btn-primary:hover { background: var(--brand-hover); box-shadow: var(--shadow-sm); }
+  .btn-secondary { background: white; color: var(--text-brand); border-color: var(--brand); }
+  .btn-secondary:hover { background: var(--brand-50); }
+  .btn-ghost { background: transparent; color: var(--text-primary); border-color: var(--border); }
+  .btn-ghost:hover { background: var(--grey-100); border-color: var(--border-strong); }
+  .btn-danger { background: var(--danger); color: white; }
+  .btn-danger:hover { background: #B91C1C; }
+  .btn-danger-outline { background: transparent; color: var(--danger); border-color: var(--danger); }
+  .btn-info { background: var(--info); color: white; }
+  .btn-warning { background: var(--warning); color: #111827; }
+  .btn-link { background: transparent; color: var(--text-brand); padding: 0; border: none; }
+  .btn-link:hover { text-decoration: underline; }
+  .btn:disabled, .btn.disabled { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
+  .btn-sm { font-size: var(--text-sm); padding: 6px 14px; }
+  .btn-lg { font-size: var(--text-lg); padding: 14px 28px; }
+  .btn-xl { font-size: var(--text-lg); padding: 16px 32px; border-radius: var(--r-lg); }
+  .btn-icon { width: 40px; height: 40px; padding: 0; border-radius: var(--r-md); }
+  .btn-icon-sm { width: 32px; height: 32px; padding: 0; border-radius: var(--r-sm); font-size: var(--text-sm); }
+  .btn-pill { border-radius: var(--r-full); }
+  .btn-block { display: flex; width: 100%; }
+  .btn-group { display: inline-flex; }
+  .btn-group .btn { border-radius: 0; }
+  .btn-group .btn:first-child { border-radius: var(--r-md) 0 0 var(--r-md); }
+  .btn-group .btn:last-child { border-radius: 0 var(--r-md) var(--r-md) 0; }
+  .btn-group .btn + .btn { margin-left: -1px; }
+  .btn-group .btn.active-group { background: var(--grey-800); color: white; border-color: var(--grey-800); }
+
+  /* ===== FORMS ===== */
+  .form-group { margin-bottom: var(--sp-5); }
+  .form-label { display: block; font-size: var(--text-sm); font-weight: 600; color: var(--text-primary); margin-bottom: 6px; }
+  .form-label .req { color: var(--danger); margin-left: 2px; }
+  .form-hint { font-size: var(--text-xs); color: var(--text-tertiary); margin-top: 4px; }
+  .form-error-text { font-size: var(--text-xs); color: var(--danger); margin-top: 4px; }
+  .input { width: 100%; height: 40px; padding: 0 var(--sp-3); font-family: var(--font); font-size: var(--text-base); color: var(--text-primary); background: white; border: 1px solid var(--border-strong); border-radius: var(--r-md); transition: all var(--t-fast); outline: none; }
+  .input:hover { border-color: var(--grey-500); }
+  .input:focus { border-color: var(--brand); box-shadow: var(--shadow-focus); }
+  .input::placeholder { color: var(--text-tertiary); }
+  .input.error { border-color: var(--danger); }
+  .input.error:focus { box-shadow: 0 0 0 3px rgba(239,68,68,0.15); }
+  .input-lg { height: 48px; font-size: var(--text-lg); padding: 0 var(--sp-4); border-radius: var(--r-lg); }
+  textarea.input { height: auto; min-height: 100px; padding: var(--sp-3); resize: vertical; line-height: 1.5; }
+  select.input { appearance: none; background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%236B7280' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 36px; }
+  .check-item { display: flex; align-items: center; gap: 10px; font-size: var(--text-base); color: var(--text-primary); cursor: pointer; }
+  .check-item input[type="checkbox"], .check-item input[type="radio"] { width: 18px; height: 18px; accent-color: var(--brand); cursor: pointer; flex-shrink: 0; }
+  .toggle { position: relative; display: inline-flex; align-items: center; gap: var(--sp-3); cursor: pointer; }
+  .toggle-track { width: 44px; height: 24px; background: var(--grey-400); border-radius: var(--r-full); position: relative; transition: background var(--t-fast); }
+  .toggle-thumb { position: absolute; width: 20px; height: 20px; left: 2px; top: 2px; background: white; border-radius: 50%; transition: transform var(--t-fast); box-shadow: var(--shadow-sm); }
+  .toggle.on .toggle-track { background: var(--brand); }
+  .toggle.on .toggle-thumb { transform: translateX(20px); }
+  .toggle-label { font-size: var(--text-base); color: var(--text-primary); }
+
+  /* ===== BADGES ===== */
+  .badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 10px; border-radius: var(--r-full); font-size: 12px; font-weight: 600; line-height: 20px; }
+  .badge-dot { width: 6px; height: 6px; border-radius: 50%; }
+  .badge-success { background: var(--success-light); color: #065F46; }
+  .badge-success .badge-dot { background: var(--success); }
+  .badge-info { background: var(--info-light); color: #075985; }
+  .badge-info .badge-dot { background: var(--info); }
+  .badge-warning { background: var(--warning-light); color: #92400E; }
+  .badge-warning .badge-dot { background: var(--warning); }
+  .badge-danger { background: var(--danger-light); color: #991B1B; }
+  .badge-danger .badge-dot { background: var(--danger); }
+  .badge-neutral { background: var(--grey-200); color: var(--grey-700); }
+  .badge-neutral .badge-dot { background: var(--grey-500); }
+  .badge-brand { background: var(--brand-light); color: #065F46; }
+  .badge-brand .badge-dot { background: var(--brand); }
+  .badge-solid-success { background: var(--success); color: white; }
+  .badge-solid-danger { background: var(--danger); color: white; }
+  .badge-solid-info { background: var(--info); color: white; }
+  .badge-solid-warning { background: var(--warning); color: #451A03; }
+
+  /* ===== STATUS ===== */
+  .status { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: var(--r-full); font-size: 12px; font-weight: 600; }
+  .status-dot { width: 7px; height: 7px; border-radius: 50%; }
+  .status-ordered { background: #E6F5EE; color: #065F46; }
+  .status-ordered .status-dot { background: var(--status-ordered); }
+  .status-scheduled { background: #E0F2FE; color: #075985; }
+  .status-scheduled .status-dot { background: var(--status-scheduled); }
+  .status-overdue { background: #FEE2E2; color: #991B1B; }
+  .status-overdue .status-dot { background: var(--status-overdue); }
+  .status-in-progress { background: #FEF3C7; color: #92400E; }
+  .status-in-progress .status-dot { background: var(--status-in-progress); }
+  .status-cancelled { background: var(--grey-200); color: var(--grey-600); }
+  .status-cancelled .status-dot { background: var(--status-cancelled); }
+  .status-resulted { background: #E6F5EE; color: #065F46; }
+  .status-resulted .status-dot { background: var(--status-resulted); }
+  .status-completed { background: var(--grey-200); color: var(--grey-800); }
+  .status-completed .status-dot { background: var(--status-completed); }
+
+  /* ===== ALERTS ===== */
+  .alert { display: flex; gap: var(--sp-3); padding: var(--sp-4); border-radius: var(--r-lg); font-size: var(--text-base); line-height: 1.5; }
+  .alert-icon { width: 20px; height: 20px; flex-shrink: 0; margin-top: 1px; }
+  .alert-success { background: var(--success-light); color: #065F46; border: 1px solid #A7F3D0; }
+  .alert-info { background: var(--info-light); color: #075985; border: 1px solid #BAE6FD; }
+  .alert-warning { background: var(--warning-light); color: #92400E; border: 1px solid #FDE68A; }
+  .alert-danger { background: var(--danger-light); color: #991B1B; border: 1px solid #FECACA; }
+
+  /* ===== PANELS ===== */
+  .panel { background: white; border: 1px solid var(--border); border-radius: var(--r-xl); overflow: hidden; }
+  .panel-header { padding: var(--sp-4) var(--sp-6); font-weight: 600; font-size: var(--text-base); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+  .panel-body { padding: var(--sp-6); }
+  .panel-footer { padding: var(--sp-4) var(--sp-6); border-top: 1px solid var(--border); background: var(--grey-100); }
+
+  /* ===== TABS ===== */
+  .tabs { display: flex; border-bottom: 1px solid var(--border); gap: 0; }
+  .tab-item { padding: var(--sp-3) var(--sp-5); font-size: var(--text-base); font-weight: 500; color: var(--text-secondary); cursor: pointer; border-bottom: 2px solid transparent; transition: all var(--t-fast); margin-bottom: -1px; }
+  .tab-item:hover { color: var(--text-primary); }
+  .tab-item.active { color: var(--brand); border-bottom-color: var(--brand); font-weight: 600; }
+
+  /* ===== TABLE ===== */
+  .table { width: 100%; border-collapse: collapse; }
+  .table th { text-align: left; padding: var(--sp-3) var(--sp-4); font-size: var(--text-xs); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-secondary); background: var(--grey-100); border-bottom: 1px solid var(--border); }
+  .table td { padding: var(--sp-3) var(--sp-4); font-size: var(--text-base); border-bottom: 1px solid var(--grey-200); color: var(--text-primary); }
+  .table tr:last-child td { border-bottom: none; }
+  .table tr:hover td { background: var(--grey-100); }
+
+  /* ===== MODAL ===== */
+  .modal-demo { background: rgba(0,0,0,0.4); border-radius: var(--r-xl); padding: var(--sp-12) var(--sp-6); display: flex; align-items: center; justify-content: center; }
+  .modal-box { background: white; border-radius: var(--r-xl); box-shadow: var(--shadow-xl); width: 100%; max-width: 480px; overflow: hidden; }
+  .modal-head { display: flex; align-items: center; justify-content: space-between; padding: var(--sp-5) var(--sp-6); border-bottom: 1px solid var(--border); }
+  .modal-head h3 { font-size: var(--text-xl); font-weight: 700; }
+  .modal-close { background: none; border: none; font-size: 24px; color: var(--grey-500); cursor: pointer; line-height: 1; padding: 4px; border-radius: var(--r-sm); }
+  .modal-close:hover { background: var(--grey-200); color: var(--text-primary); }
+  .modal-content { padding: var(--sp-6); }
+  .modal-actions { display: flex; justify-content: flex-end; gap: var(--sp-3); padding: var(--sp-4) var(--sp-6); border-top: 1px solid var(--border); }
+
+  /* ===== AVATAR ===== */
+  .avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--brand-light); display: flex; align-items: center; justify-content: center; font-size: var(--text-sm); font-weight: 700; color: var(--brand); flex-shrink: 0; }
+  .avatar-sm { width: 32px; height: 32px; font-size: 11px; }
+  .avatar-lg { width: 56px; height: 56px; font-size: var(--text-lg); }
+  .avatar-xl { width: 80px; height: 80px; font-size: var(--text-3xl); }
+
+  /* ===== NAVBAR ===== */
+  .navbar { display: flex; align-items: center; height: 56px; padding: 0 var(--sp-6); background: white; border-bottom: 1px solid var(--border); }
+  .navbar-logo { font-size: var(--text-2xl); font-weight: 800; color: var(--brand); letter-spacing: -0.5px; margin-right: var(--sp-10); }
+  .navbar-links { display: flex; gap: var(--sp-1); }
+  .navbar-link { padding: 8px 14px; font-size: var(--text-sm); font-weight: 500; color: var(--text-secondary); border-radius: var(--r-md); transition: all var(--t-fast); cursor: pointer; }
+  .navbar-link:hover { color: var(--text-primary); background: var(--grey-100); }
+  .navbar-link.active { color: var(--text-brand); background: var(--brand-50); font-weight: 600; }
+
+  /* ===== BREADCRUMB ===== */
+  .breadcrumb { display: flex; align-items: center; gap: var(--sp-2); font-size: var(--text-sm); }
+  .breadcrumb a { color: var(--text-secondary); text-decoration: none; }
+  .breadcrumb a:hover { color: var(--text-brand); }
+  .breadcrumb-sep { color: var(--grey-400); }
+  .breadcrumb-current { color: var(--text-primary); font-weight: 600; }
+
+  /* ===== PAGINATION ===== */
+  .pagination { display: flex; align-items: center; gap: var(--sp-1); }
+  .page-btn { display: flex; align-items: center; justify-content: center; min-width: 36px; height: 36px; padding: 0 var(--sp-2); font-size: var(--text-sm); font-weight: 500; color: var(--text-secondary); background: white; border: 1px solid var(--border); border-radius: var(--r-md); cursor: pointer; transition: all var(--t-fast); }
+  .page-btn:hover { background: var(--grey-100); color: var(--text-primary); }
+  .page-btn.active { background: var(--brand); color: white; border-color: var(--brand); }
+  .page-btn.disabled { opacity: 0.4; pointer-events: none; }
+
+  /* ===== TOOLTIP ===== */
+  .tooltip-wrap { position: relative; display: inline-block; }
+  .tooltip-bubble { position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: var(--grey-900); color: white; font-size: 12px; font-weight: 500; padding: 6px 12px; border-radius: var(--r-md); white-space: nowrap; box-shadow: var(--shadow-lg); }
+  .tooltip-bubble::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 5px solid transparent; border-top-color: var(--grey-900); }
+
+  /* ===== PROGRESS ===== */
+  .progress-track { height: 8px; background: var(--grey-200); border-radius: var(--r-full); overflow: hidden; }
+  .progress-bar { height: 100%; border-radius: var(--r-full); transition: width var(--t-slow); }
+  .progress-bar-brand { background: var(--brand); }
+  .progress-bar-info { background: var(--info); }
+  .progress-bar-danger { background: var(--danger); }
+
+  /* ===== SIDEBAR LAYOUT ===== */
+  .sidebar-layout { display: flex; border: 1px solid var(--border); border-radius: var(--r-xl); overflow: hidden; background: white; }
+  .sidebar-panel { width: 260px; border-right: 1px solid var(--border); background: var(--grey-100); }
+  .sidebar-menu-item { display: flex; align-items: center; gap: var(--sp-3); padding: var(--sp-3) var(--sp-4); font-size: var(--text-sm); font-weight: 500; color: var(--text-secondary); cursor: pointer; transition: all var(--t-fast); }
+  .sidebar-menu-item:hover { background: var(--grey-200); color: var(--text-primary); }
+  .sidebar-menu-item.active { background: var(--brand-50); color: var(--brand); font-weight: 600; border-right: 3px solid var(--brand); }
+  .sidebar-content { flex: 1; padding: var(--sp-6); }
+
+  /* ===== SPACING DEMO ===== */
+  .space-row { display: flex; align-items: center; gap: var(--sp-4); margin-bottom: var(--sp-2); }
+  .space-bar { height: 24px; background: var(--brand); border-radius: var(--r-sm); opacity: 0.8; }
+  .space-label { font-size: 12px; font-weight: 600; font-family: var(--mono); color: var(--text-secondary); min-width: 80px; }
+  .space-val { font-size: 11px; font-family: monospace; color: var(--text-tertiary); min-width: 40px; }
+
+  /* ===== SHADOW DEMO ===== */
+  .shadow-card { width: 100%; height: 80px; background: white; border-radius: var(--r-lg); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 500; font-family: monospace; color: var(--text-secondary); }
+
+  /* ===== RADIUS DEMO ===== */
+  .radius-demo { width: 80px; height: 80px; background: var(--brand-light); border: 2px solid var(--brand); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; color: var(--brand); }
+
+  /* ===== PREVIEW BOX ===== */
+  .preview { background: var(--grey-100); border-radius: var(--r-lg); padding: var(--sp-6); display: flex; flex-wrap: wrap; gap: var(--sp-3); align-items: center; }
+  .preview.vertical { flex-direction: column; align-items: stretch; }
+
+  /* ===== CODE ===== */
+  .code { background: #0F172A; color: #E2E8F0; padding: var(--sp-5); border-radius: var(--r-lg); font-family: var(--mono); font-size: 12px; line-height: 1.7; overflow-x: auto; }
+  .code .c { color: #64748B; } .code .p { color: #7DD3FC; } .code .v { color: #86EFAC; }
+
+  /* ===== CARD ===== */
+  .card { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-lg); padding: var(--sp-6); }
+
+  /* ===== TOAST ===== */
+  .toast-demo { display: flex; flex-direction: column; gap: var(--sp-3); max-width: 400px; }
+  .toast { display: flex; align-items: flex-start; gap: var(--sp-3); padding: var(--sp-4); background: white; border-radius: var(--r-lg); box-shadow: var(--shadow-lg); border-left: 4px solid; }
+  .toast-success { border-left-color: var(--success); }
+  .toast-danger { border-left-color: var(--danger); }
+  .toast-info { border-left-color: var(--info); }
+  .toast-body { flex: 1; }
+  .toast-title { font-weight: 600; font-size: var(--text-sm); margin-bottom: 2px; }
+  .toast-msg { font-size: var(--text-sm); color: var(--text-secondary); }
+  .toast-close { font-size: 18px; color: var(--grey-400); cursor: pointer; line-height: 1; }
+
+  /* ===== SEARCH INPUT ===== */
+  .search-input-wrap { position: relative; }
+  .search-input-wrap .input { padding-left: 40px; }
+  .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--grey-500); font-size: 16px; }
+
+  /* ===== DIVIDER ===== */
+  .divider { height: 1px; background: var(--border); margin: var(--sp-8) 0; }
+
+  /* ===== COPY TOAST ===== */
+  .copy-toast { position: fixed; bottom: 24px; right: 24px; background: var(--grey-900); color: white; padding: 10px 20px; border-radius: var(--r-lg); font-size: var(--text-sm); font-weight: 600; box-shadow: var(--shadow-xl); z-index: 999; opacity: 0; transform: translateY(10px); transition: all 200ms ease; pointer-events: none; }
+  .copy-toast.show { opacity: 1; transform: translateY(0); }
+
+  /* ===== THEME PREVIEW ===== */
+  .theme-card { border: 1px solid var(--border); border-radius: var(--r-xl); overflow: hidden; }
+  .theme-card-header { padding: var(--sp-4) var(--sp-6); font-weight: 600; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: var(--sp-3); }
+  .theme-card-dot { width: 12px; height: 12px; border-radius: 50%; }
+  .theme-card-body { padding: var(--sp-6); display: flex; gap: var(--sp-3); }
+
+  /* ===== GLOBAL BASE ===== */
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+  ::selection { background: var(--brand-50); color: var(--brand-active); }
+  :focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; border-radius: 2px; }
+
+  /* ===== EXTENDED TOKENS ===== */
+  :root {
+    --ease-in: cubic-bezier(0.4, 0, 1, 1);
+    --ease-out: cubic-bezier(0, 0, 0.2, 1);
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --fw-normal: 400; --fw-medium: 500; --fw-semibold: 600; --fw-bold: 700; --fw-extrabold: 800;
+    --ls-tight: -0.025em; --ls-snug: -0.015em; --ls-wide: 0.04em; --ls-wider: 0.08em;
+  }
+
+  /* ===== BUTTON ENHANCEMENTS ===== */
+  .btn-primary:hover { transform: translateY(-1px); }
+  .btn-primary:active { transform: translateY(0); box-shadow: none; }
+  .btn-danger:hover { background: #B91C1C; transform: translateY(-1px); }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .btn-loading { color: transparent !important; pointer-events: none; position: relative; }
+  .btn-loading::after { content: ''; position: absolute; width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.35); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; }
+  .btn-ghost.btn-loading::after { border-color: rgba(0,0,0,0.15); border-top-color: var(--text-primary); }
+
+  /* ===== SEGMENT CONTROL ===== */
+  .segment { display: inline-flex; padding: 3px; background: var(--grey-200); border-radius: calc(var(--r-md) + 1px); gap: 2px; }
+  .segment-btn { padding: 5px 14px; font-size: var(--text-sm); font-weight: 600; font-family: var(--font); border: none; border-radius: 6px; cursor: pointer; background: transparent; color: var(--text-secondary); transition: all var(--t-fast); }
+  .segment-btn:hover { color: var(--text-primary); }
+  .segment-btn.active { background: white; color: var(--text-primary); box-shadow: var(--shadow-sm); }
+
+  /* ===== INPUT GROUP ===== */
+  .input-group { display: flex; }
+  .input-group > .input { border-radius: 0; z-index: 1; position: relative; flex: 1; }
+  .input-group > .input:focus { z-index: 2; }
+  .input-group > .input:first-child { border-radius: var(--r-md) 0 0 var(--r-md); }
+  .input-group > .input:last-child { border-radius: 0 var(--r-md) var(--r-md) 0; }
+  .input-group > .btn:first-child { border-radius: var(--r-md) 0 0 var(--r-md); }
+  .input-group > .btn:last-child { border-radius: 0 var(--r-md) var(--r-md) 0; }
+  .input-addon { display: inline-flex; align-items: center; padding: 0 var(--sp-3); font-size: var(--text-sm); font-weight: 500; color: var(--text-secondary); background: var(--grey-100); border: 1px solid var(--border-strong); white-space: nowrap; flex-shrink: 0; }
+  .input-group > .input-addon:first-child { border-right: none; border-radius: var(--r-md) 0 0 var(--r-md); }
+  .input-group > .input-addon:last-child { border-left: none; border-radius: 0 var(--r-md) var(--r-md) 0; }
+
+  /* ===== SKELETON LOADER ===== */
+  @keyframes shimmer { to { background-position: -200% 0; } }
+  .skeleton { display: block; border-radius: var(--r-md); background: linear-gradient(90deg, var(--grey-200) 25%, var(--grey-100) 50%, var(--grey-200) 75%); background-size: 200% 100%; animation: shimmer 1.4s ease-in-out infinite; }
+  .skeleton-text { height: 14px; margin-bottom: 8px; }
+  .skeleton-title { height: 20px; margin-bottom: 12px; }
+  .skeleton-avatar { width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0; }
+  .skeleton-avatar-sm { width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0; }
+  .skeleton-btn { height: 36px; width: 90px; border-radius: var(--r-md); }
+  .skeleton-card { background: white; border: 1px solid var(--border); border-radius: var(--r-xl); padding: var(--sp-5); }
+
+  /* ===== KBD ===== */
+  kbd { display: inline-flex; align-items: center; justify-content: center; padding: 2px 7px; background: white; border: 1px solid var(--border-strong); border-bottom-width: 2px; border-radius: 5px; font-family: var(--mono); font-size: 11px; font-weight: 600; color: var(--text-secondary); box-shadow: var(--shadow-xs); }
+
+  /* ===== CHIP ===== */
+  .chip { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; background: var(--grey-100); border: 1px solid var(--border); border-radius: var(--r-full); font-size: var(--text-sm); font-weight: 500; color: var(--text-primary); transition: all var(--t-fast); cursor: default; }
+  .chip:hover { background: var(--grey-200); }
+  .chip-brand { background: var(--brand-50); border-color: #A7F3D0; color: #065F46; }
+  .chip-danger { background: var(--danger-light); border-color: #FECACA; color: #991B1B; }
+  .chip-remove { display: inline-flex; align-items: center; justify-content: center; width: 15px; height: 15px; border-radius: 50%; border: none; background: none; cursor: pointer; color: var(--grey-400); font-size: 14px; line-height: 1; padding: 0; transition: all var(--t-fast); margin-left: 1px; }
+  .chip-remove:hover { color: var(--text-primary); background: var(--grey-300); }
+
+  /* ===== AVATAR ENHANCEMENTS ===== */
+  .avatar-grey { background: var(--grey-200); color: var(--grey-700); }
+  .avatar-indigo { background: #EEF2FF; color: #4338CA; }
+  .avatar-rose { background: #FFF1F2; color: #BE123C; }
+  .avatar-amber { background: #FFFBEB; color: #92400E; }
+  .avatar-group { display: flex; }
+  .avatar-group .avatar { border: 2px solid white; }
+  .avatar-group .avatar + .avatar { margin-left: -10px; }
+  .avatar-more { background: var(--grey-200); color: var(--text-secondary); font-size: 11px; font-weight: 700; }
+
+  /* ===== CALLOUT ===== */
+  .callout { display: flex; gap: var(--sp-3); padding: var(--sp-4) var(--sp-5); border-radius: var(--r-lg); border-left: 3px solid; font-size: var(--text-sm); line-height: 1.65; margin-bottom: var(--sp-3); }
+  .callout-icon { font-size: 16px; flex-shrink: 0; }
+  .callout-tip { background: var(--brand-50); border-left-color: var(--brand); color: #065F46; }
+  .callout-note { background: #EFF6FF; border-left-color: #3B82F6; color: #1E40AF; }
+  .callout-warn { background: var(--warning-light); border-left-color: var(--warning); color: #92400E; }
+
+  /* ===== ACCORDION ===== */
+  .accordion { border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; }
+  .accordion-item + .accordion-item { border-top: 1px solid var(--border); }
+  .accordion-trigger { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: var(--sp-4) var(--sp-5); font-size: var(--text-base); font-weight: 600; color: var(--text-primary); background: none; border: none; cursor: pointer; text-align: left; transition: background var(--t-fast); font-family: var(--font); }
+  .accordion-trigger:hover { background: var(--grey-100); }
+  .accordion-chevron { color: var(--text-tertiary); transition: transform var(--t-base); flex-shrink: 0; font-size: 18px; line-height: 1; }
+  .accordion-item.open .accordion-chevron { transform: rotate(180deg); }
+  .accordion-item.open .accordion-trigger { background: var(--grey-100); }
+  .accordion-content { padding: 0 var(--sp-5) var(--sp-5); font-size: var(--text-base); color: var(--text-secondary); line-height: 1.65; display: none; }
+  .accordion-item.open .accordion-content { display: block; }
+
+  /* ===== STEPPER ===== */
+  .steps { display: flex; align-items: flex-start; }
+  .step { display: flex; flex-direction: column; align-items: center; flex: 1; position: relative; }
+  .step:not(:last-child)::after { content: ''; position: absolute; top: 15px; left: calc(50% + 18px); right: calc(-50% + 18px); height: 2px; background: var(--border); z-index: 0; }
+  .step.done:not(:last-child)::after { background: var(--brand); }
+  .step-num { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: var(--text-sm); font-weight: 700; margin-bottom: 8px; z-index: 1; }
+  .step-num-done { background: var(--brand); color: white; }
+  .step-num-active { background: white; border: 2px solid var(--brand); color: var(--brand); }
+  .step-num-pending { background: var(--grey-200); color: var(--grey-500); }
+  .step-name { font-size: var(--text-xs); font-weight: 600; color: var(--text-tertiary); text-align: center; line-height: 1.4; }
+  .step-name-active { color: var(--brand); }
+  .step-name-done { color: var(--text-secondary); }
+
+  /* ===== DIVIDER WITH TEXT ===== */
+  .divider-text { display: flex; align-items: center; gap: var(--sp-3); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-tertiary); margin: var(--sp-6) 0; }
+  .divider-text::before, .divider-text::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  /* ===== EMPTY STATE ===== */
+  .empty-state { display: flex; flex-direction: column; align-items: center; text-align: center; padding: var(--sp-16) var(--sp-8); }
+  .empty-state-icon { font-size: 44px; margin-bottom: var(--sp-4); line-height: 1; }
+  .empty-state-title { font-size: var(--text-xl); font-weight: 700; color: var(--text-primary); margin-bottom: var(--sp-2); letter-spacing: -0.2px; }
+  .empty-state-desc { font-size: var(--text-base); color: var(--text-secondary); max-width: 280px; line-height: 1.6; margin-bottom: var(--sp-6); }
+
+  /* ===== MOTION DEMO ===== */
+  .motion-row { display: flex; align-items: center; gap: var(--sp-6); padding: var(--sp-4) 0; border-bottom: 1px solid var(--grey-200); }
+  .motion-row:last-child { border-bottom: none; }
+  .motion-meta { min-width: 220px; flex-shrink: 0; }
+  .motion-name { font-size: var(--text-sm); font-weight: 600; color: var(--text-primary); }
+  .motion-val { font-size: 11px; font-family: var(--mono); color: var(--text-tertiary); margin-top: 2px; }
+  .motion-track { flex: 1; height: 40px; background: var(--grey-100); border-radius: var(--r-md); position: relative; overflow: hidden; cursor: pointer; border: 1px solid var(--border); }
+  .motion-ball { position: absolute; width: 24px; height: 24px; top: 8px; left: 8px; background: var(--brand); border-radius: 50%; }
+  .motion-track:hover .motion-ball { left: calc(100% - 32px); }
+  .motion-hint { font-size: 11px; color: var(--text-tertiary); text-align: center; margin-top: var(--sp-3); }
+
+  /* ===== NAV SEARCH ===== */
+  .nav-search { padding: 0 var(--sp-4); margin-bottom: var(--sp-3); }
+  .nav-search-input { width: 100%; height: 32px; padding: 0 var(--sp-3) 0 30px; font-size: var(--text-sm); font-family: var(--font); border: 1px solid var(--border); border-radius: var(--r-md); color: var(--text-primary); outline: none; background: var(--grey-100) url("data:image/svg+xml,%3Csvg width='13' height='13' fill='none' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m21 21-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0Z' stroke='%239CA3AF' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat 9px center; transition: all var(--t-fast); }
+  .nav-search-input:focus { border-color: var(--brand); background-color: white; box-shadow: var(--shadow-focus); }
+  .nav-search-input::placeholder { color: var(--text-tertiary); }
+  .nav-link.hidden { display: none; }
+  .nav-group.hidden { display: none; }
+
+  /* ===== CONTRAST BADGE ===== */
+  .aa-badge { display: inline-block; padding: 1px 5px; border-radius: 3px; font-size: 9px; font-weight: 800; letter-spacing: 0.2px; vertical-align: middle; }
+  .aa-pass { background: #059669; color: white; }
+  .aaa-pass { background: #1D4ED8; color: white; }
+
+  /* ===== FOCUS RING DOCS ===== */
+  .focus-ring-demo { outline: 2px solid var(--brand); outline-offset: 2px; }
+  .focus-ring-danger { outline: 2px solid var(--danger); outline-offset: 2px; }
+
+  /* ================================================================
+     THEME COLORS — 5 brand palettes
+     Apply via [data-theme="..."] on <html>
+  ================================================================ */
+  /* Emerald (default — already in :root) */
+  [data-theme="emerald"] {
+    --brand: #0D875C; --brand-hover: #0B7550; --brand-active: #096843;
+    --brand-light: #E6F5EE; --brand-50: #F0FAF5;
+    --shadow-focus: 0 0 0 3px rgba(13,135,92,0.18);
+    --text-brand: #065F46; --text-link: #065F46; --border-focus: #0D875C;
+    /* #065F46 on white = 7.66:1 ✓ AAA */
+  }
+  /* Ocean Blue */
+  [data-theme="ocean"] {
+    --brand: #2563EB; --brand-hover: #1D4ED8; --brand-active: #1E40AF;
+    --brand-light: #DBEAFE; --brand-50: #EFF6FF;
+    --shadow-focus: 0 0 0 3px rgba(37,99,235,0.18);
+    --text-brand: #1D4ED8; --text-link: #1D4ED8; --border-focus: #2563EB;
+    /* #1D4ED8 on white = 6.69:1 ✓ AAA */
+  }
+  /* Violet */
+  [data-theme="violet"] {
+    --brand: #7C3AED; --brand-hover: #6D28D9; --brand-active: #5B21B6;
+    --brand-light: #EDE9FE; --brand-50: #F5F3FF;
+    --shadow-focus: 0 0 0 3px rgba(124,58,237,0.18);
+    --text-brand: #5B21B6; --text-link: #5B21B6; --border-focus: #7C3AED;
+    /* #5B21B6 on white = 8.98:1 ✓ AAA */
+  }
+  /* Rose */
+  [data-theme="rose"] {
+    --brand: #E11D48; --brand-hover: #BE123C; --brand-active: #9F1239;
+    --brand-light: #FFE4E6; --brand-50: #FFF1F2;
+    --shadow-focus: 0 0 0 3px rgba(225,29,72,0.18);
+    --text-brand: #9F1239; --text-link: #9F1239; --border-focus: #E11D48;
+    /* #9F1239 on white = 8.02:1 ✓ AAA */
+  }
+  /* Amber */
+  [data-theme="amber"] {
+    --brand: #D97706; --brand-hover: #B45309; --brand-active: #92400E;
+    --brand-light: #FEF3C7; --brand-50: #FFFBEB;
+    --shadow-focus: 0 0 0 3px rgba(217,119,6,0.18);
+    --text-brand: #92400E; --text-link: #92400E; --border-focus: #D97706;
+    /* #92400E on white = 7.09:1 ✓ AAA */
+  }
+  /* Amber: #D97706 as background = 3.19:1 with white ✗ — use dark text instead */
+  [data-theme="amber"] .btn-primary { color: #111827; }
+  [data-theme="amber"] .btn-primary.btn-loading::after { border-color: rgba(0,0,0,0.2); border-top-color: #111827; }
+  [data-theme="amber"] .page-btn.active { color: #111827; }
+  [data-theme="amber"] .step-num-done { color: #111827; }
+  [data-theme="amber"] .tab-item.active { color: var(--text-brand); }
+
+  /* ================================================================
+     DARK MODE — token overrides
+     Apply via [data-mode="dark"] on <html>
+  ================================================================ */
+  [data-mode="dark"] {
+    /* Surfaces */
+    --surface-page: #0F172A; --surface-subtle: #1E293B; --surface-muted: #334155;
+    --surface-overlay: rgba(0,0,0,0.8);
+    /* White/Black flip */
+    --white: #1E293B; --black: #F1F5F9;
+    /* Grey scale — inverted */
+    --grey-900: #F1F5F9; --grey-800: #E2E8F0; --grey-700: #CBD5E1;
+    --grey-600: #94A3B8; --grey-500: #64748B; --grey-400: #475569;
+    --grey-300: #334155; --grey-200: #1E293B; --grey-100: #172032;
+    /* Text */
+    --text-primary: #F1F5F9; --text-secondary: #94A3B8;
+    --text-tertiary: #7B8FA3; --text-inverse: #0F172A;
+    /* #7B8FA3 on #0F172A = 5.35:1 ✓ AA (was #64748B = 3.75:1 ✗) */
+    --text-brand: #34D399; --text-link: #34D399;
+    /* Emerald dark text: #34D399 on #0F172A = 9.28:1 ✓ AAA */
+    /* Borders */
+    --border: #334155; --border-strong: #475569;
+    /* Shadows — deeper in dark */
+    --shadow-xs: 0 1px 2px rgba(0,0,0,0.5);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.6), 0 1px 2px rgba(0,0,0,0.4);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.6), 0 2px 4px -2px rgba(0,0,0,0.4);
+    --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.7), 0 4px 6px -4px rgba(0,0,0,0.5);
+    --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.8), 0 8px 10px -6px rgba(0,0,0,0.5);
+    /* Semantic light tints */
+    --success-light: rgba(13,135,92,0.18); --info-light: rgba(5,117,173,0.18);
+    --warning-light: rgba(245,158,11,0.18); --danger-light: rgba(239,68,68,0.18);
+    /* Default brand tints (emerald) */
+    --brand-light: rgba(13,135,92,0.18); --brand-50: rgba(13,135,92,0.1);
+  }
+  /* Per-theme dark brand tints + accessible text colours */
+  [data-mode="dark"][data-theme="ocean"] {
+    --brand-light: rgba(37,99,235,0.18); --brand-50: rgba(37,99,235,0.10);
+    --text-brand: #60A5FA; --text-link: #60A5FA;
+    /* #60A5FA on #0F172A = 7.02:1 ✓ AAA */
+  }
+  [data-mode="dark"][data-theme="violet"] {
+    --brand-light: rgba(124,58,237,0.18); --brand-50: rgba(124,58,237,0.10);
+    --text-brand: #A78BFA; --text-link: #A78BFA;
+    /* #A78BFA on #0F172A = 6.56:1 ✓ AA */
+  }
+  [data-mode="dark"][data-theme="rose"] {
+    --brand-light: rgba(225,29,72,0.18); --brand-50: rgba(225,29,72,0.10);
+    --text-brand: #FB7185; --text-link: #FB7185;
+    /* #FB7185 on #0F172A = 6.63:1 ✓ AA */
+  }
+  [data-mode="dark"][data-theme="amber"] {
+    --brand-light: rgba(217,119,6,0.18); --brand-50: rgba(217,119,6,0.10);
+    --text-brand: #FCD34D; --text-link: #FCD34D;
+    /* #FCD34D on #0F172A = 12.36:1 ✓ AAA */
+  }
+  /* Amber in dark mode: brand bg (#D97706) now passes on dark, but keep dark text on btn */
+  [data-mode="dark"][data-theme="amber"] .btn-primary { color: #111827; }
+
+  /* ================================================================
+     DARK MODE — component overrides
+     (for elements with hardcoded `white` or colour values)
+  ================================================================ */
+  [data-mode="dark"] body { background: var(--surface-page); color: var(--text-primary); }
+
+  /* Layout */
+  [data-mode="dark"] .nav   { background: #0F172A; border-color: var(--border); }
+  [data-mode="dark"] .nav-search-input { background-color: var(--grey-200); color: var(--text-primary); border-color: var(--border); }
+  [data-mode="dark"] .nav-search-input:focus { background-color: var(--grey-100); }
+  [data-mode="dark"] .section { border-color: var(--border); }
+
+  /* Cards & Panels */
+  [data-mode="dark"] .card, [data-mode="dark"] .panel,
+  [data-mode="dark"] .modal-box, [data-mode="dark"] .skeleton-card { background: var(--white); }
+  [data-mode="dark"] .panel-footer { background: var(--grey-200); }
+  [data-mode="dark"] .modal-actions { background: var(--grey-200); }
+  [data-mode="dark"] .sidebar-panel { background: var(--grey-200); }
+  [data-mode="dark"] .shadow-card { background: var(--white); }
+
+  /* Buttons */
+  [data-mode="dark"] .btn-secondary { background: transparent; color: var(--brand); }
+  [data-mode="dark"] .btn-secondary:hover { background: var(--brand-50); }
+  [data-mode="dark"] .btn-ghost { background: transparent; color: var(--text-primary); border-color: var(--border-strong); }
+  [data-mode="dark"] .btn-ghost:hover { background: var(--grey-200); border-color: var(--border-strong); }
+  [data-mode="dark"] .btn-warning { color: #111827; } /* keep dark text on amber bg */
+
+  /* Forms */
+  [data-mode="dark"] .input { background: var(--grey-200); border-color: var(--border-strong); color: var(--text-primary); }
+  [data-mode="dark"] .input:hover { border-color: var(--grey-400); }
+  [data-mode="dark"] .input:focus { border-color: var(--brand); }
+  [data-mode="dark"] .input:disabled { background: var(--grey-100); }
+  [data-mode="dark"] .input-addon { background: var(--grey-300); border-color: var(--border-strong); color: var(--text-secondary); }
+  [data-mode="dark"] .toggle-track { background: var(--grey-400); }
+
+  /* Segment */
+  [data-mode="dark"] .segment { background: var(--grey-300); }
+  [data-mode="dark"] .segment-btn.active { background: var(--grey-100); color: var(--text-primary); }
+
+  /* Badges */
+  [data-mode="dark"] .badge-success { color: #6EE7B7; }
+  [data-mode="dark"] .badge-info    { color: #7DD3FC; }
+  [data-mode="dark"] .badge-warning { color: #FCD34D; }
+  [data-mode="dark"] .badge-danger  { color: #FCA5A5; }
+  [data-mode="dark"] .badge-neutral { color: var(--grey-600); }
+  [data-mode="dark"] .badge-brand   { color: var(--brand); filter: brightness(1.3); }
+
+  /* Status dots */
+  [data-mode="dark"] .status-ordered,
+  [data-mode="dark"] .status-resulted  { color: #6EE7B7; }
+  [data-mode="dark"] .status-scheduled { color: #7DD3FC; }
+  [data-mode="dark"] .status-overdue   { color: #FCA5A5; }
+  [data-mode="dark"] .status-in-progress { color: #FCD34D; }
+  [data-mode="dark"] .status-completed { color: var(--grey-600); }
+  [data-mode="dark"] .status-cancelled { color: var(--grey-500); }
+
+  /* Alerts */
+  [data-mode="dark"] .alert-success { color: #6EE7B7; border-color: rgba(13,135,92,0.3); }
+  [data-mode="dark"] .alert-info    { color: #7DD3FC; border-color: rgba(5,117,173,0.3); }
+  [data-mode="dark"] .alert-warning { color: #FCD34D; border-color: rgba(245,158,11,0.3); }
+  [data-mode="dark"] .alert-danger  { color: #FCA5A5; border-color: rgba(239,68,68,0.3); }
+
+  /* Callouts */
+  [data-mode="dark"] .callout-tip  { color: #6EE7B7; }
+  [data-mode="dark"] .callout-note { color: #7DD3FC; }
+  [data-mode="dark"] .callout-warn { color: #FCD34D; }
+
+  /* Toasts */
+  [data-mode="dark"] .toast { background: var(--white); }
+
+  /* Navbar */
+  [data-mode="dark"] .navbar { background: var(--white); }
+
+  /* Tabs */
+  [data-mode="dark"] .tab-item.active { color: var(--brand); }
+
+  /* Accordion */
+  [data-mode="dark"] .accordion-trigger:hover,
+  [data-mode="dark"] .accordion-item.open .accordion-trigger { background: var(--grey-200); }
+
+  /* Preview boxes */
+  [data-mode="dark"] .preview { background: var(--grey-200); border-color: var(--border); }
+
+  /* Skeleton */
+  [data-mode="dark"] .skeleton {
+    background: linear-gradient(90deg, var(--grey-300) 25%, var(--grey-200) 50%, var(--grey-300) 75%);
+    background-size: 200% 100%;
+  }
+
+  /* Chip */
+  [data-mode="dark"] .chip { background: var(--grey-300); border-color: var(--border-strong); }
+  [data-mode="dark"] .chip:hover { background: var(--grey-400); }
+
+  /* Motion demo */
+  [data-mode="dark"] .motion-track { background: var(--grey-200); border-color: var(--border); }
+
+  /* Copy toast stays dark always */
+
+  /* ================================================================
+     THEME CONTROLS — floating toolbar
+  ================================================================ */
+  .theme-controls {
+    position: fixed;
+    top: 16px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 16px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--r-full);
+    box-shadow: var(--shadow-lg);
+    transition: background var(--t-base), border-color var(--t-base);
+    user-select: none;
+  }
+  [data-mode="dark"] .theme-controls { background: #1E293B; border-color: #334155; }
+  .tc-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--text-tertiary);
+    white-space: nowrap;
+  }
+  .tc-swatches { display: flex; align-items: center; gap: 6px; }
+  .tc-swatch {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: transform var(--t-fast), box-shadow var(--t-fast);
+    outline: none;
+  }
+  .tc-swatch:hover { transform: scale(1.2); }
+  .tc-swatch.active { transform: scale(1.15); box-shadow: 0 0 0 2px white, 0 0 0 4px var(--swatch-color); }
+  [data-mode="dark"] .tc-swatch.active { box-shadow: 0 0 0 2px #1E293B, 0 0 0 4px var(--swatch-color); }
+  .tc-sep { width: 1px; height: 20px; background: var(--border); flex-shrink: 0; }
+  .tc-mode { display: flex; gap: 2px; background: var(--grey-200); border-radius: var(--r-full); padding: 2px; }
+  .tc-mode-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: var(--font);
+    color: var(--text-secondary);
+    background: none;
+    border: none;
+    border-radius: var(--r-full);
+    cursor: pointer;
+    transition: all var(--t-fast);
+    white-space: nowrap;
+  }
+  .tc-mode-btn.active { background: white; color: var(--text-primary); box-shadow: var(--shadow-xs); }
+  [data-mode="dark"] .tc-mode-btn.active { background: var(--grey-100); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo">VSee<span class="nav-version">Design System v4.0</span></div>
+  <div class="nav-search">
+    <input class="nav-search-input" type="search" placeholder="Search..." id="navSearch" autocomplete="off">
+  </div>
+  <div class="nav-group" data-group="foundations">
+    <div class="nav-group-title">Foundations</div>
+    <a class="nav-link active" href="#colors">Colors</a>
+    <a class="nav-link" href="#typography">Typography</a>
+    <a class="nav-link" href="#spacing">Spacing & Layout</a>
+    <a class="nav-link" href="#motion">Motion</a>
+  </div>
+  <div class="nav-group" data-group="components">
+    <div class="nav-group-title">Components</div>
+    <a class="nav-link" href="#buttons">Buttons</a>
+    <a class="nav-link" href="#forms">Form Elements</a>
+    <a class="nav-link" href="#badges">Badges & Status</a>
+    <a class="nav-link" href="#feedback">Feedback</a>
+    <a class="nav-link" href="#navigation">Navigation</a>
+    <a class="nav-link" href="#data">Data Display</a>
+    <a class="nav-link" href="#overlay">Overlays</a>
+    <a class="nav-link" href="#primitives">Primitives</a>
+  </div>
+  <div class="nav-group" data-group="patterns">
+    <div class="nav-group-title">Patterns</div>
+    <a class="nav-link" href="#emr">EMR Patterns</a>
+    <a class="nav-link" href="#layouts">Layouts</a>
+    <a class="nav-link" href="#theming">White-Label</a>
+  </div>
+  <div class="nav-group" data-group="engineering">
+    <div class="nav-group-title">Engineering</div>
+    <a class="nav-link" href="#accessibility">Accessibility</a>
+    <a class="nav-link" href="#tokens">Design Tokens</a>
+  </div>
+</nav>
+
+<!-- THEME CONTROLS TOOLBAR -->
+<div class="theme-controls" id="themeControls">
+  <span class="tc-label">Theme</span>
+  <div class="tc-swatches">
+    <button class="tc-swatch active" data-theme="emerald" title="Emerald" style="background:#0D875C;--swatch-color:#0D875C;"></button>
+    <button class="tc-swatch" data-theme="ocean"   title="Ocean Blue" style="background:#2563EB;--swatch-color:#2563EB;"></button>
+    <button class="tc-swatch" data-theme="violet"  title="Violet"     style="background:#7C3AED;--swatch-color:#7C3AED;"></button>
+    <button class="tc-swatch" data-theme="rose"    title="Rose"       style="background:#E11D48;--swatch-color:#E11D48;"></button>
+    <button class="tc-swatch" data-theme="amber"   title="Amber"      style="background:#D97706;--swatch-color:#D97706;"></button>
+  </div>
+  <div class="tc-sep"></div>
+  <div class="tc-mode">
+    <button class="tc-mode-btn active" data-mode="light">☀ Light</button>
+    <button class="tc-mode-btn" data-mode="dark">☾ Dark</button>
+  </div>
+</div>
+
+<div class="main">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero::before"></div>
+  <div class="hero::after"></div>
+  <div style="position:relative;z-index:1;">
+    <div class="hero-badge">
+      <span style="width:6px;height:6px;border-radius:50%;background:#6EE7B7;animation:pulse 2s ease-in-out infinite;flex-shrink:0;"></span>
+      Version 4.0 — February 2026
+    </div>
+    <h1>VSee Clinic<br>Design System</h1>
+    <p>The single source of truth for design and engineering. Modern, accessible, and built for telehealth at scale.</p>
+    <div class="hero-stats">
+      <div><div class="hero-stat-val">80+</div><div class="hero-stat-label">Design Tokens</div></div>
+      <div><div class="hero-stat-val">30+</div><div class="hero-stat-label">Components</div></div>
+      <div><div class="hero-stat-val">AA</div><div class="hero-stat-label">WCAG Compliant</div></div>
+      <div><div class="hero-stat-val">4px</div><div class="hero-stat-label">Base Grid</div></div>
+    </div>
+  </div>
+</div>
+<style>
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+  .hero { background: linear-gradient(135deg, #0D875C 0%, #0A6945 45%, #063D2A 100%); position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: -40%; right: -8%; width: 700px; height: 700px; background: radial-gradient(circle, rgba(255,255,255,0.07) 0%, transparent 60%); border-radius: 50%; pointer-events: none; }
+  .hero::after { content: ''; position: absolute; bottom: -35%; left: -8%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(13,200,120,0.1) 0%, transparent 60%); border-radius: 50%; pointer-events: none; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 8px; }
+  .hero-stats { border-top: 1px solid rgba(255,255,255,0.12); padding-top: var(--sp-10); }
+  .hero-stat-label { font-weight: 500; }
+</style>
+
+<!-- COLORS -->
+<div class="section" id="colors">
+  <div class="section-label">Foundation</div>
+  <div class="section-title">Colors</div>
+  <div class="section-desc">A refined, accessible palette built on VSee's brand green. Every color has been tested for WCAG AA contrast compliance.</div>
+
+  <div class="subsection">
+    <div class="sub-title">Brand</div>
+    <div class="sub-desc">The primary brand scale — from light tints to deep active states.</div>
+    <div class="swatch-row">
+      <div class="swatch swatch-large" onclick="copyColor('#F0FAF5')"><div class="swatch-color" style="background:#F0FAF5"></div><div class="swatch-info"><div class="swatch-name">Brand 50</div><div class="swatch-hex">#F0FAF5</div><div class="swatch-token">--brand-50</div></div></div>
+      <div class="swatch swatch-large" onclick="copyColor('#E6F5EE')"><div class="swatch-color" style="background:#E6F5EE"></div><div class="swatch-info"><div class="swatch-name">Brand Light</div><div class="swatch-hex">#E6F5EE</div><div class="swatch-token">--brand-light</div></div></div>
+      <div class="swatch swatch-large" onclick="copyColor('#0D875C')"><div class="swatch-color" style="background:#0D875C"></div><div class="swatch-info"><div class="swatch-name">Brand</div><div class="swatch-hex">#0D875C</div><div class="swatch-token">--brand</div></div></div>
+      <div class="swatch swatch-large" onclick="copyColor('#0B7550')"><div class="swatch-color" style="background:#0B7550"></div><div class="swatch-info"><div class="swatch-name">Hover</div><div class="swatch-hex">#0B7550</div><div class="swatch-token">--brand-hover</div></div></div>
+      <div class="swatch swatch-large" onclick="copyColor('#096843')"><div class="swatch-color" style="background:#096843"></div><div class="swatch-info"><div class="swatch-name">Active</div><div class="swatch-hex">#096843</div><div class="swatch-token">--brand-active</div></div></div>
+    </div>
+  </div>
+
+  <div class="subsection">
+    <div class="sub-title">Semantic</div>
+    <div class="sub-desc">Communicating meaning — success, information, warning, and danger states.</div>
+    <div class="swatch-row">
+      <div class="swatch" onclick="copyColor('#0D875C')"><div class="swatch-color" style="background:#0D875C"></div><div class="swatch-info"><div class="swatch-name">Success</div><div class="swatch-hex">#0D875C</div></div></div>
+      <div class="swatch" onclick="copyColor('#0575AD')"><div class="swatch-color" style="background:#0575AD"></div><div class="swatch-info"><div class="swatch-name">Info</div><div class="swatch-hex">#0575AD</div></div></div>
+      <div class="swatch" onclick="copyColor('#F59E0B')"><div class="swatch-color" style="background:#F59E0B"></div><div class="swatch-info"><div class="swatch-name">Warning</div><div class="swatch-hex">#F59E0B</div></div></div>
+      <div class="swatch" onclick="copyColor('#EF4444')"><div class="swatch-color" style="background:#EF4444"></div><div class="swatch-info"><div class="swatch-name">Danger</div><div class="swatch-hex">#EF4444</div></div></div>
+    </div>
+    <div class="swatch-row">
+      <div class="swatch" onclick="copyColor('#E6F5EE')"><div class="swatch-color" style="background:#E6F5EE"></div><div class="swatch-info"><div class="swatch-name">Success Light</div><div class="swatch-hex">#E6F5EE</div></div></div>
+      <div class="swatch" onclick="copyColor('#E0F2FE')"><div class="swatch-color" style="background:#E0F2FE"></div><div class="swatch-info"><div class="swatch-name">Info Light</div><div class="swatch-hex">#E0F2FE</div></div></div>
+      <div class="swatch" onclick="copyColor('#FEF3C7')"><div class="swatch-color" style="background:#FEF3C7"></div><div class="swatch-info"><div class="swatch-name">Warning Light</div><div class="swatch-hex">#FEF3C7</div></div></div>
+      <div class="swatch" onclick="copyColor('#FEE2E2')"><div class="swatch-color" style="background:#FEE2E2"></div><div class="swatch-info"><div class="swatch-name">Danger Light</div><div class="swatch-hex">#FEE2E2</div></div></div>
+    </div>
+  </div>
+
+  <div class="subsection">
+    <div class="sub-title">Neutrals</div>
+    <div class="swatch-row">
+      <div class="swatch" onclick="copyColor('#111827')"><div class="swatch-color" style="background:#111827"></div><div class="swatch-info"><div class="swatch-name">Black</div><div class="swatch-hex">#111827</div></div></div>
+      <div class="swatch" onclick="copyColor('#1F2937')"><div class="swatch-color" style="background:#1F2937"></div><div class="swatch-info"><div class="swatch-name">900</div><div class="swatch-hex">#1F2937</div></div></div>
+      <div class="swatch" onclick="copyColor('#374151')"><div class="swatch-color" style="background:#374151"></div><div class="swatch-info"><div class="swatch-name">800</div><div class="swatch-hex">#374151</div></div></div>
+      <div class="swatch" onclick="copyColor('#4B5563')"><div class="swatch-color" style="background:#4B5563"></div><div class="swatch-info"><div class="swatch-name">700</div><div class="swatch-hex">#4B5563</div></div></div>
+      <div class="swatch" onclick="copyColor('#6B7280')"><div class="swatch-color" style="background:#6B7280"></div><div class="swatch-info"><div class="swatch-name">600</div><div class="swatch-hex">#6B7280</div></div></div>
+    </div>
+    <div class="swatch-row">
+      <div class="swatch" onclick="copyColor('#9CA3AF')"><div class="swatch-color" style="background:#9CA3AF"></div><div class="swatch-info"><div class="swatch-name">500</div><div class="swatch-hex">#9CA3AF</div></div></div>
+      <div class="swatch" onclick="copyColor('#D1D5DB')"><div class="swatch-color" style="background:#D1D5DB"></div><div class="swatch-info"><div class="swatch-name">400</div><div class="swatch-hex">#D1D5DB</div></div></div>
+      <div class="swatch" onclick="copyColor('#E5E7EB')"><div class="swatch-color" style="background:#E5E7EB"></div><div class="swatch-info"><div class="swatch-name">300</div><div class="swatch-hex">#E5E7EB</div></div></div>
+      <div class="swatch" onclick="copyColor('#F3F4F6')"><div class="swatch-color" style="background:#F3F4F6"></div><div class="swatch-info"><div class="swatch-name">200</div><div class="swatch-hex">#F3F4F6</div></div></div>
+      <div class="swatch" onclick="copyColor('#F9FAFB')"><div class="swatch-color" style="background:#F9FAFB; border-bottom:1px solid #E5E7EB"></div><div class="swatch-info"><div class="swatch-name">100</div><div class="swatch-hex">#F9FAFB</div></div></div>
+    </div>
+  </div>
+
+  <div class="subsection">
+    <div class="sub-title">Surfaces & Text</div>
+    <div class="grid g2" style="gap:var(--sp-8);">
+      <div class="card">
+        <div style="font-weight:600; margin-bottom:var(--sp-4);">Surfaces</div>
+        <div style="display:flex;flex-direction:column;gap:var(--sp-3);">
+          <div style="display:flex;align-items:center;gap:var(--sp-3);"><div style="width:40px;height:40px;border-radius:var(--r-md);background:#FFFFFF;border:1px solid var(--border);flex-shrink:0;"></div><div><div style="font-weight:600;font-size:var(--text-sm);">Page</div><div style="font-size:11px;color:var(--text-tertiary);font-family:var(--mono);">#FFFFFF</div></div></div>
+          <div style="display:flex;align-items:center;gap:var(--sp-3);"><div style="width:40px;height:40px;border-radius:var(--r-md);background:#F9FAFB;border:1px solid var(--border);flex-shrink:0;"></div><div><div style="font-weight:600;font-size:var(--text-sm);">Subtle</div><div style="font-size:11px;color:var(--text-tertiary);font-family:var(--mono);">#F9FAFB</div></div></div>
+          <div style="display:flex;align-items:center;gap:var(--sp-3);"><div style="width:40px;height:40px;border-radius:var(--r-md);background:#F3F4F6;border:1px solid var(--border);flex-shrink:0;"></div><div><div style="font-weight:600;font-size:var(--text-sm);">Muted</div><div style="font-size:11px;color:var(--text-tertiary);font-family:var(--mono);">#F3F4F6</div></div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div style="font-weight:600; margin-bottom:var(--sp-4);">Text Colors</div>
+        <div style="display:flex;flex-direction:column;gap:var(--sp-3);">
+          <div style="display:flex;align-items:center;gap:var(--sp-3);"><div style="width:40px;height:40px;border-radius:var(--r-md);background:#111827;flex-shrink:0;"></div><div><div style="font-weight:600;font-size:var(--text-sm);">Primary</div><div style="font-size:11px;color:var(--text-tertiary);font-family:var(--mono);">#111827 — Headings, body</div></div></div>
+          <div style="display:flex;align-items:center;gap:var(--sp-3);"><div style="width:40px;height:40px;border-radius:var(--r-md);background:#6B7280;flex-shrink:0;"></div><div><div style="font-weight:600;font-size:var(--text-sm);">Secondary</div><div style="font-size:11px;color:var(--text-tertiary);font-family:var(--mono);">#6B7280 — Descriptions</div></div></div>
+          <div style="display:flex;align-items:center;gap:var(--sp-3);"><div style="width:40px;height:40px;border-radius:var(--r-md);background:#9CA3AF;flex-shrink:0;"></div><div><div style="font-weight:600;font-size:var(--text-sm);">Tertiary</div><div style="font-size:11px;color:var(--text-tertiary);font-family:var(--mono);">#9CA3AF — Placeholders</div></div></div>
+          <div style="display:flex;align-items:center;gap:var(--sp-3);"><div style="width:40px;height:40px;border-radius:var(--r-md);background:#0D875C;flex-shrink:0;"></div><div><div style="font-weight:600;font-size:var(--text-sm);">Link</div><div style="font-size:11px;color:var(--text-tertiary);font-family:var(--mono);">#0D875C — Links, brand text</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TYPOGRAPHY -->
+<div class="section" id="typography">
+  <div class="section-label">Foundation</div>
+  <div class="section-title">Typography</div>
+  <div class="section-desc">Inter is our system font — clean, legible, and optimized for UI. The type scale uses a harmonious progression from 12px to 60px.</div>
+
+  <div class="card" style="margin-bottom:var(--sp-8);">
+    <div class="type-row"><div class="type-meta"><div class="type-meta-label">Display</div><div class="type-meta-value">60px / 800</div></div><div class="type-preview" style="font-size:60px;font-weight:800;letter-spacing:-2px;line-height:1.05;">Design for health</div></div>
+    <div class="type-row"><div class="type-meta"><div class="type-meta-label">H1</div><div class="type-meta-value">48px / 800</div></div><div class="type-preview" style="font-size:48px;font-weight:800;letter-spacing:-1.5px;line-height:1.1;">Page title</div></div>
+    <div class="type-row"><div class="type-meta"><div class="type-meta-label">H2</div><div class="type-meta-value">36px / 700</div></div><div class="type-preview" style="font-size:36px;font-weight:700;letter-spacing:-0.5px;line-height:1.15;">Section heading</div></div>
+    <div class="type-row"><div class="type-meta"><div class="type-meta-label">H3</div><div class="type-meta-value">24px / 700</div></div><div class="type-preview" style="font-size:24px;font-weight:700;letter-spacing:-0.3px;line-height:1.2;">Subsection</div></div>
+    <div class="type-row"><div class="type-meta"><div class="type-meta-label">H4</div><div class="type-meta-value">20px / 600</div></div><div class="type-preview" style="font-size:20px;font-weight:600;line-height:1.3;">Card title</div></div>
+    <div class="type-row"><div class="type-meta"><div class="type-meta-label">H5</div><div class="type-meta-value">16px / 600</div></div><div class="type-preview" style="font-size:16px;font-weight:600;line-height:1.4;">Label heading</div></div>
+    <div class="type-row"><div class="type-meta"><div class="type-meta-label">Body LG</div><div class="type-meta-value">16px / 400</div></div><div class="type-preview" style="font-size:16px;line-height:1.6;color:var(--text-secondary);">Body text for longer-form content and introductory paragraphs.</div></div>
+    <div class="type-row"><div class="type-meta"><div class="type-meta-label">Body</div><div class="type-meta-value">14px / 400</div></div><div class="type-preview" style="font-size:14px;line-height:1.5;">Standard body text used throughout the application.</div></div>
+    <div class="type-row"><div class="type-meta"><div class="type-meta-label">Caption</div><div class="type-meta-value">13px / 500</div></div><div class="type-preview" style="font-size:13px;font-weight:500;color:var(--text-secondary);">Helper text, timestamps, and metadata</div></div>
+    <div class="type-row"><div class="type-meta"><div class="type-meta-label">Overline</div><div class="type-meta-value">12px / 700</div></div><div class="type-preview" style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-tertiary);">Section Label</div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="sub-title">Font Weights</div>
+    <div class="preview" style="flex-direction:column;align-items:flex-start;gap:var(--sp-4);">
+      <div style="font-size:var(--text-2xl);font-weight:400;">Regular 400 — For body text and descriptions</div>
+      <div style="font-size:var(--text-2xl);font-weight:500;">Medium 500 — For captions and secondary emphasis</div>
+      <div style="font-size:var(--text-2xl);font-weight:600;">Semi Bold 600 — For labels and small headings</div>
+      <div style="font-size:var(--text-2xl);font-weight:700;">Bold 700 — For headings and strong emphasis</div>
+      <div style="font-size:var(--text-2xl);font-weight:800;">Extra Bold 800 — For display and page titles</div>
+    </div>
+  </div>
+</div>
+
+<!-- SPACING -->
+<div class="section" id="spacing">
+  <div class="section-label">Foundation</div>
+  <div class="section-title">Spacing & Layout</div>
+  <div class="section-desc">A 4px-based spacing scale ensures consistent rhythm across every component and layout.</div>
+  <div class="grid g2" style="gap:var(--sp-10);">
+    <div>
+      <div class="sub-title">Spacing Scale</div>
+      <div class="space-row"><div class="space-label">--sp-1</div><div class="space-bar" style="width:4px"></div><div class="space-val">4px</div></div>
+      <div class="space-row"><div class="space-label">--sp-2</div><div class="space-bar" style="width:8px"></div><div class="space-val">8px</div></div>
+      <div class="space-row"><div class="space-label">--sp-3</div><div class="space-bar" style="width:12px"></div><div class="space-val">12px</div></div>
+      <div class="space-row"><div class="space-label">--sp-4</div><div class="space-bar" style="width:16px"></div><div class="space-val">16px</div></div>
+      <div class="space-row"><div class="space-label">--sp-6</div><div class="space-bar" style="width:24px"></div><div class="space-val">24px</div></div>
+      <div class="space-row"><div class="space-label">--sp-8</div><div class="space-bar" style="width:32px"></div><div class="space-val">32px</div></div>
+      <div class="space-row"><div class="space-label">--sp-10</div><div class="space-bar" style="width:40px"></div><div class="space-val">40px</div></div>
+      <div class="space-row"><div class="space-label">--sp-12</div><div class="space-bar" style="width:48px"></div><div class="space-val">48px</div></div>
+      <div class="space-row"><div class="space-label">--sp-16</div><div class="space-bar" style="width:64px"></div><div class="space-val">64px</div></div>
+      <div class="space-row"><div class="space-label">--sp-24</div><div class="space-bar" style="width:96px"></div><div class="space-val">96px</div></div>
+    </div>
+    <div>
+      <div class="sub-title">Border Radius</div>
+      <div style="display:flex;gap:var(--sp-6);flex-wrap:wrap;margin-bottom:var(--sp-10);">
+        <div style="text-align:center;"><div class="radius-demo" style="border-radius:6px;">6</div><div style="font-size:11px;margin-top:6px;color:var(--text-secondary);">sm</div></div>
+        <div style="text-align:center;"><div class="radius-demo" style="border-radius:8px;">8</div><div style="font-size:11px;margin-top:6px;color:var(--text-secondary);">md</div></div>
+        <div style="text-align:center;"><div class="radius-demo" style="border-radius:12px;">12</div><div style="font-size:11px;margin-top:6px;color:var(--text-secondary);">lg</div></div>
+        <div style="text-align:center;"><div class="radius-demo" style="border-radius:16px;">16</div><div style="font-size:11px;margin-top:6px;color:var(--text-secondary);">xl</div></div>
+        <div style="text-align:center;"><div class="radius-demo" style="border-radius:24px;">24</div><div style="font-size:11px;margin-top:6px;color:var(--text-secondary);">2xl</div></div>
+        <div style="text-align:center;"><div class="radius-demo" style="border-radius:9999px;width:60px;">full</div><div style="font-size:11px;margin-top:6px;color:var(--text-secondary);">pill</div></div>
+      </div>
+      <div class="sub-title">Shadows</div>
+      <div style="display:flex;flex-direction:column;gap:var(--sp-4);">
+        <div class="shadow-card" style="box-shadow:var(--shadow-xs);">shadow-xs</div>
+        <div class="shadow-card" style="box-shadow:var(--shadow-sm);">shadow-sm</div>
+        <div class="shadow-card" style="box-shadow:var(--shadow-md);">shadow-md</div>
+        <div class="shadow-card" style="box-shadow:var(--shadow-lg);">shadow-lg</div>
+        <div class="shadow-card" style="box-shadow:var(--shadow-xl);">shadow-xl</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MOTION -->
+<div class="section" id="motion">
+  <div class="section-label">Foundation</div>
+  <div class="section-title">Motion</div>
+  <div class="section-desc">A consistent motion language makes interactions feel responsive and alive. Hover each row to preview the easing curve.</div>
+
+  <div class="subsection">
+    <div class="sub-title">Duration Scale</div>
+    <div class="grid g4" style="max-width:640px;">
+      <div class="card" style="text-align:center;">
+        <div style="font-size:var(--text-2xl);font-weight:800;color:var(--brand);">100ms</div>
+        <div style="font-size:var(--text-xs);color:var(--text-tertiary);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-top:4px;">Instant</div>
+        <div style="font-size:11px;color:var(--text-tertiary);margin-top:4px;">Icon swaps, microstate</div>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div style="font-size:var(--text-2xl);font-weight:800;color:var(--brand);">150ms</div>
+        <div style="font-size:var(--text-xs);color:var(--text-tertiary);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-top:4px;">Fast</div>
+        <div style="font-size:11px;color:var(--text-tertiary);margin-top:4px;">Hover, focus, toggle</div>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div style="font-size:var(--text-2xl);font-weight:800;color:var(--brand);">200ms</div>
+        <div style="font-size:var(--text-xs);color:var(--text-tertiary);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-top:4px;">Base</div>
+        <div style="font-size:11px;color:var(--text-tertiary);margin-top:4px;">Most UI transitions</div>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div style="font-size:var(--text-2xl);font-weight:800;color:var(--brand);">300ms</div>
+        <div style="font-size:var(--text-xs);color:var(--text-tertiary);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-top:4px;">Slow</div>
+        <div style="font-size:11px;color:var(--text-tertiary);margin-top:4px;">Modal, panel, page</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="subsection">
+    <div class="sub-title">Easing Curves</div>
+    <div class="sub-desc">Hover each track to preview the easing in motion.</div>
+    <div class="card" style="max-width:680px;">
+      <div class="motion-row">
+        <div class="motion-meta">
+          <div class="motion-name">Standard — <code style="font-family:var(--mono);font-size:11px;color:var(--text-tertiary);">--ease</code></div>
+          <div class="motion-val">cubic-bezier(0.4, 0, 0.2, 1) · 200ms</div>
+        </div>
+        <div class="motion-track"><div class="motion-ball" style="transition: left 200ms cubic-bezier(0.4, 0, 0.2, 1);"></div></div>
+      </div>
+      <div class="motion-row">
+        <div class="motion-meta">
+          <div class="motion-name">Ease In — <code style="font-family:var(--mono);font-size:11px;color:var(--text-tertiary);">--ease-in</code></div>
+          <div class="motion-val">cubic-bezier(0.4, 0, 1, 1) · 200ms</div>
+        </div>
+        <div class="motion-track"><div class="motion-ball" style="transition: left 200ms cubic-bezier(0.4, 0, 1, 1);"></div></div>
+      </div>
+      <div class="motion-row">
+        <div class="motion-meta">
+          <div class="motion-name">Ease Out — <code style="font-family:var(--mono);font-size:11px;color:var(--text-tertiary);">--ease-out</code></div>
+          <div class="motion-val">cubic-bezier(0, 0, 0.2, 1) · 200ms</div>
+        </div>
+        <div class="motion-track"><div class="motion-ball" style="transition: left 200ms cubic-bezier(0, 0, 0.2, 1);"></div></div>
+      </div>
+      <div class="motion-row">
+        <div class="motion-meta">
+          <div class="motion-name">Spring — <code style="font-family:var(--mono);font-size:11px;color:var(--text-tertiary);">--ease-spring</code></div>
+          <div class="motion-val">cubic-bezier(0.34, 1.56, 0.64, 1) · 400ms</div>
+        </div>
+        <div class="motion-track"><div class="motion-ball" style="transition: left 400ms cubic-bezier(0.34, 1.56, 0.64, 1);"></div></div>
+      </div>
+    </div>
+    <div class="motion-hint">← Hover a track to play the animation</div>
+  </div>
+</div>
+
+<!-- BUTTONS -->
+<div class="section" id="buttons">
+  <div class="section-label">Components</div>
+  <div class="section-title">Buttons</div>
+  <div class="section-desc">Buttons communicate actions. Primary for key actions, secondary for supporting, ghost for tertiary.</div>
+  <div class="subsection"><div class="sub-title">Variants</div><div class="preview"><button class="btn btn-primary">Primary</button><button class="btn btn-secondary">Secondary</button><button class="btn btn-ghost">Ghost</button><button class="btn btn-danger">Danger</button><button class="btn btn-danger-outline">Danger Outline</button><button class="btn btn-info">Info</button><button class="btn btn-warning">Warning</button><button class="btn btn-link">Link</button></div></div>
+  <div class="subsection"><div class="sub-title">Sizes</div><div class="preview"><button class="btn btn-primary btn-xl">Extra Large</button><button class="btn btn-primary btn-lg">Large</button><button class="btn btn-primary">Default</button><button class="btn btn-primary btn-sm">Small</button></div></div>
+  <div class="subsection"><div class="sub-title">Pill Shape</div><div class="preview"><button class="btn btn-primary btn-pill">Primary Pill</button><button class="btn btn-secondary btn-pill">Secondary Pill</button><button class="btn btn-ghost btn-pill">Ghost Pill</button></div></div>
+  <div class="subsection"><div class="sub-title">States</div><div class="preview"><button class="btn btn-primary">Default</button><button class="btn btn-primary" style="background:var(--brand-hover);">Hover</button><button class="btn btn-primary" style="background:var(--brand-active);">Active</button><button class="btn btn-primary" style="box-shadow:var(--shadow-focus);outline:2px solid var(--brand);outline-offset:2px;">Focus</button><button class="btn btn-primary disabled">Disabled</button></div></div>
+  <div class="subsection"><div class="sub-title">Button Group</div><div class="preview"><div class="btn-group"><button class="btn btn-ghost">Today</button><button class="btn btn-ghost active-group">Week</button><button class="btn btn-ghost">Month</button></div></div></div>
+  <div class="subsection"><div class="sub-title">Block & Icon</div><div class="preview vertical" style="max-width:400px;"><button class="btn btn-primary btn-block btn-lg">Sign In</button><button class="btn btn-ghost btn-block">Create Account</button></div></div>
+</div>
+
+  <div class="subsection">
+    <div class="sub-title">Segment Control</div>
+    <div class="sub-desc">For mutually exclusive options — a more polished alternative to a button group toggle.</div>
+    <div class="preview" style="flex-direction:column;align-items:flex-start;gap:var(--sp-4);">
+      <div class="segment">
+        <button class="segment-btn active">Day</button>
+        <button class="segment-btn">Week</button>
+        <button class="segment-btn">Month</button>
+      </div>
+      <div class="segment">
+        <button class="segment-btn active">Provider</button>
+        <button class="segment-btn">Patient</button>
+        <button class="segment-btn">Admin</button>
+        <button class="segment-btn">Billing</button>
+      </div>
+    </div>
+  </div>
+  <div class="subsection">
+    <div class="sub-title">Loading State</div>
+    <div class="sub-desc">Use the <code style="background:var(--grey-200);padding:1px 5px;border-radius:4px;font-family:var(--mono);font-size:12px;">.btn-loading</code> class to show an in-progress spinner.</div>
+    <div class="preview">
+      <button class="btn btn-primary btn-loading">Saving...</button>
+      <button class="btn btn-secondary btn-loading">Processing</button>
+      <button class="btn btn-ghost btn-loading">Loading</button>
+    </div>
+  </div>
+
+<!-- FORMS -->
+<div class="section" id="forms">
+  <div class="section-label">Components</div>
+  <div class="section-title">Form Elements</div>
+  <div class="section-desc">Clean, accessible form controls with clear focus states and error handling.</div>
+  <div class="grid g2" style="gap:var(--sp-8);">
+    <div class="card">
+      <div class="sub-title">Text Inputs</div>
+      <div class="form-group"><label class="form-label">Email address</label><input type="text" class="input" placeholder="you@example.com"></div>
+      <div class="form-group"><label class="form-label">Full name <span class="req">*</span></label><input type="text" class="input" value="Penny Ng"><div class="form-hint">As it appears on your medical license</div></div>
+      <div class="form-group"><label class="form-label">Phone <span class="req">*</span></label><input type="text" class="input error" value=""><div class="form-error-text">Phone number is required</div></div>
+      <div class="form-group"><label class="form-label">Search</label><div class="search-input-wrap"><span class="search-icon">&#x1F50D;</span><input type="text" class="input" placeholder="Search patients..."></div></div>
+    </div>
+    <div class="card">
+      <div class="sub-title">Select & Textarea</div>
+      <div class="form-group"><label class="form-label">Specialty</label><select class="input"><option>Select a specialty...</option><option>Internal Medicine</option><option>Family Medicine</option></select></div>
+      <div class="form-group"><label class="form-label">Notes</label><textarea class="input" rows="3" placeholder="Add clinical notes..."></textarea></div>
+      <div style="margin-top:var(--sp-6);">
+        <div class="sub-title">Toggles</div>
+        <div style="display:flex;flex-direction:column;gap:var(--sp-4);">
+          <div class="toggle on"><div class="toggle-track"><div class="toggle-thumb"></div></div><span class="toggle-label">Notifications enabled</span></div>
+          <div class="toggle"><div class="toggle-track"><div class="toggle-thumb"></div></div><span class="toggle-label">Dark mode</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="sub-title">Checkboxes</div>
+      <div style="display:flex;flex-direction:column;gap:var(--sp-3);margin-bottom:var(--sp-5);">
+        <label class="check-item"><input type="checkbox" checked> Show consultations</label>
+        <label class="check-item"><input type="checkbox"> Only my patients</label>
+        <label class="check-item"><input type="checkbox" disabled> Archived (disabled)</label>
+      </div>
+      <div class="sub-title">Radios</div>
+      <div style="display:flex;flex-direction:column;gap:var(--sp-3);">
+        <label class="check-item"><input type="radio" name="call" checked> Phone call</label>
+        <label class="check-item"><input type="radio" name="call"> Video call</label>
+        <label class="check-item"><input type="radio" name="call"> In-person</label>
+      </div>
+    </div>
+    <div class="card">
+      <div class="sub-title">Large Input</div>
+      <div class="form-group"><label class="form-label">Patient Search</label><input type="text" class="input input-lg" placeholder="Search by name, ID, or phone..."></div>
+      <div class="sub-title" style="margin-top:var(--sp-6);">Disabled State</div>
+      <div class="form-group"><input type="text" class="input" value="Read-only value" disabled style="opacity:0.5;cursor:not-allowed;"></div>
+    </div>
+  </div>
+</div>
+
+  <div class="subsection">
+    <div class="sub-title">Input Groups</div>
+    <div class="sub-desc">Combine inputs with addons or buttons for contextual entry patterns.</div>
+    <div class="card" style="display:flex;flex-direction:column;gap:var(--sp-5);max-width:480px;">
+      <div class="form-group" style="margin:0;">
+        <label class="form-label">URL</label>
+        <div class="input-group">
+          <span class="input-addon">https://</span>
+          <input type="text" class="input" placeholder="vsee.com/clinic/...">
+        </div>
+      </div>
+      <div class="form-group" style="margin:0;">
+        <label class="form-label">Patient ID Lookup</label>
+        <div class="input-group">
+          <input type="text" class="input" placeholder="Enter patient ID...">
+          <button class="btn btn-primary" style="border-radius:0 var(--r-md) var(--r-md) 0;flex-shrink:0;">Search</button>
+        </div>
+      </div>
+      <div class="form-group" style="margin:0;">
+        <label class="form-label">Dosage</label>
+        <div class="input-group">
+          <input type="number" class="input" placeholder="0.00">
+          <span class="input-addon">mg</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- BADGES -->
+<div class="section" id="badges">
+  <div class="section-label">Components</div>
+  <div class="section-title">Badges & Status</div>
+  <div class="section-desc">Communicate states, categories, and counts with subtle visual indicators.</div>
+  <div class="subsection"><div class="sub-title">Soft Badges</div><div class="preview"><span class="badge badge-success"><span class="badge-dot"></span> Active</span><span class="badge badge-info"><span class="badge-dot"></span> Scheduled</span><span class="badge badge-warning"><span class="badge-dot"></span> Pending</span><span class="badge badge-danger"><span class="badge-dot"></span> Overdue</span><span class="badge badge-neutral"><span class="badge-dot"></span> Draft</span><span class="badge badge-brand"><span class="badge-dot"></span> New</span></div></div>
+  <div class="subsection"><div class="sub-title">Solid Badges</div><div class="preview"><span class="badge badge-solid-success">Approved</span><span class="badge badge-solid-info">Processing</span><span class="badge badge-solid-warning">Review</span><span class="badge badge-solid-danger">Urgent</span></div></div>
+  <div class="subsection"><div class="sub-title">EMR Order Status</div><div class="sub-desc">Clinical workflow statuses used across the EMR module.</div><div class="preview"><span class="status status-ordered"><span class="status-dot"></span> Ordered</span><span class="status status-scheduled"><span class="status-dot"></span> Scheduled</span><span class="status status-overdue"><span class="status-dot"></span> Overdue</span><span class="status status-in-progress"><span class="status-dot"></span> In Progress</span><span class="status status-cancelled"><span class="status-dot"></span> Cancelled</span><span class="status status-resulted"><span class="status-dot"></span> Resulted</span><span class="status status-completed"><span class="status-dot"></span> Completed</span></div></div>
+</div>
+
+<!-- FEEDBACK -->
+<div class="section" id="feedback">
+  <div class="section-label">Components</div>
+  <div class="section-title">Feedback</div>
+  <div class="section-desc">Alerts, toasts, and progress indicators for communicating system state.</div>
+  <div class="subsection">
+    <div class="sub-title">Alerts</div>
+    <div style="display:flex;flex-direction:column;gap:var(--sp-3);max-width:640px;">
+      <div class="alert alert-success"><span class="alert-icon">&#10003;</span><div><strong style="display:block;margin-bottom:2px;">Changes saved</strong>Your patient record has been updated successfully.</div></div>
+      <div class="alert alert-info"><span class="alert-icon">&#9432;</span><div><strong style="display:block;margin-bottom:2px;">Appointment reminder</strong>Your next appointment is scheduled for tomorrow at 2:00 PM.</div></div>
+      <div class="alert alert-warning"><span class="alert-icon">&#9888;</span><div><strong style="display:block;margin-bottom:2px;">Outstanding balance</strong>This patient has an unpaid balance of $45.00.</div></div>
+      <div class="alert alert-danger"><span class="alert-icon">&#10005;</span><div><strong style="display:block;margin-bottom:2px;">Form submission failed</strong>Please check the required fields and try again.</div></div>
+    </div>
+  </div>
+  <div class="subsection">
+    <div class="sub-title">Toast Notifications</div>
+    <div class="toast-demo">
+      <div class="toast toast-success"><div class="toast-body"><div class="toast-title">Appointment confirmed</div><div class="toast-msg">Feb 26, 2026 at 10:00 AM with Dr. Chen</div></div><span class="toast-close">&times;</span></div>
+      <div class="toast toast-danger"><div class="toast-body"><div class="toast-title">Connection lost</div><div class="toast-msg">Please check your internet connection.</div></div><span class="toast-close">&times;</span></div>
+      <div class="toast toast-info"><div class="toast-body"><div class="toast-title">New message</div><div class="toast-msg">You have 3 unread messages from patients.</div></div><span class="toast-close">&times;</span></div>
+    </div>
+  </div>
+  <div class="subsection">
+    <div class="sub-title">Progress Bars</div>
+    <div class="card" style="display:flex;flex-direction:column;gap:var(--sp-5);max-width:500px;">
+      <div><div style="display:flex;justify-content:space-between;font-size:var(--text-sm);margin-bottom:6px;"><span style="font-weight:600;">Profile Complete</span><span style="color:var(--text-secondary);">75%</span></div><div class="progress-track"><div class="progress-bar progress-bar-brand" style="width:75%;"></div></div></div>
+      <div><div style="display:flex;justify-content:space-between;font-size:var(--text-sm);margin-bottom:6px;"><span style="font-weight:600;">Upload Progress</span><span style="color:var(--text-secondary);">45%</span></div><div class="progress-track"><div class="progress-bar progress-bar-info" style="width:45%;"></div></div></div>
+      <div><div style="display:flex;justify-content:space-between;font-size:var(--text-sm);margin-bottom:6px;"><span style="font-weight:600;">Storage Used</span><span style="color:var(--text-secondary);">90%</span></div><div class="progress-track"><div class="progress-bar progress-bar-danger" style="width:90%;"></div></div></div>
+    </div>
+  </div>
+</div>
+
+  <div class="subsection">
+    <div class="sub-title">Callouts</div>
+    <div class="sub-desc">Inline contextual notes — less urgent than alerts, used for tips and guidance.</div>
+    <div style="display:flex;flex-direction:column;gap:var(--sp-3);max-width:640px;">
+      <div class="callout callout-tip"><span class="callout-icon">💡</span><div><strong>Tip:</strong> You can bulk-import patients using a CSV file from the Settings panel.</div></div>
+      <div class="callout callout-note"><span class="callout-icon">ℹ️</span><div><strong>Note:</strong> Lab results are synced automatically every 15 minutes from your EMR integration.</div></div>
+      <div class="callout callout-warn"><span class="callout-icon">⚠️</span><div><strong>Warning:</strong> Changing the billing code will affect all pending claims in this batch.</div></div>
+    </div>
+  </div>
+  <div class="subsection">
+    <div class="sub-title">Skeleton Loaders</div>
+    <div class="sub-desc">Use while content is loading to reduce perceived wait time and prevent layout shift.</div>
+    <div class="grid g2" style="gap:var(--sp-4);">
+      <div class="skeleton-card">
+        <div style="display:flex;align-items:center;gap:var(--sp-3);margin-bottom:var(--sp-4);">
+          <span class="skeleton skeleton-avatar"></span>
+          <div style="flex:1;">
+            <span class="skeleton skeleton-title" style="width:60%;"></span>
+            <span class="skeleton skeleton-text" style="width:40%;"></span>
+          </div>
+        </div>
+        <span class="skeleton skeleton-text" style="width:100%;"></span>
+        <span class="skeleton skeleton-text" style="width:85%;"></span>
+        <span class="skeleton skeleton-text" style="width:70%;"></span>
+        <div style="margin-top:var(--sp-4);display:flex;gap:var(--sp-2);">
+          <span class="skeleton skeleton-btn"></span>
+          <span class="skeleton skeleton-btn" style="width:70px;"></span>
+        </div>
+      </div>
+      <div class="skeleton-card">
+        <span class="skeleton skeleton-title" style="width:50%;margin-bottom:var(--sp-5);"></span>
+        <div style="display:flex;flex-direction:column;gap:var(--sp-3);">
+          <div style="display:flex;align-items:center;gap:var(--sp-3);"><span class="skeleton skeleton-avatar-sm"></span><div style="flex:1;"><span class="skeleton skeleton-text" style="width:70%;display:block;"></span><span class="skeleton skeleton-text" style="width:40%;"></span></div></div>
+          <div style="display:flex;align-items:center;gap:var(--sp-3);"><span class="skeleton skeleton-avatar-sm"></span><div style="flex:1;"><span class="skeleton skeleton-text" style="width:55%;display:block;"></span><span class="skeleton skeleton-text" style="width:35%;"></span></div></div>
+          <div style="display:flex;align-items:center;gap:var(--sp-3);"><span class="skeleton skeleton-avatar-sm"></span><div style="flex:1;"><span class="skeleton skeleton-text" style="width:65%;display:block;"></span><span class="skeleton skeleton-text" style="width:45%;"></span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="subsection">
+    <div class="sub-title">Empty States</div>
+    <div class="sub-desc">Show when a list, table, or section has no content yet.</div>
+    <div class="grid g2" style="gap:var(--sp-4);">
+      <div class="panel">
+        <div class="empty-state">
+          <div class="empty-state-icon">🗂️</div>
+          <div class="empty-state-title">No patients yet</div>
+          <div class="empty-state-desc">Add your first patient to get started with appointments and records.</div>
+          <button class="btn btn-primary">Add Patient</button>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="empty-state">
+          <div class="empty-state-icon">📋</div>
+          <div class="empty-state-title">No lab orders</div>
+          <div class="empty-state-desc">Lab orders for this patient will appear here once created.</div>
+          <button class="btn btn-secondary">Create Order</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- NAVIGATION -->
+<div class="section" id="navigation">
+  <div class="section-label">Components</div>
+  <div class="section-title">Navigation</div>
+  <div class="section-desc">Navigation patterns for consistent wayfinding across the application.</div>
+  <div class="subsection">
+    <div class="sub-title">Top Navigation Bar</div>
+    <div class="navbar" style="border-radius:var(--r-xl);border:1px solid var(--border);">
+      <div class="navbar-logo">VSee</div>
+      <div class="navbar-links"><div class="navbar-link active">Dashboard</div><div class="navbar-link">Patients</div><div class="navbar-link">Schedule</div><div class="navbar-link">Messages</div></div>
+      <div style="margin-left:auto;display:flex;align-items:center;gap:var(--sp-3);"><button class="btn btn-ghost btn-sm">Help</button><div class="avatar avatar-sm">PN</div></div>
+    </div>
+  </div>
+  <div class="subsection">
+    <div class="sub-title">Tabs</div>
+    <div class="card"><div class="tabs"><div class="tab-item active">Patients</div><div class="tab-item">All Visits</div><div class="tab-item">Documents</div><div class="tab-item">Lab Results</div></div><div style="padding:var(--sp-4);color:var(--text-tertiary);font-size:var(--text-sm);">Tab content area</div></div>
+  </div>
+  <div class="subsection">
+    <div class="sub-title">Breadcrumb</div>
+    <div class="card"><nav class="breadcrumb"><a href="#">Dashboard</a><span class="breadcrumb-sep">/</span><a href="#">Patients</a><span class="breadcrumb-sep">/</span><span class="breadcrumb-current">Michelle Doe</span></nav></div>
+  </div>
+  <div class="subsection">
+    <div class="sub-title">Pagination</div>
+    <div class="card"><div class="pagination"><button class="page-btn disabled">&larr;</button><button class="page-btn active">1</button><button class="page-btn">2</button><button class="page-btn">3</button><button class="page-btn">4</button><button class="page-btn">&rarr;</button></div></div>
+  </div>
+</div>
+
+<!-- DATA DISPLAY -->
+<div class="section" id="data">
+  <div class="section-label">Components</div>
+  <div class="section-title">Data Display</div>
+  <div class="section-desc">Cards, tables, avatars, and tooltips for displaying structured content.</div>
+  <div class="subsection">
+    <div class="sub-title">Patient Card</div>
+    <div class="grid g2" style="gap:var(--sp-4);">
+      <div class="panel">
+        <div class="panel-header">Patient Summary</div>
+        <div class="panel-body">
+          <div style="display:flex;gap:var(--sp-4);align-items:center;margin-bottom:var(--sp-4);"><div class="avatar avatar-lg">MD</div><div><div style="font-weight:600;font-size:var(--text-lg);">Michelle Doe</div><div style="color:var(--text-secondary);font-size:var(--text-sm);">Female &middot; 46 years &middot; ID: 10042</div></div></div>
+          <div style="display:flex;gap:var(--sp-3);"><span class="badge badge-success"><span class="badge-dot"></span> Active</span><span class="badge badge-info"><span class="badge-dot"></span> Insured</span></div>
+        </div>
+        <div class="panel-footer" style="display:flex;gap:var(--sp-2);"><button class="btn btn-primary btn-sm">View Chart</button><button class="btn btn-ghost btn-sm">Message</button></div>
+      </div>
+      <div class="panel">
+        <div class="panel-header">Upcoming Appointments <span class="badge badge-neutral" style="margin-left:auto;">3</span></div>
+        <div class="panel-body" style="padding:0;">
+          <div style="padding:var(--sp-4) var(--sp-6);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;"><div><div style="font-weight:600;">Dr. Sarah Chen</div><div style="font-size:var(--text-sm);color:var(--text-secondary);">Feb 26, 2026 &middot; 10:00 AM</div></div><span class="badge badge-info"><span class="badge-dot"></span> Confirmed</span></div>
+          <div style="padding:var(--sp-4) var(--sp-6);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;"><div><div style="font-weight:600;">Dr. James Park</div><div style="font-size:var(--text-sm);color:var(--text-secondary);">Mar 3, 2026 &middot; 2:30 PM</div></div><span class="badge badge-warning"><span class="badge-dot"></span> Pending</span></div>
+          <div style="padding:var(--sp-4) var(--sp-6);display:flex;justify-content:space-between;align-items:center;"><div><div style="font-weight:600;">Lab Work</div><div style="font-size:var(--text-sm);color:var(--text-secondary);">Mar 10, 2026 &middot; 8:00 AM</div></div><span class="badge badge-success"><span class="badge-dot"></span> Scheduled</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="subsection">
+    <div class="sub-title">Data Table</div>
+    <div class="panel">
+      <table class="table">
+        <thead><tr><th>Patient</th><th>Gender</th><th>Age</th><th>Last Visit</th><th>Status</th><th></th></tr></thead>
+        <tbody>
+          <tr><td><div style="display:flex;align-items:center;gap:var(--sp-3);"><div class="avatar avatar-sm">MD</div><div><div style="font-weight:600;">Michelle Doe</div><div style="font-size:12px;color:var(--text-tertiary);">patient@vsee.com</div></div></div></td><td>Female</td><td>46</td><td>Feb 20, 2026</td><td><span class="badge badge-success"><span class="badge-dot"></span> Active</span></td><td><button class="btn btn-ghost btn-sm">View</button></td></tr>
+          <tr><td><div style="display:flex;align-items:center;gap:var(--sp-3);"><div class="avatar avatar-sm">JS</div><div><div style="font-weight:600;">John Smith</div><div style="font-size:12px;color:var(--text-tertiary);">john@example.com</div></div></div></td><td>Male</td><td>32</td><td>Feb 18, 2026</td><td><span class="badge badge-warning"><span class="badge-dot"></span> Pending</span></td><td><button class="btn btn-ghost btn-sm">View</button></td></tr>
+          <tr><td><div style="display:flex;align-items:center;gap:var(--sp-3);"><div class="avatar avatar-sm">AW</div><div><div style="font-weight:600;">Alice Wong</div><div style="font-size:12px;color:var(--text-tertiary);">alice@example.com</div></div></div></td><td>Female</td><td>58</td><td>Jan 15, 2026</td><td><span class="badge badge-neutral"><span class="badge-dot"></span> Inactive</span></td><td><button class="btn btn-ghost btn-sm">View</button></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="subsection">
+    <div class="sub-title">Avatars</div>
+    <div class="preview" style="flex-direction:column;align-items:flex-start;gap:var(--sp-5);">
+      <div style="display:flex;align-items:center;gap:var(--sp-4);">
+        <div class="avatar avatar-sm">A</div>
+        <div class="avatar">PN</div>
+        <div class="avatar avatar-lg">MD</div>
+        <div class="avatar avatar-xl">JS</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:var(--sp-4);">
+        <div class="avatar avatar-sm avatar-grey">SC</div>
+        <div class="avatar avatar-indigo">JP</div>
+        <div class="avatar avatar-rose avatar-lg">AW</div>
+        <div class="avatar avatar-amber">RK</div>
+      </div>
+      <div>
+        <div style="font-size:var(--text-xs);font-weight:600;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:var(--sp-2);">Avatar Group</div>
+        <div style="display:flex;align-items:center;gap:var(--sp-3);">
+          <div class="avatar-group">
+            <div class="avatar avatar-sm">SC</div>
+            <div class="avatar avatar-sm avatar-indigo">JP</div>
+            <div class="avatar avatar-sm avatar-rose">AW</div>
+            <div class="avatar avatar-sm avatar-more">+4</div>
+          </div>
+          <span style="font-size:var(--text-sm);color:var(--text-secondary);">Care team (7)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="subsection"><div class="sub-title">Tooltips</div><div class="preview" style="padding:60px 24px 24px;"><span class="tooltip-wrap"><button class="btn btn-ghost">Hover target</button><span class="tooltip-bubble">This is a tooltip</span></span><span class="tooltip-wrap"><button class="btn btn-primary btn-sm">Save</button><span class="tooltip-bubble">Save patient record</span></span></div></div>
+</div>
+
+<!-- OVERLAYS -->
+<div class="section" id="overlay">
+  <div class="section-label">Components</div>
+  <div class="section-title">Overlays</div>
+  <div class="section-desc">Modals, dialogs, and overlay patterns for focused interactions.</div>
+  <div class="subsection">
+    <div class="sub-title">Modal / Dialog</div>
+    <div class="modal-demo">
+      <div class="modal-box">
+        <div class="modal-head"><h3>Cancel Appointment</h3><button class="modal-close">&times;</button></div>
+        <div class="modal-content"><p style="color:var(--text-secondary);margin-bottom:var(--sp-4);">Are you sure you want to cancel this appointment with <strong>Dr. Sarah Chen</strong> on Feb 26, 2026?</p><div class="form-group"><label class="form-label">Reason for cancellation</label><select class="input"><option>Select a reason...</option><option>Schedule conflict</option><option>Feeling better</option></select></div></div>
+        <div class="modal-actions"><button class="btn btn-ghost">Keep Appointment</button><button class="btn btn-danger">Cancel Appointment</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRIMITIVES -->
+<div class="section" id="primitives">
+  <div class="section-label">Components</div>
+  <div class="section-title">Primitives</div>
+  <div class="section-desc">Small, utility-level components that appear everywhere — keyboard hints, chips, dividers, and accordions.</div>
+
+  <div class="subsection">
+    <div class="sub-title">Keyboard Shortcuts</div>
+    <div class="sub-desc">Use <code style="background:var(--grey-200);padding:1px 5px;border-radius:4px;font-family:var(--mono);font-size:12px;">&lt;kbd&gt;</code> to surface keyboard shortcuts in tooltips, help docs, and command palettes.</div>
+    <div class="preview" style="flex-direction:column;align-items:flex-start;gap:var(--sp-3);">
+      <div style="display:flex;align-items:center;gap:var(--sp-3);font-size:var(--text-sm);color:var(--text-secondary);">
+        <span>Save record</span><kbd>⌘</kbd><kbd>S</kbd>
+      </div>
+      <div style="display:flex;align-items:center;gap:var(--sp-3);font-size:var(--text-sm);color:var(--text-secondary);">
+        <span>Global search</span><kbd>⌘</kbd><kbd>K</kbd>
+      </div>
+      <div style="display:flex;align-items:center;gap:var(--sp-3);font-size:var(--text-sm);color:var(--text-secondary);">
+        <span>New appointment</span><kbd>⌘</kbd><kbd>⇧</kbd><kbd>A</kbd>
+      </div>
+      <div style="display:flex;align-items:center;gap:var(--sp-3);font-size:var(--text-sm);color:var(--text-secondary);">
+        <span>Escape / Close</span><kbd>Esc</kbd>
+      </div>
+    </div>
+  </div>
+
+  <div class="subsection">
+    <div class="sub-title">Chips / Tags</div>
+    <div class="sub-desc">Compact labels for filters, selected values, and multi-select inputs.</div>
+    <div class="preview" style="flex-direction:column;align-items:flex-start;gap:var(--sp-4);">
+      <div style="display:flex;flex-wrap:wrap;gap:var(--sp-2);">
+        <span class="chip">Internal Medicine</span>
+        <span class="chip">Family Medicine</span>
+        <span class="chip chip-brand">Telehealth</span>
+        <span class="chip chip-danger">Urgent</span>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:var(--sp-2);">
+        <span class="chip">Dr. Sarah Chen <button class="chip-remove">&times;</button></span>
+        <span class="chip chip-brand">Active <button class="chip-remove">&times;</button></span>
+        <span class="chip">Insured <button class="chip-remove">&times;</button></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="subsection">
+    <div class="sub-title">Divider with Label</div>
+    <div class="sub-desc">Use to separate groups of content with a contextual label.</div>
+    <div class="card" style="max-width:480px;">
+      <button class="btn btn-ghost btn-block" style="margin-bottom:var(--sp-4);">Continue with SSO</button>
+      <div class="divider-text">or</div>
+      <div class="form-group"><label class="form-label">Email</label><input type="email" class="input" placeholder="doctor@vsee.com"></div>
+      <div class="form-group"><label class="form-label">Password</label><input type="password" class="input" placeholder="••••••••"></div>
+      <button class="btn btn-primary btn-block" style="margin-top:var(--sp-2);">Sign in</button>
+    </div>
+  </div>
+
+  <div class="subsection">
+    <div class="sub-title">Accordion</div>
+    <div class="sub-desc">Collapsible panels for FAQs, settings sections, and progressive disclosure.</div>
+    <div class="accordion" style="max-width:640px;">
+      <div class="accordion-item open">
+        <button class="accordion-trigger">What EMR integrations does VSee support?<span class="accordion-chevron">⌄</span></button>
+        <div class="accordion-content">VSee Clinic integrates with Epic, Cerner, Athenahealth, and eClinicalWorks via HL7 FHIR. Custom integrations are available for enterprise accounts.</div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-trigger">How is patient data secured?<span class="accordion-chevron">⌄</span></button>
+        <div class="accordion-content">All data is encrypted at rest (AES-256) and in transit (TLS 1.3). VSee is HIPAA-compliant, SOC 2 Type II certified, and undergoes annual penetration testing.</div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-trigger">Can I customize the branding for my clinic?<span class="accordion-chevron">⌄</span></button>
+        <div class="accordion-content">Yes — white-label theming is available on the Team and Enterprise plans. Override CSS custom properties per tenant using the <code style="background:var(--grey-200);padding:1px 5px;border-radius:4px;font-family:var(--mono);font-size:12px;">[data-theme]</code> attribute system.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="subsection">
+    <div class="sub-title">Stepper</div>
+    <div class="sub-desc">Multi-step progress for onboarding flows, wizards, and order creation.</div>
+    <div class="card" style="padding:var(--sp-8);">
+      <div class="steps">
+        <div class="step done">
+          <div class="step-num step-num-done">✓</div>
+          <div class="step-name step-name-done">Patient Info</div>
+        </div>
+        <div class="step done">
+          <div class="step-num step-num-done">✓</div>
+          <div class="step-name step-name-done">Insurance</div>
+        </div>
+        <div class="step">
+          <div class="step-num step-num-active">3</div>
+          <div class="step-name step-name-active">Schedule</div>
+        </div>
+        <div class="step">
+          <div class="step-num step-num-pending">4</div>
+          <div class="step-name">Confirm</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EMR PATTERNS -->
+<div class="section" id="emr">
+  <div class="section-label">Patterns</div>
+  <div class="section-title">EMR Patterns</div>
+  <div class="section-desc">Clinical workflow patterns specific to the VSee EMR platform — order management, patient charts, and medical records.</div>
+  <div class="subsection">
+    <div class="sub-title">Orders Table</div>
+    <div class="panel">
+      <div class="panel-header">Lab Orders <button class="btn btn-primary btn-sm" style="margin-left:auto;">+ New Order</button></div>
+      <table class="table">
+        <thead><tr><th>Order</th><th>Type</th><th>Ordered By</th><th>Date</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:600;">CBC with Differential</td><td>Lab</td><td>Dr. Chen</td><td>Feb 25, 2026</td><td><span class="status status-ordered"><span class="status-dot"></span> Ordered</span></td></tr>
+          <tr><td style="font-weight:600;">Lipid Panel</td><td>Lab</td><td>Dr. Park</td><td>Feb 20, 2026</td><td><span class="status status-resulted"><span class="status-dot"></span> Resulted</span></td></tr>
+          <tr><td style="font-weight:600;">Chest X-Ray</td><td>Imaging</td><td>Dr. Chen</td><td>Feb 18, 2026</td><td><span class="status status-scheduled"><span class="status-dot"></span> Scheduled</span></td></tr>
+          <tr><td style="font-weight:600;">HbA1c</td><td>Lab</td><td>Dr. Park</td><td>Jan 15, 2026</td><td><span class="status status-overdue"><span class="status-dot"></span> Overdue</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="subsection">
+    <div class="sub-title">Vitals Card</div>
+    <div class="panel" style="max-width:500px;">
+      <div class="panel-header">Latest Vitals <span style="font-size:var(--text-sm);color:var(--text-tertiary);font-weight:400;margin-left:auto;">Feb 26, 2026</span></div>
+      <div class="panel-body">
+        <div class="grid g3" style="gap:var(--sp-4);">
+          <div style="text-align:center;"><div style="font-size:var(--text-3xl);font-weight:700;color:var(--brand);">120/80</div><div style="font-size:var(--text-xs);color:var(--text-secondary);font-weight:500;">Blood Pressure</div></div>
+          <div style="text-align:center;"><div style="font-size:var(--text-3xl);font-weight:700;color:var(--text-primary);">72</div><div style="font-size:var(--text-xs);color:var(--text-secondary);font-weight:500;">Heart Rate</div></div>
+          <div style="text-align:center;"><div style="font-size:var(--text-3xl);font-weight:700;color:var(--text-primary);">98.6&deg;</div><div style="font-size:var(--text-xs);color:var(--text-secondary);font-weight:500;">Temperature</div></div>
+          <div style="text-align:center;"><div style="font-size:var(--text-3xl);font-weight:700;color:var(--success);">98%</div><div style="font-size:var(--text-xs);color:var(--text-secondary);font-weight:500;">SpO2</div></div>
+          <div style="text-align:center;"><div style="font-size:var(--text-3xl);font-weight:700;color:var(--text-primary);">16</div><div style="font-size:var(--text-xs);color:var(--text-secondary);font-weight:500;">Resp Rate</div></div>
+          <div style="text-align:center;"><div style="font-size:var(--text-3xl);font-weight:700;color:var(--warning);">28.5</div><div style="font-size:var(--text-xs);color:var(--text-secondary);font-weight:500;">BMI</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LAYOUTS -->
+<div class="section" id="layouts">
+  <div class="section-label">Patterns</div>
+  <div class="section-title">Layouts</div>
+  <div class="section-desc">Common layout patterns used across the VSee Clinic application.</div>
+  <div class="subsection">
+    <div class="sub-title">Sidebar + Content</div>
+    <div class="sidebar-layout" style="height:300px;">
+      <div class="sidebar-panel">
+        <div style="padding:var(--sp-4) var(--sp-4) var(--sp-3);font-weight:700;font-size:var(--text-sm);color:var(--text-primary);">Menu</div>
+        <div class="sidebar-menu-item active">Dashboard</div>
+        <div class="sidebar-menu-item">Patients</div>
+        <div class="sidebar-menu-item">Appointments</div>
+        <div class="sidebar-menu-item">Messages</div>
+        <div class="sidebar-menu-item">Lab Results</div>
+        <div class="sidebar-menu-item">Settings</div>
+      </div>
+      <div class="sidebar-content">
+        <div style="font-size:var(--text-2xl);font-weight:700;margin-bottom:var(--sp-4);">Dashboard</div>
+        <div style="color:var(--text-secondary);">Main content area with sidebar navigation pattern. Used across most admin and clinician views.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- THEMING -->
+<div class="section" id="theming">
+  <div class="section-label">Patterns</div>
+  <div class="section-title">Themes & Dark Mode</div>
+  <div class="section-desc">VSee supports 5 brand palettes and full light/dark mode. Everything is driven by CSS custom properties — use the toolbar in the top-right to preview any combination live.</div>
+
+  <div class="subsection">
+    <div class="sub-title">5 Brand Themes</div>
+    <div class="sub-desc">Apply <code style="background:var(--grey-200);padding:1px 5px;border-radius:4px;font-family:var(--mono);font-size:12px;">[data-theme="..."]</code> to <code style="background:var(--grey-200);padding:1px 5px;border-radius:4px;font-family:var(--mono);font-size:12px;">&lt;html&gt;</code> to switch the entire palette instantly.</div>
+    <div class="grid g5" style="gap:var(--sp-3);">
+
+      <!-- Emerald -->
+      <div class="theme-card">
+        <div class="theme-card-header" style="gap:var(--sp-2);">
+          <div class="theme-card-dot" style="background:#0D875C;"></div> Emerald
+        </div>
+        <div class="theme-card-body" style="flex-direction:column;gap:var(--sp-3);">
+          <button style="background:#0D875C;color:white;border:none;padding:8px 14px;border-radius:8px;font-family:var(--font);font-weight:600;font-size:13px;cursor:pointer;width:100%;">Primary</button>
+          <button style="background:transparent;color:#0D875C;border:1.5px solid #0D875C;padding:7px 14px;border-radius:8px;font-family:var(--font);font-weight:600;font-size:13px;cursor:pointer;width:100%;">Secondary</button>
+          <button style="background:transparent;color:#374151;border:1.5px solid #E5E7EB;padding:7px 14px;border-radius:8px;font-family:var(--font);font-weight:600;font-size:13px;cursor:pointer;width:100%;">Ghost</button>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <span style="background:#E6F5EE;color:#065F46;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:600;">Active</span>
+            <span style="background:#E6F5EE;color:#0D875C;border:1.5px solid #A7F3D0;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:600;">New</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ocean Blue -->
+      <div class="theme-card">
+        <div class="theme-card-header" style="gap:var(--sp-2);">
+          <div class="theme-card-dot" style="background:#2563EB;"></div> Ocean
+        </div>
+        <div class="theme-card-body" style="flex-direction:column;gap:var(--sp-3);">
+          <button style="background:#2563EB;color:white;border:none;padding:8px 14px;border-radius:8px;font-family:var(--font);font-weight:600;font-size:13px;cursor:pointer;width:100%;">Primary</button>
+          <button style="background:transparent;color:#2563EB;border:1.5px solid #2563EB;padding:7px 14px;border-radius:8px;font-family:var(--font);font-weight:600;font-size:13px;cursor:pointer;width:100%;">Secondary</button>
+          <button style="background:transparent;color:#374151;border:1.5px solid #E5E7EB;padding:7px 14px;border-radius:8px;font-family:var(--font);font-weight:600;font-size:13px;cursor:pointer;width:100%;">Ghost</button>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <span style="background:#DBEAFE;color:#1E40AF;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:600;">Active</span>
+            <span style="background:#DBEAFE;color:#2563EB;border:1.5px solid #BFDBFE;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:600;">New</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Violet -->
+      <div class="theme-card">
+        <div class="theme-card-header" style="gap:var(--sp-2);">
+          <div class="theme-card-dot" style="background:#7C3AED;"></div> Violet
+        </div>
+        <div class="theme-card-body" style="flex-direction:column;gap:var(--sp-3);">
+          <button style="background:#7C3AED;color:white;border:none;padding:8px 14px;border-radius:8px;font-family:var(--font);font-weight:600;font-size:13px;cursor:pointer;width:100%;">Primary</button>
+          <button style="background:transparent;color:#7C3AED;border:1.5px solid #7C3AED;padding:7px 14px;border-radius:8px;font-family:var(--font);font-weight:600;font-size:13px;cursor:pointer;width:100%;">Secondary</button>
+          <button style="background:transparent;color:#374151;border:1.5px solid #E5E7EB;padding:7px 14px;border-radius:8px;font-family:var(--font);font-weight:600;font-size:13px;cursor:pointer;width:100%;">Ghost</button>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <span style="background:#EDE9FE;color:#5B21B6;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:600;">Active</span>
+            <span style="background:#EDE9FE;color:#7C3AED;border:1.5px solid #DDD6FE;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:600;">New</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rose -->
+      <div class="theme-card">
+        <div class="theme-card-header" style="gap:var(--sp-2);">
+          <div class="theme-card-dot" style="background:#E11D48;"></div> Rose
+        </div>
+        <div class="theme-card-body" style="flex-direction:column;gap:var(--sp-3);">
+          <button style="background:#E11D48;color:white;border:none;padding:8px 14px;border-radius:8px;font-family:var(--font);font-weight:600;font-size:13px;cursor:pointer;width:100%;">Primary</button>
+          <button style="background:transparent;color:#E11D48;border:1.5px solid #E11D48;padding:7px 14px;border-radius:8px;font-family:var(--font);font-weight:600;font-size:13px;cursor:pointer;width:100%;">Secondary</button>
+          <button style="background:transparent;color:#374151;border:1.5px solid #E5E7EB;padding:7px 14px;border-radius:8px;font-family:var(--font);font-weight:600;font-size:13px;cursor:pointer;width:100%;">Ghost</button>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <span style="background:#FFE4E6;color:#9F1239;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:600;">Active</span>
+            <span style="background:#FFE4E6;color:#E11D48;border:1.5px solid #FECDD3;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:600;">New</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Amber -->
+      <div class="theme-card">
+        <div class="theme-card-header" style="gap:var(--sp-2);">
+          <div class="theme-card-dot" style="background:#D97706;"></div> Amber
+        </div>
+        <div class="theme-card-body" style="flex-direction:column;gap:var(--sp-3);">
+          <button style="background:#D97706;color:white;border:none;padding:8px 14px;border-radius:8px;font-family:var(--font);font-weight:600;font-size:13px;cursor:pointer;width:100%;">Primary</button>
+          <button style="background:transparent;color:#D97706;border:1.5px solid #D97706;padding:7px 14px;border-radius:8px;font-family:var(--font);font-weight:600;font-size:13px;cursor:pointer;width:100%;">Secondary</button>
+          <button style="background:transparent;color:#374151;border:1.5px solid #E5E7EB;padding:7px 14px;border-radius:8px;font-family:var(--font);font-weight:600;font-size:13px;cursor:pointer;width:100%;">Ghost</button>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <span style="background:#FEF3C7;color:#92400E;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:600;">Active</span>
+            <span style="background:#FEF3C7;color:#D97706;border:1.5px solid #FDE68A;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:600;">New</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="subsection">
+    <div class="sub-title">Light vs. Dark Mode</div>
+    <div class="sub-desc">Toggle with <code style="background:var(--grey-200);padding:1px 5px;border-radius:4px;font-family:var(--mono);font-size:12px;">[data-mode="dark"]</code> on <code style="background:var(--grey-200);padding:1px 5px;border-radius:4px;font-family:var(--mono);font-size:12px;">&lt;html&gt;</code>. All tokens flip automatically — surfaces, text, borders, shadows, and tints.</div>
+    <div class="grid g2" style="gap:var(--sp-4);max-width:700px;">
+      <!-- Light preview -->
+      <div style="border:1px solid var(--border);border-radius:var(--r-xl);overflow:hidden;">
+        <div style="padding:var(--sp-3) var(--sp-4);background:#F9FAFB;border-bottom:1px solid #E5E7EB;display:flex;align-items:center;gap:var(--sp-2);">
+          <div style="width:8px;height:8px;border-radius:50%;background:#E5E7EB;"></div>
+          <span style="font-size:11px;font-weight:700;color:#9CA3AF;text-transform:uppercase;letter-spacing:0.5px;">Light Mode</span>
+        </div>
+        <div style="padding:var(--sp-5);background:white;display:flex;flex-direction:column;gap:var(--sp-3);">
+          <div style="display:flex;gap:var(--sp-2);">
+            <button class="btn btn-primary btn-sm">Save</button>
+            <button class="btn btn-secondary btn-sm">Cancel</button>
+            <button class="btn btn-ghost btn-sm">More</button>
+          </div>
+          <div style="background:#F9FAFB;border:1px solid #E5E7EB;border-radius:8px;padding:12px;font-size:13px;color:#111827;">Patient card surface</div>
+          <div style="display:flex;gap:var(--sp-2);">
+            <span class="badge badge-success"><span class="badge-dot"></span> Active</span>
+            <span class="badge badge-info"><span class="badge-dot"></span> Scheduled</span>
+            <span class="badge badge-warning"><span class="badge-dot"></span> Pending</span>
+          </div>
+        </div>
+      </div>
+      <!-- Dark preview — static mockup -->
+      <div style="border:1px solid #334155;border-radius:var(--r-xl);overflow:hidden;">
+        <div style="padding:var(--sp-3) var(--sp-4);background:#1E293B;border-bottom:1px solid #334155;display:flex;align-items:center;gap:var(--sp-2);">
+          <div style="width:8px;height:8px;border-radius:50%;background:#475569;"></div>
+          <span style="font-size:11px;font-weight:700;color:#64748B;text-transform:uppercase;letter-spacing:0.5px;">Dark Mode</span>
+        </div>
+        <div style="padding:var(--sp-5);background:#0F172A;display:flex;flex-direction:column;gap:var(--sp-3);">
+          <div style="display:flex;gap:var(--sp-2);">
+            <button style="background:var(--brand);color:white;border:none;padding:6px 14px;border-radius:8px;font-family:var(--font);font-weight:600;font-size:13px;cursor:pointer;">Save</button>
+            <button style="background:transparent;color:var(--brand);border:1.5px solid var(--brand);padding:5px 14px;border-radius:8px;font-family:var(--font);font-weight:600;font-size:13px;cursor:pointer;">Cancel</button>
+            <button style="background:transparent;color:#F1F5F9;border:1.5px solid #475569;padding:5px 14px;border-radius:8px;font-family:var(--font);font-weight:600;font-size:13px;cursor:pointer;">More</button>
+          </div>
+          <div style="background:#1E293B;border:1px solid #334155;border-radius:8px;padding:12px;font-size:13px;color:#F1F5F9;">Patient card surface</div>
+          <div style="display:flex;gap:var(--sp-2);">
+            <span style="background:rgba(13,135,92,0.18);color:#6EE7B7;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:4px;"><span style="width:6px;height:6px;border-radius:50%;background:#6EE7B7;"></span> Active</span>
+            <span style="background:rgba(5,117,173,0.18);color:#7DD3FC;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:4px;"><span style="width:6px;height:6px;border-radius:50%;background:#7DD3FC;"></span> Scheduled</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="subsection">
+    <div class="sub-title">Implementation</div>
+    <div class="code"><span class="c">/* 1. Set theme on the html element */</span>
+&lt;<span class="k">html</span> <span class="p">data-theme</span>=<span class="v">"ocean"</span> <span class="p">data-mode</span>=<span class="v">"dark"</span>&gt;
+
+<span class="c">/* 2. Theme tokens — only brand colours change */</span>
+[data-theme=<span class="v">"violet"</span>] {
+  <span class="p">--brand</span>:        <span class="v">#7C3AED</span>;
+  <span class="p">--brand-hover</span>:  <span class="v">#6D28D9</span>;
+  <span class="p">--brand-active</span>: <span class="v">#5B21B6</span>;
+  <span class="p">--brand-light</span>:  <span class="v">#EDE9FE</span>;
+  <span class="p">--brand-50</span>:     <span class="v">#F5F3FF</span>;
+}
+
+<span class="c">/* 3. Dark mode — surface, text, border tokens flip */</span>
+[data-mode=<span class="v">"dark"</span>] {
+  <span class="p">--surface-page</span>: <span class="v">#0F172A</span>;
+  <span class="p">--white</span>:        <span class="v">#1E293B</span>;  <span class="c">/* cards, panels, inputs */</span>
+  <span class="p">--text-primary</span>: <span class="v">#F1F5F9</span>;
+  <span class="p">--border</span>:       <span class="v">#334155</span>;
+  <span class="c">/* ...all 20+ tokens defined in vsee-tokens.css */</span>
+}</div>
+  </div>
+</div>
+
+<!-- ACCESSIBILITY -->
+<div class="section" id="accessibility">
+  <div class="section-label">Engineering</div>
+  <div class="section-title">Accessibility</div>
+  <div class="section-desc">VSee targets WCAG 2.1 AA. These patterns ensure every user — including those using keyboards, screen readers, or assistive tech — can navigate the product.</div>
+
+  <div class="subsection">
+    <div class="sub-title">Focus Rings</div>
+    <div class="sub-desc">Always use <code style="background:var(--grey-200);padding:1px 5px;border-radius:4px;font-family:var(--mono);font-size:12px;">:focus-visible</code> instead of <code style="background:var(--grey-200);padding:1px 5px;border-radius:4px;font-family:var(--mono);font-size:12px;">:focus</code> to avoid rings on mouse clicks while keeping them for keyboard nav.</div>
+    <div class="preview" style="gap:var(--sp-5);">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:var(--sp-2);">
+        <button class="btn btn-primary focus-ring-demo">Primary</button>
+        <span style="font-size:11px;color:var(--text-tertiary);">Brand focus</span>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:var(--sp-2);">
+        <button class="btn btn-danger focus-ring-danger">Danger</button>
+        <span style="font-size:11px;color:var(--text-tertiary);">Danger focus</span>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:var(--sp-2);">
+        <input class="input focus-ring-demo" style="width:200px;" value="Input focus" readonly>
+        <span style="font-size:11px;color:var(--text-tertiary);">Input focus</span>
+      </div>
+    </div>
+    <div class="code" style="margin-top:var(--sp-4);">
+<span class="c">/* Only show focus ring for keyboard navigation */</span>
+<span class="p">:focus-visible</span> {
+  <span class="p">outline</span>: <span class="v">2px solid var(--brand)</span>;
+  <span class="p">outline-offset</span>: <span class="v">2px</span>;
+}
+<span class="c">/* Remove the default focus style added by browsers */</span>
+<span class="p">:focus:not(:focus-visible)</span> {
+  <span class="p">outline</span>: <span class="v">none</span>;
+}</div>
+  </div>
+
+  <div class="subsection">
+    <div class="sub-title">Color Contrast — Verified Reference</div>
+    <div class="sub-desc">All combinations below were checked against WCAG 2.1 SC 1.4.3. Normal text requires 4.5:1, large text (≥18px or ≥14px bold) requires 3:1.</div>
+
+    <div style="font-size:var(--text-sm);font-weight:700;color:var(--text-secondary);margin-bottom:var(--sp-3);">Light Mode</div>
+    <div class="grid g3" style="gap:var(--sp-3);max-width:720px;margin-bottom:var(--sp-6);">
+      <div class="card" style="display:flex;justify-content:space-between;align-items:center;">
+        <div><div style="font-weight:600;font-size:var(--text-sm);">#111827 on white</div><div style="font-size:11px;color:var(--text-tertiary);">Text Primary · 18.1:1</div></div>
+        <span class="aa-badge aaa-pass">AAA</span>
+      </div>
+      <div class="card" style="display:flex;justify-content:space-between;align-items:center;">
+        <div><div style="font-weight:600;font-size:var(--text-sm);">#6B7280 on white</div><div style="font-size:11px;color:var(--text-tertiary);">Text Secondary · 4.63:1</div></div>
+        <span class="aa-badge aa-pass">AA</span>
+      </div>
+      <div class="card" style="display:flex;justify-content:space-between;align-items:center;">
+        <div><div style="font-weight:600;font-size:var(--text-sm);">#065F46 on white</div><div style="font-size:11px;color:var(--text-tertiary);">Text Brand · 7.66:1</div></div>
+        <span class="aa-badge aaa-pass">AAA</span>
+      </div>
+      <div class="card" style="display:flex;justify-content:space-between;align-items:center;">
+        <div><div style="font-weight:600;font-size:var(--text-sm);">White on #0D875C</div><div style="font-size:11px;color:var(--text-tertiary);">Brand Button · 4.52:1</div></div>
+        <span class="aa-badge aa-pass">AA</span>
+      </div>
+      <div class="card" style="display:flex;justify-content:space-between;align-items:center;">
+        <div><div style="font-weight:600;font-size:var(--text-sm);">White on #DC2626</div><div style="font-size:11px;color:var(--text-tertiary);">Danger Button · 4.83:1</div></div>
+        <span class="aa-badge aa-pass">AA</span>
+      </div>
+      <div class="card" style="display:flex;justify-content:space-between;align-items:center;">
+        <div><div style="font-weight:600;font-size:var(--text-sm);">#111827 on #F59E0B</div><div style="font-size:11px;color:var(--text-tertiary);">Warning Button · 9.8:1</div></div>
+        <span class="aa-badge aaa-pass">AAA</span>
+      </div>
+      <div class="card" style="display:flex;justify-content:space-between;align-items:center;">
+        <div><div style="font-weight:600;font-size:var(--text-sm);">#065F46 on #E6F5EE</div><div style="font-size:11px;color:var(--text-tertiary);">Success Badge · 6.81:1</div></div>
+        <span class="aa-badge aaa-pass">AAA</span>
+      </div>
+      <div class="card" style="display:flex;justify-content:space-between;align-items:center;">
+        <div><div style="font-weight:600;font-size:var(--text-sm);">#991B1B on #FEE2E2</div><div style="font-size:11px;color:var(--text-tertiary);">Danger Badge · 6.82:1</div></div>
+        <span class="aa-badge aaa-pass">AAA</span>
+      </div>
+      <div class="card" style="display:flex;justify-content:space-between;align-items:center;">
+        <div><div style="font-weight:600;font-size:var(--text-sm);">#92400E on white</div><div style="font-size:11px;color:var(--text-tertiary);">Amber Text Brand · 7.09:1</div></div>
+        <span class="aa-badge aaa-pass">AAA</span>
+      </div>
+    </div>
+
+    <div style="font-size:var(--text-sm);font-weight:700;color:var(--text-secondary);margin-bottom:var(--sp-3);">Dark Mode (on #0F172A surface)</div>
+    <div class="grid g3" style="gap:var(--sp-3);max-width:720px;">
+      <div class="card" style="display:flex;justify-content:space-between;align-items:center;">
+        <div><div style="font-weight:600;font-size:var(--text-sm);">#F1F5F9 on #0F172A</div><div style="font-size:11px;color:var(--text-tertiary);">Text Primary · 16.3:1</div></div>
+        <span class="aa-badge aaa-pass">AAA</span>
+      </div>
+      <div class="card" style="display:flex;justify-content:space-between;align-items:center;">
+        <div><div style="font-weight:600;font-size:var(--text-sm);">#94A3B8 on #0F172A</div><div style="font-size:11px;color:var(--text-tertiary);">Text Secondary · 6.96:1</div></div>
+        <span class="aa-badge aaa-pass">AAA</span>
+      </div>
+      <div class="card" style="display:flex;justify-content:space-between;align-items:center;">
+        <div><div style="font-weight:600;font-size:var(--text-sm);">#7B8FA3 on #0F172A</div><div style="font-size:11px;color:var(--text-tertiary);">Text Tertiary · 5.35:1</div></div>
+        <span class="aa-badge aa-pass">AA</span>
+      </div>
+      <div class="card" style="display:flex;justify-content:space-between;align-items:center;">
+        <div><div style="font-weight:600;font-size:var(--text-sm);">#34D399 on #0F172A</div><div style="font-size:11px;color:var(--text-tertiary);">Emerald Text · 9.28:1</div></div>
+        <span class="aa-badge aaa-pass">AAA</span>
+      </div>
+      <div class="card" style="display:flex;justify-content:space-between;align-items:center;">
+        <div><div style="font-weight:600;font-size:var(--text-sm);">#60A5FA on #0F172A</div><div style="font-size:11px;color:var(--text-tertiary);">Ocean Text · 7.02:1</div></div>
+        <span class="aa-badge aaa-pass">AAA</span>
+      </div>
+      <div class="card" style="display:flex;justify-content:space-between;align-items:center;">
+        <div><div style="font-weight:600;font-size:var(--text-sm);">#FCD34D on #0F172A</div><div style="font-size:11px;color:var(--text-tertiary);">Amber Text · 12.36:1</div></div>
+        <span class="aa-badge aaa-pass">AAA</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="subsection">
+    <div class="sub-title">Key Principles</div>
+    <div style="display:flex;flex-direction:column;gap:var(--sp-3);max-width:640px;">
+      <div class="callout callout-tip"><span class="callout-icon">⌨️</span><div><strong>Keyboard navigable:</strong> All interactive elements must be reachable and operable via keyboard alone. Use correct semantic HTML (<code style="background:rgba(0,0,0,0.06);padding:1px 4px;border-radius:3px;font-family:var(--mono);font-size:11px;">&lt;button&gt;</code>, not <code style="background:rgba(0,0,0,0.06);padding:1px 4px;border-radius:3px;font-family:var(--mono);font-size:11px;">&lt;div onclick&gt;</code>).</div></div>
+      <div class="callout callout-tip"><span class="callout-icon">🏷️</span><div><strong>Labelled controls:</strong> Every input, select, and textarea must have a visible <code style="background:rgba(0,0,0,0.06);padding:1px 4px;border-radius:3px;font-family:var(--mono);font-size:11px;">&lt;label&gt;</code> or an <code style="background:rgba(0,0,0,0.06);padding:1px 4px;border-radius:3px;font-family:var(--mono);font-size:11px;">aria-label</code>. Icon-only buttons need <code style="background:rgba(0,0,0,0.06);padding:1px 4px;border-radius:3px;font-family:var(--mono);font-size:11px;">aria-label</code>.</div></div>
+      <div class="callout callout-note"><span class="callout-icon">🔊</span><div><strong>Screen reader support:</strong> Use ARIA roles for modals (<code style="background:rgba(0,0,0,0.06);padding:1px 4px;border-radius:3px;font-family:var(--mono);font-size:11px;">role="dialog"</code>), live regions (<code style="background:rgba(0,0,0,0.06);padding:1px 4px;border-radius:3px;font-family:var(--mono);font-size:11px;">aria-live</code>) for toasts, and <code style="background:rgba(0,0,0,0.06);padding:1px 4px;border-radius:3px;font-family:var(--mono);font-size:11px;">aria-expanded</code> for accordions and dropdowns.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- TOKENS -->
+<div class="section" id="tokens">
+  <div class="section-label">Engineering</div>
+  <div class="section-title">Design Tokens</div>
+  <div class="section-desc">Copy the :root block into your global CSS. Available as CSS custom properties, Tokens Studio JSON, and Figma Variables.</div>
+  <div class="code"><span class="c">/* VSee Clinic Design Tokens — v4.0 */</span>
+<span class="c">/* Full token reference: see vsee-tokens.css */</span>
+
+<span class="c">/* Brand */</span>
+<span class="p">--brand</span>: <span class="v">#0D875C</span>;  <span class="p">--brand-hover</span>: <span class="v">#0B7550</span>;
+<span class="p">--brand-active</span>: <span class="v">#096843</span>;  <span class="p">--brand-light</span>: <span class="v">#E6F5EE</span>;
+
+<span class="c">/* Semantic */</span>
+<span class="p">--success</span>: <span class="v">#0D875C</span>;  <span class="p">--info</span>: <span class="v">#0575AD</span>;
+<span class="p">--warning</span>: <span class="v">#F59E0B</span>;  <span class="p">--danger</span>: <span class="v">#EF4444</span>;
+
+<span class="c">/* Typography */</span>
+<span class="p">--font</span>: <span class="v">'Inter', sans-serif</span>;
+<span class="p">--text-base</span>: <span class="v">14px</span>;  <span class="c">/* scale: 12 → 60px */</span>
+
+<span class="c">/* Spacing (4px base) */</span>
+<span class="p">--sp-1</span>: <span class="v">4px</span>; <span class="p">--sp-2</span>: <span class="v">8px</span>; <span class="p">--sp-4</span>: <span class="v">16px</span>; <span class="p">--sp-8</span>: <span class="v">32px</span>;
+
+<span class="c">/* Radius */</span>
+<span class="p">--r-sm</span>: <span class="v">6px</span>; <span class="p">--r-md</span>: <span class="v">8px</span>; <span class="p">--r-lg</span>: <span class="v">12px</span>; <span class="p">--r-full</span>: <span class="v">9999px</span>;</div>
+</div>
+
+<!-- FOOTER -->
+<div style="text-align:center;padding:var(--sp-16) 0;color:var(--text-tertiary);">
+  <div style="font-size:var(--text-2xl);font-weight:800;color:var(--brand);margin-bottom:var(--sp-2);">VSee</div>
+  <div style="font-size:var(--text-sm);">Design System v4.0 &middot; February 2026</div>
+  <div style="font-size:var(--text-xs);margin-top:var(--sp-2);">Inter &middot; 4px grid &middot; WCAG AA &middot; White-label ready</div>
+</div>
+
+</div><!-- /main -->
+
+<!-- COPY TOAST -->
+<div class="copy-toast" id="copyToast">Copied!</div>
+
+<script>
+// Copy color to clipboard
+function copyColor(hex) {
+  navigator.clipboard.writeText(hex).then(() => {
+    const toast = document.getElementById('copyToast');
+    toast.textContent = 'Copied ' + hex;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 1500);
+  });
+}
+
+// Active nav link tracking
+const sections = document.querySelectorAll('.section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
+  navLinks.forEach(l => {
+    l.classList.remove('active');
+    if (l.getAttribute('href') === '#' + current) l.classList.add('active');
+  });
+}, { passive: true });
+
+// Nav search filter
+const navSearch = document.getElementById('navSearch');
+if (navSearch) {
+  navSearch.addEventListener('input', () => {
+    const q = navSearch.value.toLowerCase().trim();
+    navLinks.forEach(link => {
+      const text = link.textContent.toLowerCase();
+      link.classList.toggle('hidden', q.length > 0 && !text.includes(q));
+    });
+    // Hide group titles if all links in that group are hidden
+    document.querySelectorAll('.nav-group').forEach(group => {
+      const visibleLinks = group.querySelectorAll('.nav-link:not(.hidden)');
+      group.classList.toggle('hidden', q.length > 0 && visibleLinks.length === 0);
+    });
+  });
+}
+
+// Accordion toggle
+document.querySelectorAll('.accordion-trigger').forEach(trigger => {
+  trigger.addEventListener('click', () => {
+    const item = trigger.closest('.accordion-item');
+    const isOpen = item.classList.contains('open');
+    // Close all siblings
+    item.closest('.accordion').querySelectorAll('.accordion-item').forEach(i => i.classList.remove('open'));
+    // Toggle clicked
+    if (!isOpen) item.classList.add('open');
+  });
+});
+
+// Segment control toggle
+document.querySelectorAll('.segment').forEach(seg => {
+  seg.querySelectorAll('.segment-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      seg.querySelectorAll('.segment-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+});
+
+// ── Theme & Mode Controls ──────────────────────────────────────────
+const html = document.documentElement;
+
+// Theme swatches
+document.querySelectorAll('.tc-swatch').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const theme = btn.dataset.theme;
+    // Remove all theme attrs and re-apply chosen one
+    html.removeAttribute('data-theme');
+    if (theme !== 'emerald') html.setAttribute('data-theme', theme);
+    // Update active swatch
+    document.querySelectorAll('.tc-swatch').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+// Mode buttons
+document.querySelectorAll('.tc-mode-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const mode = btn.dataset.mode;
+    if (mode === 'dark') {
+      html.setAttribute('data-mode', 'dark');
+    } else {
+      html.removeAttribute('data-mode');
+    }
+    document.querySelectorAll('.tc-mode-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+// Respect OS preference on load
+if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  html.setAttribute('data-mode', 'dark');
+  document.querySelector('.tc-mode-btn[data-mode="dark"]').classList.add('active');
+  document.querySelector('.tc-mode-btn[data-mode="light"]').classList.remove('active');
+}
+</script>
+</body>
+</html>

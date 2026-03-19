@@ -1,0 +1,147 @@
+{
+  "colors": {
+    "brand": {
+      "default": { "value": "#0D875C", "type": "color" },
+      "hover": { "value": "#0B7550", "type": "color" },
+      "active": { "value": "#096843", "type": "color" },
+      "light": { "value": "#E6F5EE", "type": "color" },
+      "50": { "value": "#F0FAF5", "type": "color" }
+    },
+    "semantic": {
+      "success": { "value": "#0D875C", "type": "color" },
+      "success-light": { "value": "#E6F5EE", "type": "color" },
+      "info": { "value": "#0575AD", "type": "color" },
+      "info-light": { "value": "#E0F2FE", "type": "color" },
+      "warning": { "value": "#F59E0B", "type": "color" },
+      "warning-light": { "value": "#FEF3C7", "type": "color" },
+      "danger": { "value": "#DC2626", "type": "color" },
+      "danger-light": { "value": "#FEE2E2", "type": "color" }
+    },
+    "neutral": {
+      "black": { "value": "#111827", "type": "color" },
+      "grey-900": { "value": "#1F2937", "type": "color" },
+      "grey-800": { "value": "#374151", "type": "color" },
+      "grey-700": { "value": "#4B5563", "type": "color" },
+      "grey-600": { "value": "#6B7280", "type": "color" },
+      "grey-500": { "value": "#9CA3AF", "type": "color" },
+      "grey-400": { "value": "#D1D5DB", "type": "color" },
+      "grey-300": { "value": "#E5E7EB", "type": "color" },
+      "grey-200": { "value": "#F3F4F6", "type": "color" },
+      "grey-100": { "value": "#F9FAFB", "type": "color" },
+      "white": { "value": "#FFFFFF", "type": "color" }
+    },
+    "surface": {
+      "page": { "value": "#FFFFFF", "type": "color" },
+      "subtle": { "value": "#F9FAFB", "type": "color" },
+      "muted": { "value": "#F3F4F6", "type": "color" },
+      "overlay": { "value": "rgba(0,0,0,0.6)", "type": "color" }
+    },
+    "text": {
+      "primary": { "value": "#111827", "type": "color" },
+      "secondary": { "value": "#6B7280", "type": "color" },
+      "tertiary": { "value": "#9CA3AF", "type": "color" },
+      "inverse": { "value": "#FFFFFF", "type": "color" },
+      "link": { "value": "#065F46", "type": "color" },
+      "brand": { "value": "#065F46", "type": "color" }
+    },
+    "border": {
+      "default": { "value": "#E5E7EB", "type": "color" },
+      "strong": { "value": "#D1D5DB", "type": "color" },
+      "focus": { "value": "#0D875C", "type": "color" }
+    },
+    "status": {
+      "ordered": { "value": "#0D875C", "type": "color" },
+      "scheduled": { "value": "#0575AD", "type": "color" },
+      "overdue": { "value": "#EF4444", "type": "color" },
+      "in-progress": { "value": "#F59E0B", "type": "color" },
+      "cancelled": { "value": "#9CA3AF", "type": "color" },
+      "resulted": { "value": "#0D875C", "type": "color" },
+      "completed": { "value": "#374151", "type": "color" }
+    }
+  },
+  "spacing": {
+    "1": { "value": "4", "type": "spacing" },
+    "2": { "value": "8", "type": "spacing" },
+    "3": { "value": "12", "type": "spacing" },
+    "4": { "value": "16", "type": "spacing" },
+    "5": { "value": "20", "type": "spacing" },
+    "6": { "value": "24", "type": "spacing" },
+    "8": { "value": "32", "type": "spacing" },
+    "10": { "value": "40", "type": "spacing" },
+    "12": { "value": "48", "type": "spacing" },
+    "16": { "value": "64", "type": "spacing" },
+    "20": { "value": "80", "type": "spacing" },
+    "24": { "value": "96", "type": "spacing" }
+  },
+  "borderRadius": {
+    "sm": { "value": "6", "type": "borderRadius" },
+    "md": { "value": "8", "type": "borderRadius" },
+    "lg": { "value": "12", "type": "borderRadius" },
+    "xl": { "value": "16", "type": "borderRadius" },
+    "2xl": { "value": "24", "type": "borderRadius" },
+    "full": { "value": "9999", "type": "borderRadius" }
+  },
+  "fontSize": {
+    "xs": { "value": "12", "type": "fontSizes" },
+    "sm": { "value": "13", "type": "fontSizes" },
+    "base": { "value": "14", "type": "fontSizes" },
+    "lg": { "value": "16", "type": "fontSizes" },
+    "xl": { "value": "18", "type": "fontSizes" },
+    "2xl": { "value": "20", "type": "fontSizes" },
+    "3xl": { "value": "24", "type": "fontSizes" },
+    "4xl": { "value": "30", "type": "fontSizes" },
+    "5xl": { "value": "36", "type": "fontSizes" },
+    "6xl": { "value": "48", "type": "fontSizes" },
+    "7xl": { "value": "60", "type": "fontSizes" }
+  },
+  "fontFamily": {
+    "sans": { "value": "Inter, -apple-system, BlinkMacSystemFont, sans-serif", "type": "fontFamilies" },
+    "mono": { "value": "SF Mono, Fira Code, Consolas, monospace", "type": "fontFamilies" }
+  },
+  "boxShadow": {
+    "xs": {
+      "value": { "x": "0", "y": "1", "blur": "2", "spread": "0", "color": "rgba(0,0,0,0.05)", "type": "dropShadow" },
+      "type": "boxShadow"
+    },
+    "sm": {
+      "value": [
+        { "x": "0", "y": "1", "blur": "3", "spread": "0", "color": "rgba(0,0,0,0.08)", "type": "dropShadow" },
+        { "x": "0", "y": "1", "blur": "2", "spread": "0", "color": "rgba(0,0,0,0.04)", "type": "dropShadow" }
+      ],
+      "type": "boxShadow"
+    },
+    "md": {
+      "value": [
+        { "x": "0", "y": "4", "blur": "6", "spread": "-1", "color": "rgba(0,0,0,0.08)", "type": "dropShadow" },
+        { "x": "0", "y": "2", "blur": "4", "spread": "-2", "color": "rgba(0,0,0,0.05)", "type": "dropShadow" }
+      ],
+      "type": "boxShadow"
+    },
+    "lg": {
+      "value": [
+        { "x": "0", "y": "10", "blur": "15", "spread": "-3", "color": "rgba(0,0,0,0.08)", "type": "dropShadow" },
+        { "x": "0", "y": "4", "blur": "6", "spread": "-4", "color": "rgba(0,0,0,0.04)", "type": "dropShadow" }
+      ],
+      "type": "boxShadow"
+    },
+    "xl": {
+      "value": [
+        { "x": "0", "y": "20", "blur": "25", "spread": "-5", "color": "rgba(0,0,0,0.1)", "type": "dropShadow" },
+        { "x": "0", "y": "8", "blur": "10", "spread": "-6", "color": "rgba(0,0,0,0.04)", "type": "dropShadow" }
+      ],
+      "type": "boxShadow"
+    },
+    "focus": {
+      "value": { "x": "0", "y": "0", "blur": "0", "spread": "3", "color": "rgba(13,135,92,0.15)", "type": "dropShadow" },
+      "type": "boxShadow"
+    }
+  },
+  "zIndex": {
+    "base": { "value": "0", "type": "other" },
+    "dropdown": { "value": "10", "type": "other" },
+    "sticky": { "value": "20", "type": "other" },
+    "overlay": { "value": "30", "type": "other" },
+    "modal": { "value": "40", "type": "other" },
+    "toast": { "value": "50", "type": "other" }
+  }
+}
