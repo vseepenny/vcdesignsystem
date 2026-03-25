@@ -74,10 +74,10 @@
     "24": { "value": "96", "type": "spacing" }
   },
   "borderRadius": {
-    "sm": { "value": "6", "type": "borderRadius" },
-    "md": { "value": "8", "type": "borderRadius" },
-    "lg": { "value": "12", "type": "borderRadius" },
-    "xl": { "value": "16", "type": "borderRadius" },
+    "sm": { "value": "4", "type": "borderRadius" },
+    "md": { "value": "6", "type": "borderRadius" },
+    "lg": { "value": "8", "type": "borderRadius" },
+    "xl": { "value": "12", "type": "borderRadius" },
     "2xl": { "value": "24", "type": "borderRadius" },
     "full": { "value": "9999", "type": "borderRadius" }
   },
