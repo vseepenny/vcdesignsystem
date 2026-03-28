@@ -1,0 +1,4050 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VSee Design System — Ant Design v5 Edition</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/antd/5.12.8/reset.min.css">
+  <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+  <style>
+    /* ============================================================
+       VSee Design Tokens
+       ============================================================ */
+    :root {
+      /* Brand */
+      --brand-primary: #0D875C;
+      --brand-hover: #0B7550;
+      --brand-active: #096843;
+      --brand-light: #E6F5EE;
+      --brand-50: #F0FAF5;
+
+      /* Semantic */
+      --color-success: #0D875C;
+      --color-info: #0575AD;
+      --color-warning: #F59E0B;
+      --color-danger: #DC2626;
+
+      /* Neutrals */
+      --neutral-900: #111827;
+      --neutral-800: #1F2937;
+      --neutral-700: #374151;
+      --neutral-600: #4B5563;
+      --neutral-500: #6B7280;
+      --neutral-400: #9CA3AF;
+      --neutral-300: #D1D5DB;
+      --neutral-200: #E5E7EB;
+      --neutral-100: #F3F4F6;
+      --neutral-50: #F9FAFB;
+      --neutral-0: #FFFFFF;
+
+      /* Spacing */
+      --space-unit: 4px;
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 20px;
+      --space-6: 24px;
+      --space-8: 32px;
+      --space-10: 40px;
+      --space-12: 48px;
+      --space-16: 64px;
+
+      /* Radius */
+      --radius-sm: 4px;
+      --radius-md: 6px;
+      --radius-lg: 8px;
+      --radius-xl: 12px;
+      --radius-full: 9999px;
+
+      /* Shadows */
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+      --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1);
+
+      /* Layout */
+      --sidebar-width: 240px;
+      --header-height: 48px;
+
+      /* Theme-specific */
+      --bg-body: #F5F5F5;
+      --bg-surface: #FFFFFF;
+      --bg-sidebar: #FFFFFF;
+      --text-primary: #111827;
+      --text-secondary: #4B5563;
+      --text-tertiary: #4B5563;
+      --placeholder-color: #6B7280;
+      --border-color: #E5E7EB;
+      --border-color-light: #F3F4F6;
+      --code-bg: #F3F4F6;
+    }
+
+    [data-theme="dark"] {
+      --bg-body: #141414;
+      --bg-surface: #1F1F1F;
+      --bg-sidebar: #1F1F1F;
+      --text-primary: #FFFFFF;
+      --text-secondary: #A0AEC0;
+      --text-tertiary: #8CA0B8;
+      --border-color: #303030;
+      --border-color-light: #262626;
+      --brand-light: #0D2E20;
+      --brand-50: #0A2218;
+      --code-bg: #262626;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.2);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.3);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.3);
+    }
+
+    /* ============================================================
+       Global Reset & Base
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 14px;
+      line-height: 1.5714;
+      color: var(--text-primary);
+      background: var(--bg-body);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ============================================================
+       Layout
+       ============================================================ */
+    .layout {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: var(--sidebar-width);
+      background: var(--bg-sidebar);
+      border-right: 1px solid var(--border-color);
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      overflow-y: auto;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .sidebar-logo {
+      width: 28px;
+      height: 28px;
+      background: var(--brand-primary);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .sidebar-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.2;
+    }
+
+    .sidebar-subtitle {
+      font-size: 11px;
+      color: var(--brand-primary);
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .sidebar-nav {
+      flex: 1;
+      padding: 8px 0;
+      overflow-y: auto;
+    }
+
+    .nav-group-label {
+      padding: 12px 20px 4px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .nav-link {
+      display: block;
+      padding: 6px 20px 6px 20px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: all 0.15s;
+      border-right: 2px solid transparent;
+    }
+
+    .nav-link:hover {
+      color: #065F46;
+      background: var(--brand-50);
+    }
+
+    .nav-link.active {
+      color: #065F46;
+      background: var(--brand-light);
+      border-right-color: var(--brand-primary);
+      font-weight: 500;
+    }
+
+    .sidebar-footer {
+      padding: 12px 20px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      font-size: 13px;
+      color: var(--text-secondary);
+      background: none;
+      border: none;
+      width: 100%;
+      padding: 8px 0;
+      font-family: inherit;
+    }
+
+    .theme-toggle:hover { color: var(--brand-primary); }
+
+    .theme-toggle-track {
+      width: 36px;
+      height: 20px;
+      background: var(--neutral-300);
+      border-radius: 10px;
+      position: relative;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+
+    [data-theme="dark"] .theme-toggle-track {
+      background: var(--brand-primary);
+    }
+
+    .theme-toggle-thumb {
+      width: 16px;
+      height: 16px;
+      background: white;
+      border-radius: 50%;
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      transition: transform 0.2s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    }
+
+    [data-theme="dark"] .theme-toggle-thumb {
+      transform: translateX(16px);
+    }
+
+    /* Main content */
+    .main {
+      flex: 1;
+      margin-left: var(--sidebar-width);
+      min-width: 0;
+    }
+
+    .content {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 32px 80px;
+    }
+
+    /* ============================================================
+       Comparison Banner
+       ============================================================ */
+    .comparison-banner {
+      background: linear-gradient(135deg, #0575AD 0%, #0D875C 100%);
+      color: white;
+      padding: 10px 32px;
+      font-size: 13px;
+      font-weight: 500;
+      text-align: center;
+      margin-left: var(--sidebar-width);
+    }
+
+    .comparison-banner strong { font-weight: 700; }
+
+    /* ============================================================
+       Hero
+       ============================================================ */
+    .hero {
+      background: linear-gradient(135deg, var(--brand-primary) 0%, #0575AD 100%);
+      color: white;
+      padding: 56px 40px;
+      border-radius: var(--radius-xl);
+      margin: 32px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .hero h1 {
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      position: relative;
+    }
+
+    .hero p {
+      font-size: 16px;
+      color: rgba(255,255,255,1);
+      position: relative;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.35);
+      backdrop-filter: blur(4px);
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: var(--radius-full);
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      position: relative;
+    }
+
+    /* ============================================================
+       Section
+       ============================================================ */
+    .section {
+      margin-bottom: 48px;
+      scroll-margin-top: 20px;
+    }
+
+    .section-header {
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .section-desc {
+      font-size: 13px;
+      color: var(--text-tertiary);
+    }
+
+    .subsection {
+      margin-bottom: 24px;
+    }
+
+    .subsection-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+
+    .component-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .component-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    /* ============================================================
+       Ant Design v5 Component Styles (CSS-only replicas)
+       ============================================================ */
+
+    /* --- Buttons --- */
+    .ant-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      height: 32px;
+      padding: 0 16px;
+      border-radius: var(--radius-md);
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+      line-height: 1;
+      white-space: nowrap;
+      user-select: none;
+      outline: none;
+    }
+
+    .ant-btn-primary {
+      background: var(--brand-primary);
+      border-color: var(--brand-primary);
+      color: #fff;
+    }
+
+    .ant-btn-primary:hover {
+      background: var(--brand-hover);
+      border-color: var(--brand-hover);
+    }
+
+    .ant-btn-primary:active {
+      background: var(--brand-active);
+      border-color: var(--brand-active);
+    }
+
+    .ant-btn-default {
+      background: var(--bg-surface);
+      border-color: var(--border-color);
+      color: var(--text-primary);
+    }
+
+    .ant-btn-default:hover {
+      color: var(--brand-primary);
+      border-color: var(--brand-primary);
+    }
+
+    .ant-btn-dashed {
+      background: var(--bg-surface);
+      border: 1px dashed var(--border-color);
+      color: var(--text-primary);
+    }
+
+    .ant-btn-dashed:hover {
+      color: var(--brand-primary);
+      border-color: var(--brand-primary);
+    }
+
+    .ant-btn-text {
+      background: transparent;
+      border-color: transparent;
+      color: var(--text-primary);
+    }
+
+    .ant-btn-text:hover {
+      background: var(--neutral-100);
+    }
+
+    .ant-btn-link {
+      background: transparent;
+      border-color: transparent;
+      color: var(--brand-primary);
+    }
+
+    .ant-btn-link:hover {
+      color: var(--brand-hover);
+    }
+
+    .ant-btn-ghost {
+      background: transparent;
+      border-color: var(--brand-primary);
+      color: var(--brand-primary);
+    }
+
+    .ant-btn-ghost:hover {
+      background: var(--brand-50);
+      border-color: var(--brand-hover);
+      color: var(--brand-hover);
+    }
+
+    .ant-btn-dangerous {
+      background: var(--bg-surface);
+      border-color: var(--color-danger);
+      color: var(--color-danger);
+    }
+
+    .ant-btn-dangerous:hover {
+      background: #FEF2F2;
+      border-color: #EF4444;
+      color: #EF4444;
+    }
+
+    .ant-btn-dangerous.ant-btn-primary {
+      background: var(--color-danger);
+      border-color: var(--color-danger);
+      color: #fff;
+    }
+
+    .ant-btn-dangerous.ant-btn-primary:hover {
+      background: #EF4444;
+      border-color: #EF4444;
+    }
+
+    /* Sizes */
+    .ant-btn-sm {
+      height: 24px;
+      padding: 0 8px;
+      font-size: 12px;
+      border-radius: 4px;
+    }
+
+    .ant-btn-lg {
+      height: 40px;
+      padding: 0 24px;
+      font-size: 16px;
+      border-radius: 8px;
+    }
+
+    /* Loading */
+    .ant-btn-loading {
+      opacity: 0.7;
+      pointer-events: none;
+      position: relative;
+    }
+
+    .ant-btn-loading::before {
+      content: '';
+      width: 14px;
+      height: 14px;
+      border: 2px solid currentColor;
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: antd-spin 1s linear infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes antd-spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Icon button */
+    .ant-btn-icon-only {
+      width: 32px;
+      padding: 0;
+    }
+
+    .ant-btn-icon-only.ant-btn-sm { width: 24px; }
+    .ant-btn-icon-only.ant-btn-lg { width: 40px; }
+
+    /* Block */
+    .ant-btn-block { width: 100%; }
+
+    /* Button group */
+    .ant-btn-group {
+      display: inline-flex;
+    }
+
+    .ant-btn-group .ant-btn { border-radius: 0; margin-left: -1px; }
+    .ant-btn-group .ant-btn:first-child { border-radius: var(--radius-md) 0 0 var(--radius-md); margin-left: 0; }
+    .ant-btn-group .ant-btn:last-child { border-radius: 0 var(--radius-md) var(--radius-md) 0; }
+
+    /* Focus visibility */
+    .ant-btn:focus-visible {
+      outline: 2px solid #0D875C;
+      outline-offset: 2px;
+    }
+
+    /* Disabled */
+    .ant-btn[disabled], .ant-btn-disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    /* --- Inputs --- */
+    .ant-input {
+      font-family: inherit;
+      font-size: 14px;
+      height: 32px;
+      padding: 4px 12px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      outline: none;
+      transition: all 0.2s;
+      width: 100%;
+    }
+
+    .ant-input:hover { border-color: var(--brand-primary); }
+
+    .ant-input:focus {
+      border-color: var(--brand-primary);
+      box-shadow: 0 0 0 2px rgba(13, 135, 92, 0.2);
+    }
+
+    .ant-input::placeholder { color: #6B7280; }
+
+    .ant-input-lg { height: 40px; font-size: 16px; padding: 4px 16px; }
+    .ant-input-sm { height: 24px; font-size: 12px; padding: 2px 8px; }
+
+    .ant-input-disabled {
+      background: var(--neutral-100);
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+
+    .ant-input-status-error { border-color: var(--color-danger); }
+    .ant-input-status-error:focus { box-shadow: 0 0 0 2px rgba(220,38,38,0.1); }
+
+    .ant-input-status-warning { border-color: var(--color-warning); }
+
+    textarea.ant-input {
+      height: auto;
+      min-height: 80px;
+      padding: 8px 12px;
+      resize: vertical;
+    }
+
+    /* Input with prefix/suffix */
+    .ant-input-affix-wrapper {
+      display: flex;
+      align-items: center;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 0 12px;
+      height: 32px;
+      background: var(--bg-surface);
+      transition: all 0.2s;
+    }
+
+    .ant-input-affix-wrapper:hover { border-color: var(--brand-primary); }
+
+    .ant-input-affix-wrapper:focus-within {
+      border-color: var(--brand-primary);
+      box-shadow: 0 0 0 2px rgba(13,135,92,0.2);
+    }
+
+    .ant-input-affix-wrapper .ant-input {
+      border: none;
+      height: auto;
+      padding: 0;
+      box-shadow: none;
+    }
+
+    .ant-input-affix-wrapper .ant-input:focus { box-shadow: none; }
+
+    .ant-input-prefix, .ant-input-suffix {
+      color: #6B7280;
+      display: flex;
+      align-items: center;
+    }
+
+    .ant-input-prefix { margin-right: 8px; }
+    .ant-input-suffix { margin-left: 8px; }
+
+    /* Input group */
+    .ant-input-group {
+      display: flex;
+    }
+
+    .ant-input-group .ant-input { border-radius: 0; }
+    .ant-input-group .ant-input:first-child { border-radius: var(--radius-md) 0 0 var(--radius-md); }
+    .ant-input-group .ant-input:last-child { border-radius: 0 var(--radius-md) var(--radius-md) 0; }
+
+    .ant-input-group-addon {
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      background: var(--neutral-100);
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .ant-input-group-addon:first-child {
+      border-right: none;
+      border-radius: var(--radius-md) 0 0 var(--radius-md);
+    }
+
+    .ant-input-group-addon:last-child {
+      border-left: none;
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    }
+
+    /* Search */
+    .ant-input-search {
+      display: flex;
+    }
+
+    .ant-input-search .ant-input {
+      border-radius: var(--radius-md) 0 0 var(--radius-md);
+    }
+
+    .ant-input-search .ant-btn {
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    }
+
+    /* Password */
+    .ant-input-password .ant-input-suffix { cursor: pointer; }
+
+    /* Number */
+    .ant-input-number {
+      width: 100%;
+    }
+
+    /* Form item */
+    .ant-form-item {
+      margin-bottom: 20px;
+    }
+
+    .ant-form-item-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .ant-form-item-label.required::after {
+      content: ' *';
+      color: var(--color-danger);
+    }
+
+    .ant-form-item-help {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      margin-top: 4px;
+    }
+
+    .ant-form-item-help.error { color: var(--color-danger); }
+
+    /* --- Select --- */
+    .ant-select {
+      display: inline-flex;
+      align-items: center;
+      height: 32px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      background: var(--bg-surface);
+      padding: 0 32px 0 12px;
+      font-size: 14px;
+      color: var(--text-primary);
+      cursor: pointer;
+      position: relative;
+      transition: all 0.2s;
+      min-width: 160px;
+      font-family: inherit;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+    }
+
+    .ant-select:hover { border-color: var(--brand-primary); }
+
+    .ant-select:focus {
+      border-color: var(--brand-primary);
+      box-shadow: 0 0 0 2px rgba(13,135,92,0.2);
+      outline: none;
+    }
+
+    /* --- Checkbox --- */
+    .ant-checkbox-wrapper {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--text-primary);
+      cursor: pointer;
+    }
+
+    .ant-checkbox {
+      width: 16px;
+      height: 16px;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      background: var(--bg-surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+
+    .ant-checkbox.checked {
+      background: var(--brand-primary);
+      border-color: var(--brand-primary);
+    }
+
+    .ant-checkbox.checked::after {
+      content: '';
+      width: 5px;
+      height: 9px;
+      border: 2px solid white;
+      border-top: none;
+      border-left: none;
+      transform: rotate(45deg) translate(-1px, -1px);
+    }
+
+    /* --- Radio --- */
+    .ant-radio-wrapper {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--text-primary);
+      cursor: pointer;
+    }
+
+    .ant-radio {
+      width: 16px;
+      height: 16px;
+      border: 1px solid var(--border-color);
+      border-radius: 50%;
+      background: var(--bg-surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+
+    .ant-radio.checked {
+      border-color: var(--brand-primary);
+    }
+
+    .ant-radio.checked::after {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: var(--brand-primary);
+      border-radius: 50%;
+    }
+
+    /* --- Switch --- */
+    .ant-switch {
+      display: inline-flex;
+      align-items: center;
+      width: 44px;
+      height: 22px;
+      background: var(--neutral-400);
+      border-radius: 11px;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+      border: none;
+      padding: 0;
+    }
+
+    .ant-switch::after {
+      content: '';
+      width: 18px;
+      height: 18px;
+      background: white;
+      border-radius: 50%;
+      position: absolute;
+      left: 2px;
+      transition: transform 0.2s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    }
+
+    .ant-switch.checked {
+      background: var(--brand-primary);
+    }
+
+    .ant-switch.checked::after {
+      transform: translateX(22px);
+    }
+
+    .ant-switch:focus-visible {
+      outline: 2px solid #0D875C;
+      outline-offset: 2px;
+    }
+
+    /* --- Tags --- */
+    .ant-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 8px;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 20px;
+      border-radius: var(--radius-sm);
+      border: 1px solid transparent;
+      white-space: nowrap;
+    }
+
+    .ant-tag-default {
+      background: var(--neutral-100);
+      color: var(--text-secondary);
+      border-color: var(--border-color);
+    }
+
+    .ant-tag-success {
+      background: #F0FDF4;
+      color: #15803D;
+      border-color: #BBF7D0;
+    }
+
+    .ant-tag-info, .ant-tag-processing {
+      background: #EFF6FF;
+      color: #1D4ED8;
+      border-color: #BFDBFE;
+    }
+
+    .ant-tag-warning {
+      background: #FFFBEB;
+      color: #B45309;
+      border-color: #FDE68A;
+    }
+
+    .ant-tag-error {
+      background: #FEF2F2;
+      color: #991B1B;
+      border-color: #FECACA;
+    }
+
+    .ant-tag-closeable .ant-tag-close {
+      margin-left: 4px;
+      cursor: pointer;
+      font-size: 10px;
+      opacity: 0.85;
+    }
+
+    .ant-tag-closeable .ant-tag-close:hover { opacity: 1; }
+
+    /* Bordered variants */
+    .ant-tag-bordered.ant-tag-success { border-color: #22C55E; }
+    .ant-tag-bordered.ant-tag-info { border-color: #3B82F6; }
+    .ant-tag-bordered.ant-tag-warning { border-color: #F59E0B; }
+    .ant-tag-bordered.ant-tag-error { border-color: #EF4444; }
+
+    /* --- Badge --- */
+    .ant-badge {
+      display: inline-flex;
+      align-items: center;
+      position: relative;
+    }
+
+    .ant-badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      position: absolute;
+      top: -2px;
+      right: -2px;
+    }
+
+    .ant-badge-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      min-width: 20px;
+      height: 20px;
+      padding: 0 6px;
+      font-size: 11px;
+      font-weight: 600;
+      color: white;
+      background: var(--color-danger);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+
+    .ant-badge-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+    }
+
+    .ant-badge-status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .status-success { background: var(--color-success); }
+    .status-info { background: var(--color-info); }
+    .status-warning { background: var(--color-warning); }
+    .status-error { background: var(--color-danger); }
+    .status-default { background: var(--neutral-400); }
+    .status-processing {
+      background: var(--color-info);
+      animation: antd-pulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes antd-pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.3); }
+    }
+
+    /* --- Alert --- */
+    .ant-alert {
+      padding: 12px 16px;
+      border-radius: var(--radius-lg);
+      border: 1px solid;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .ant-alert-icon {
+      font-size: 16px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .ant-alert-content { flex: 1; }
+
+    .ant-alert-message {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+
+    .ant-alert-description {
+      font-size: 13px;
+    }
+
+    .ant-alert-success {
+      background: #F0FDF4;
+      border-color: #BBF7D0;
+      color: #15803D;
+    }
+
+    .ant-alert-success .ant-alert-description { color: #166534; }
+
+    .ant-alert-info {
+      background: #EFF6FF;
+      border-color: #BFDBFE;
+      color: #1D4ED8;
+    }
+
+    .ant-alert-info .ant-alert-description { color: #1E40AF; }
+
+    .ant-alert-warning {
+      background: #FFFBEB;
+      border-color: #FDE68A;
+      color: #92400E;
+    }
+
+    .ant-alert-warning .ant-alert-description { color: #92400E; }
+
+    .ant-alert-error {
+      background: #FEF2F2;
+      border-color: #FECACA;
+      color: #991B1B;
+    }
+
+    .ant-alert-error .ant-alert-description { color: #991B1B; }
+
+    /* --- Card --- */
+    .ant-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+    }
+
+    .ant-card-shadow { box-shadow: var(--shadow-md); border: none; }
+    .ant-card-shadow-lg { box-shadow: var(--shadow-lg); border: none; }
+
+    .ant-card-head {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .ant-card-head-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .ant-card-head-extra {
+      font-size: 13px;
+      color: var(--brand-primary);
+      cursor: pointer;
+    }
+
+    .ant-card-body {
+      padding: 24px;
+    }
+
+    .ant-card-body p {
+      color: var(--text-secondary);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .ant-card-footer {
+      padding: 12px 24px;
+      border-top: 1px solid var(--border-color);
+      background: var(--neutral-50);
+    }
+
+    [data-theme="dark"] .ant-card-footer { background: var(--border-color-light); }
+
+    .ant-card-meta-title {
+      font-weight: 600;
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+
+    .ant-card-meta-description {
+      font-size: 13px;
+      color: var(--text-tertiary);
+    }
+
+    /* --- Tabs --- */
+    .ant-tabs {
+      margin-bottom: 16px;
+    }
+
+    .ant-tabs-nav {
+      display: flex;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 16px;
+    }
+
+    .ant-tabs-tab {
+      padding: 12px 16px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .ant-tabs-tab:hover { color: var(--brand-primary); }
+
+    .ant-tabs-tab.active {
+      color: var(--brand-primary);
+      border-bottom-color: var(--brand-primary);
+    }
+
+    .ant-tabs-tab.disabled {
+      color: var(--neutral-400);
+      cursor: not-allowed;
+    }
+
+    /* Card-type tabs */
+    .ant-tabs-card .ant-tabs-nav {
+      border-bottom: 1px solid var(--border-color);
+      gap: 2px;
+    }
+
+    .ant-tabs-card .ant-tabs-tab {
+      border: 1px solid var(--border-color);
+      border-bottom: none;
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+      background: var(--neutral-50);
+      margin-bottom: -1px;
+      padding: 8px 16px;
+    }
+
+    .ant-tabs-card .ant-tabs-tab.active {
+      background: var(--bg-surface);
+      border-bottom-color: var(--bg-surface);
+      color: var(--brand-primary);
+    }
+
+    /* --- Table --- */
+    .ant-table-wrapper {
+      overflow-x: auto;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+    }
+
+    .ant-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    .ant-table thead th {
+      background: var(--neutral-50);
+      padding: 12px 16px;
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--text-secondary);
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+      white-space: nowrap;
+    }
+
+    [data-theme="dark"] .ant-table thead th {
+      background: var(--border-color-light);
+    }
+
+    .ant-table tbody td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-color-light);
+      color: var(--text-primary);
+    }
+
+    .ant-table tbody tr:hover td {
+      background: var(--brand-50);
+    }
+
+    .ant-table tbody tr:last-child td { border-bottom: none; }
+
+    /* --- Modal --- */
+    .ant-modal-demo {
+      position: relative;
+      background: rgba(0,0,0,0.45);
+      border-radius: var(--radius-xl);
+      padding: 60px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 360px;
+    }
+
+    .ant-modal {
+      background: var(--bg-surface);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-xl);
+      width: 100%;
+      max-width: 480px;
+      animation: antd-modal-in 0.3s ease;
+    }
+
+    @keyframes antd-modal-in {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .ant-modal-header {
+      padding: 20px 24px 0;
+    }
+
+    .ant-modal-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .ant-modal-body {
+      padding: 16px 24px;
+    }
+
+    .ant-modal-body p {
+      color: var(--text-secondary);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .ant-modal-footer {
+      padding: 12px 24px 20px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .ant-modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background: transparent;
+      color: var(--text-tertiary);
+      cursor: pointer;
+      border-radius: var(--radius-sm);
+      font-size: 16px;
+    }
+
+    .ant-modal-close:hover {
+      background: var(--neutral-100);
+      color: var(--text-primary);
+    }
+
+    /* --- Avatar --- */
+    .ant-avatar {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      font-weight: 600;
+      color: white;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .ant-avatar-sm { width: 24px; height: 24px; font-size: 11px; }
+    .ant-avatar-default { width: 32px; height: 32px; font-size: 14px; }
+    .ant-avatar-lg { width: 40px; height: 40px; font-size: 16px; }
+    .ant-avatar-xl { width: 48px; height: 48px; font-size: 18px; }
+    .ant-avatar-xxl { width: 64px; height: 64px; font-size: 24px; }
+
+    .ant-avatar-square { border-radius: var(--radius-md); }
+
+    .ant-avatar-group {
+      display: flex;
+    }
+
+    .ant-avatar-group .ant-avatar {
+      border: 2px solid var(--bg-surface);
+      margin-left: -8px;
+    }
+
+    .ant-avatar-group .ant-avatar:first-child { margin-left: 0; }
+
+    /* --- Pagination --- */
+    .ant-pagination {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      list-style: none;
+    }
+
+    .ant-pagination-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: var(--bg-surface);
+      color: var(--text-primary);
+    }
+
+    .ant-pagination-item:hover {
+      color: var(--brand-primary);
+      border-color: var(--brand-primary);
+    }
+
+    .ant-pagination-item.active {
+      background: var(--brand-primary);
+      border-color: var(--brand-primary);
+      color: white;
+      font-weight: 500;
+    }
+
+    .ant-pagination-item.disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .ant-pagination-ellipsis {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      color: var(--text-tertiary);
+      letter-spacing: 2px;
+    }
+
+    /* --- Breadcrumb --- */
+    .ant-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+    }
+
+    .ant-breadcrumb-link {
+      color: var(--text-tertiary);
+      text-decoration: none;
+    }
+
+    .ant-breadcrumb-link:hover { color: var(--brand-primary); }
+
+    .ant-breadcrumb-link.current { color: var(--text-primary); font-weight: 500; }
+
+    .ant-breadcrumb-separator { color: #6B7280; font-size: 12px; }
+
+    /* --- Tooltip --- */
+    .ant-tooltip-demo {
+      position: relative;
+      display: inline-block;
+    }
+
+    .ant-tooltip {
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.85);
+      color: white;
+      padding: 6px 12px;
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .ant-tooltip::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: rgba(0,0,0,0.85);
+    }
+
+    /* Popover */
+    .ant-popover {
+      position: absolute;
+      bottom: calc(100% + 10px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      padding: 16px;
+      min-width: 200px;
+      z-index: 10;
+    }
+
+    .ant-popover::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 6px solid transparent;
+      border-top-color: var(--bg-surface);
+    }
+
+    .ant-popover-title {
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 8px;
+      color: var(--text-primary);
+    }
+
+    .ant-popover-content {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    /* --- Progress --- */
+    .ant-progress {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .ant-progress-outer {
+      flex: 1;
+      height: 8px;
+      background: var(--neutral-200);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .ant-progress-inner {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.3s;
+    }
+
+    .ant-progress-text {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      min-width: 40px;
+      text-align: right;
+    }
+
+    .ant-progress-success .ant-progress-inner { background: var(--color-success); }
+    .ant-progress-info .ant-progress-inner { background: var(--color-info); }
+    .ant-progress-warning .ant-progress-inner { background: var(--color-warning); }
+    .ant-progress-danger .ant-progress-inner { background: var(--color-danger); }
+
+    /* Circle progress */
+    .ant-progress-circle {
+      position: relative;
+      width: 80px;
+      height: 80px;
+    }
+
+    .ant-progress-circle svg {
+      transform: rotate(-90deg);
+    }
+
+    .ant-progress-circle-text {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    /* --- Timeline --- */
+    .ant-timeline {
+      padding-left: 0;
+      list-style: none;
+    }
+
+    .ant-timeline-item {
+      position: relative;
+      padding: 0 0 24px 28px;
+    }
+
+    .ant-timeline-item:last-child { padding-bottom: 0; }
+
+    .ant-timeline-item::before {
+      content: '';
+      position: absolute;
+      left: 5px;
+      top: 12px;
+      bottom: -12px;
+      width: 2px;
+      background: var(--border-color);
+    }
+
+    .ant-timeline-item:last-child::before { display: none; }
+
+    .ant-timeline-item-dot {
+      position: absolute;
+      left: 0;
+      top: 4px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 2px solid var(--brand-primary);
+      background: var(--bg-surface);
+      z-index: 1;
+    }
+
+    .ant-timeline-item-dot.success { border-color: var(--color-success); }
+    .ant-timeline-item-dot.info { border-color: var(--color-info); }
+    .ant-timeline-item-dot.warning { border-color: var(--color-warning); }
+    .ant-timeline-item-dot.error { border-color: var(--color-danger); }
+
+    .ant-timeline-item-content {
+      font-size: 14px;
+      color: var(--text-primary);
+    }
+
+    .ant-timeline-item-content small {
+      display: block;
+      font-size: 12px;
+      color: var(--text-tertiary);
+      margin-top: 2px;
+    }
+
+    /* --- Dropdown --- */
+    .ant-dropdown {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      padding: 4px;
+      min-width: 180px;
+    }
+
+    .ant-dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      font-size: 14px;
+      color: var(--text-primary);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .ant-dropdown-item:hover { background: var(--brand-50); }
+
+    .ant-dropdown-item.active {
+      background: var(--brand-light);
+      color: var(--brand-primary);
+    }
+
+    .ant-dropdown-item.danger { color: var(--color-danger); }
+    .ant-dropdown-item.danger:hover { background: #FEF2F2; }
+
+    .ant-dropdown-item.disabled {
+      color: var(--neutral-400);
+      cursor: not-allowed;
+    }
+
+    .ant-dropdown-divider {
+      height: 1px;
+      background: var(--border-color);
+      margin: 4px 0;
+    }
+
+    /* --- List --- */
+    .ant-list {
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .ant-list-item {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-color-light);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .ant-list-item:last-child { border-bottom: none; }
+
+    .ant-list-item:hover { background: var(--neutral-50); }
+
+    .ant-list-item-content { flex: 1; }
+
+    .ant-list-item-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .ant-list-item-description {
+      font-size: 13px;
+      color: var(--text-tertiary);
+    }
+
+    .ant-list-item-action {
+      display: flex;
+      gap: 8px;
+    }
+
+    /* --- Drawer --- */
+    .ant-drawer-demo {
+      position: relative;
+      background: rgba(0,0,0,0.25);
+      border-radius: var(--radius-xl);
+      min-height: 300px;
+      overflow: hidden;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .ant-drawer {
+      background: var(--bg-surface);
+      width: 320px;
+      box-shadow: var(--shadow-xl);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ant-drawer-header {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .ant-drawer-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .ant-drawer-body {
+      padding: 24px;
+      flex: 1;
+    }
+
+    .ant-drawer-body p {
+      color: var(--text-secondary);
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    .ant-drawer-footer {
+      padding: 12px 24px;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    /* --- Result --- */
+    .ant-result {
+      text-align: center;
+      padding: 40px 24px;
+    }
+
+    .ant-result-icon {
+      font-size: 64px;
+      margin-bottom: 16px;
+    }
+
+    .ant-result-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .ant-result-subtitle {
+      font-size: 14px;
+      color: var(--text-tertiary);
+      margin-bottom: 24px;
+    }
+
+    /* --- Spin --- */
+    .ant-spin {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ant-spin-dot {
+      width: 32px;
+      height: 32px;
+      border: 3px solid var(--brand-primary);
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: antd-spin 0.8s linear infinite;
+    }
+
+    .ant-spin-sm .ant-spin-dot { width: 20px; height: 20px; border-width: 2px; }
+    .ant-spin-lg .ant-spin-dot { width: 48px; height: 48px; border-width: 4px; }
+
+    .ant-spin-text {
+      margin-top: 8px;
+      font-size: 13px;
+      color: var(--brand-primary);
+    }
+
+    /* --- Steps --- */
+    .ant-steps {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .ant-step {
+      flex: 1;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      position: relative;
+    }
+
+    .ant-step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 15px;
+      left: 40px;
+      right: 0;
+      height: 1px;
+      background: var(--border-color);
+    }
+
+    .ant-step-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 500;
+      flex-shrink: 0;
+      background: var(--bg-surface);
+      color: var(--text-tertiary);
+      z-index: 1;
+    }
+
+    .ant-step.active .ant-step-icon {
+      background: var(--brand-primary);
+      border-color: var(--brand-primary);
+      color: white;
+    }
+
+    .ant-step.finish .ant-step-icon {
+      border-color: var(--brand-primary);
+      color: var(--brand-primary);
+    }
+
+    .ant-step.finish::after { background: var(--brand-primary); }
+
+    .ant-step-content {
+      padding-top: 4px;
+    }
+
+    .ant-step-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .ant-step-description {
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+
+    /* --- Collapse / Accordion --- */
+    .ant-collapse {
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .ant-collapse-item {
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .ant-collapse-item:last-child { border-bottom: none; }
+
+    .ant-collapse-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      color: var(--text-primary);
+      background: var(--neutral-50);
+      transition: background 0.2s;
+    }
+
+    [data-theme="dark"] .ant-collapse-header { background: var(--border-color-light); }
+
+    .ant-collapse-header:hover { background: var(--brand-50); }
+
+    .ant-collapse-arrow {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      transition: transform 0.2s;
+    }
+
+    .ant-collapse-item.open .ant-collapse-arrow {
+      transform: rotate(90deg);
+    }
+
+    .ant-collapse-content {
+      padding: 16px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      background: var(--bg-surface);
+    }
+
+    /* --- Skeleton --- */
+    .ant-skeleton {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .ant-skeleton-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--neutral-200);
+      flex-shrink: 0;
+      animation: antd-skeleton-pulse 1.5s ease-in-out infinite;
+    }
+
+    .ant-skeleton-content { flex: 1; }
+
+    .ant-skeleton-title {
+      height: 16px;
+      background: var(--neutral-200);
+      border-radius: 4px;
+      margin-bottom: 12px;
+      width: 40%;
+      animation: antd-skeleton-pulse 1.5s ease-in-out 0.1s infinite;
+    }
+
+    .ant-skeleton-paragraph {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .ant-skeleton-line {
+      height: 12px;
+      background: var(--neutral-200);
+      border-radius: 4px;
+      animation: antd-skeleton-pulse 1.5s ease-in-out 0.2s infinite;
+    }
+
+    .ant-skeleton-line:last-child { width: 60%; }
+
+    @keyframes antd-skeleton-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* --- Empty --- */
+    .ant-empty {
+      text-align: center;
+      padding: 40px 24px;
+    }
+
+    .ant-empty-image {
+      width: 64px;
+      height: 48px;
+      margin: 0 auto 16px;
+      opacity: 0.4;
+    }
+
+    .ant-empty-description {
+      color: var(--text-tertiary);
+      font-size: 14px;
+    }
+
+    /* --- Segmented --- */
+    .ant-segmented {
+      display: inline-flex;
+      background: var(--neutral-100);
+      border-radius: var(--radius-md);
+      padding: 2px;
+      gap: 0;
+    }
+
+    [data-theme="dark"] .ant-segmented { background: var(--border-color); }
+
+    .ant-segmented-item {
+      padding: 6px 16px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      cursor: pointer;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .ant-segmented-item:hover { color: var(--text-primary); }
+
+    .ant-segmented-item.active {
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* --- Rate --- */
+    .ant-rate {
+      display: inline-flex;
+      gap: 4px;
+    }
+
+    .ant-rate-star {
+      font-size: 24px;
+      cursor: pointer;
+      color: #6B7280;
+      transition: color 0.15s;
+    }
+
+    .ant-rate-star.active { color: #B45309; }
+
+    .ant-rate-star:hover { color: #FDE047; }
+
+    /* --- Tree --- */
+    .ant-tree {
+      font-size: 14px;
+    }
+
+    .ant-tree-node {
+      padding: 4px 0;
+    }
+
+    .ant-tree-node-content {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 8px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .ant-tree-node-content:hover { background: var(--brand-50); }
+
+    .ant-tree-switcher {
+      width: 16px;
+      color: var(--text-tertiary);
+      font-size: 12px;
+      flex-shrink: 0;
+      text-align: center;
+    }
+
+    .ant-tree-title { color: var(--text-primary); }
+
+    .ant-tree-children {
+      padding-left: 24px;
+    }
+
+    .ant-tree-icon { color: var(--text-tertiary); font-size: 14px; }
+
+    /* --- Descriptions --- */
+    .ant-descriptions {
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .ant-descriptions-header {
+      padding: 12px 16px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      background: var(--neutral-50);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    [data-theme="dark"] .ant-descriptions-header { background: var(--border-color-light); }
+
+    .ant-descriptions-row {
+      display: flex;
+      border-bottom: 1px solid var(--border-color-light);
+    }
+
+    .ant-descriptions-row:last-child { border-bottom: none; }
+
+    .ant-descriptions-label {
+      width: 160px;
+      padding: 12px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      background: var(--neutral-50);
+      flex-shrink: 0;
+    }
+
+    [data-theme="dark"] .ant-descriptions-label { background: var(--border-color-light); }
+
+    .ant-descriptions-value {
+      flex: 1;
+      padding: 12px 16px;
+      font-size: 14px;
+      color: var(--text-primary);
+    }
+
+    /* ============================================================
+       Color Swatches
+       ============================================================ */
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 12px;
+    }
+
+    .color-swatch {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+
+    .color-swatch-block {
+      height: 56px;
+    }
+
+    .color-swatch-info {
+      padding: 8px 10px;
+      background: var(--bg-surface);
+    }
+
+    .color-swatch-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .color-swatch-hex {
+      font-size: 11px;
+      color: var(--text-tertiary);
+      font-family: 'SF Mono', 'Monaco', 'Menlo', monospace;
+    }
+
+    /* ============================================================
+       Typography Specimen
+       ============================================================ */
+    .type-specimen {
+      margin-bottom: 12px;
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+    }
+
+    .type-label {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      font-family: 'SF Mono', monospace;
+      width: 80px;
+      flex-shrink: 0;
+    }
+
+    /* ============================================================
+       Spacing Scale
+       ============================================================ */
+    .spacing-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 8px;
+    }
+
+    .spacing-label {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      font-family: monospace;
+      width: 60px;
+      flex-shrink: 0;
+    }
+
+    .spacing-bar {
+      height: 20px;
+      background: var(--brand-light);
+      border: 1px solid var(--brand-primary);
+      border-radius: 3px;
+      opacity: 0.7;
+    }
+
+    .spacing-value {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      font-family: monospace;
+    }
+
+    /* ============================================================
+       Pros/Cons
+       ============================================================ */
+    .pros-cons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .pros, .cons {
+      padding: 24px;
+      border-radius: var(--radius-xl);
+    }
+
+    .pros {
+      background: #F0FDF4;
+      border: 1px solid #BBF7D0;
+    }
+
+    .cons {
+      background: #FEF2F2;
+      border: 1px solid #FECACA;
+    }
+
+    [data-theme="dark"] .pros { background: #052E16; border-color: #166534; }
+    [data-theme="dark"] .cons { background: #450A0A; border-color: #991B1B; }
+
+    .pros h4, .cons h4 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .pros h4 { color: #15803D; }
+    .cons h4 { color: #991B1B; }
+
+    .pros ul, .cons ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .pros li, .cons li {
+      padding: 4px 0;
+      font-size: 14px;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .pros li { color: #166534; }
+    .cons li { color: #991B1B; }
+
+    [data-theme="dark"] .pros li { color: #86EFAC; }
+    [data-theme="dark"] .cons li { color: #FCA5A5; }
+
+    .pros li::before { content: '+'; position: absolute; left: 0; font-weight: 700; color: #22C55E; }
+    .cons li::before { content: '-'; position: absolute; left: 2px; font-weight: 700; color: #EF4444; }
+
+    /* ============================================================
+       Status Badges
+       ============================================================ */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: var(--radius-full);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .status-badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+
+    .status-ordered { background: #EFF6FF; color: #1D4ED8; }
+    .status-ordered .status-badge-dot { background: #3B82F6; }
+
+    .status-scheduled { background: #F5F3FF; color: #6D28D9; }
+    .status-scheduled .status-badge-dot { background: #8B5CF6; }
+
+    .status-overdue { background: #FEF2F2; color: #991B1B; }
+    .status-overdue .status-badge-dot { background: #EF4444; }
+
+    .status-in-progress { background: #FFFBEB; color: #B45309; }
+    .status-in-progress .status-badge-dot { background: #F59E0B; }
+
+    .status-cancelled { background: var(--neutral-100); color: var(--neutral-600); }
+    .status-cancelled .status-badge-dot { background: var(--neutral-400); }
+
+    .status-completed { background: #F0FDF4; color: #15803D; }
+    .status-completed .status-badge-dot { background: #22C55E; }
+
+    /* ============================================================
+       Utility
+       ============================================================ */
+    .demo-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+
+    code {
+      font-family: 'SF Mono', 'Monaco', 'Menlo', monospace;
+      font-size: 12px;
+      background: var(--code-bg);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #B91C1C;
+    }
+
+    .inline-flex { display: inline-flex; align-items: center; gap: 8px; }
+    .gap-8 { gap: 8px; }
+    .gap-16 { gap: 16px; }
+    .gap-24 { gap: 24px; }
+    .mb-8 { margin-bottom: 8px; }
+    .mb-12 { margin-bottom: 12px; }
+    .mb-16 { margin-bottom: 16px; }
+    .mb-24 { margin-bottom: 24px; }
+    .mt-12 { margin-top: 12px; }
+    .flex { display: flex; }
+    .flex-wrap { flex-wrap: wrap; }
+    .items-center { align-items: center; }
+    .text-sm { font-size: 13px; color: var(--text-tertiary); }
+
+    /* Visually hidden utility for screen readers */
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* Skip navigation link */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: var(--brand-primary);
+      color: #fff;
+      padding: 8px 16px;
+      z-index: 10000;
+      font-size: 14px;
+      border-radius: 0 0 6px 0;
+      transition: top 0.2s;
+      text-decoration: none;
+    }
+    .skip-link:focus {
+      top: 0;
+    }
+
+    /* Sidebar nav list reset */
+    .sidebar-nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .sidebar-nav li {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Accessible checkbox/radio hiding */
+    .ant-checkbox-wrapper input[type="checkbox"],
+    .ant-radio-wrapper input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+      pointer-events: none;
+    }
+    .ant-checkbox-wrapper {
+      position: relative;
+    }
+    .ant-radio-wrapper {
+      position: relative;
+    }
+
+    /* Breadcrumb list reset */
+    .ant-breadcrumb ol {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .ant-breadcrumb li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Focus indicators for interactive custom components */
+    [role="tab"]:focus-visible,
+    [role="menuitem"]:focus-visible,
+    .ant-pagination-item:focus-visible,
+    .ant-segmented-item:focus-visible,
+    .ant-collapse-header:focus-visible,
+    .ant-tree-node-content:focus-visible,
+    .ant-rate-star:focus-visible {
+      outline: 2px solid var(--brand-primary);
+      outline-offset: -2px;
+      border-radius: var(--radius-md);
+    }
+
+    /* Tab button reset */
+    button.ant-tabs-tab {
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      font-family: inherit;
+    }
+    .ant-tabs-card button.ant-tabs-tab {
+      border: 1px solid var(--border-color);
+      border-bottom: none;
+    }
+
+    /* Collapse header button reset */
+    button.ant-collapse-header {
+      border: none;
+      width: 100%;
+      font-family: inherit;
+    }
+
+    /* Segmented item button reset */
+    button.ant-segmented-item {
+      background: none;
+      border: none;
+      font-family: inherit;
+    }
+    button.ant-segmented-item.active {
+      background: var(--bg-surface);
+    }
+
+    /* Dropdown button reset */
+    .ant-dropdown button.ant-dropdown-item {
+      background: none;
+      border: none;
+      width: 100%;
+      text-align: left;
+      font-family: inherit;
+      font-size: inherit;
+      cursor: pointer;
+    }
+
+    /* Pagination button reset */
+    nav[aria-label="Pagination"] button.ant-pagination-item {
+      font-family: inherit;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .sidebar { display: none; }
+      .main { margin-left: 0; }
+      .comparison-banner { margin-left: 0; }
+      .content { padding: 0 16px 60px; }
+      .pros-cons { grid-template-columns: 1fr; }
+      .component-grid { grid-template-columns: 1fr; }
+    }
+
+    .component-grid {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    /* prefers-reduced-motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Comparison Banner -->
+  <div class="comparison-banner">
+    <strong>Ant Design v5 Edition</strong> — For comparison with Tailwind CSS version
+  </div>
+
+  <div class="layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">V</div>
+        <div>
+          <div class="sidebar-title">VSee Design</div>
+          <div class="sidebar-subtitle">Ant Design v5</div>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav" aria-label="Main navigation">
+        <div class="nav-group-label" id="nav-foundation">Foundation</div>
+        <ul aria-labelledby="nav-foundation">
+          <li><a href="#colors" class="nav-link">Colors</a></li>
+          <li><a href="#typography" class="nav-link">Typography</a></li>
+          <li><a href="#spacing" class="nav-link">Spacing</a></li>
+        </ul>
+
+        <div class="nav-group-label" id="nav-components">Components</div>
+        <ul aria-labelledby="nav-components">
+          <li><a href="#buttons" class="nav-link">Buttons</a></li>
+          <li><a href="#forms" class="nav-link">Forms</a></li>
+          <li><a href="#tags" class="nav-link">Tags &amp; Badges</a></li>
+          <li><a href="#status" class="nav-link">Status Badges</a></li>
+          <li><a href="#alerts" class="nav-link">Alerts</a></li>
+          <li><a href="#cards" class="nav-link">Cards</a></li>
+          <li><a href="#tabs" class="nav-link">Tabs</a></li>
+          <li><a href="#table" class="nav-link">Table</a></li>
+          <li><a href="#modal" class="nav-link">Modal</a></li>
+          <li><a href="#avatars" class="nav-link">Avatars</a></li>
+          <li><a href="#pagination" class="nav-link">Pagination</a></li>
+          <li><a href="#breadcrumbs" class="nav-link">Breadcrumbs</a></li>
+          <li><a href="#tooltips" class="nav-link">Tooltips &amp; Popovers</a></li>
+          <li><a href="#progress" class="nav-link">Progress</a></li>
+          <li><a href="#timeline" class="nav-link">Timeline</a></li>
+          <li><a href="#dropdown" class="nav-link">Dropdown</a></li>
+          <li><a href="#list" class="nav-link">List</a></li>
+          <li><a href="#drawer" class="nav-link">Drawer</a></li>
+          <li><a href="#result" class="nav-link">Result</a></li>
+          <li><a href="#spinner" class="nav-link">Spinner / Loading</a></li>
+          <li><a href="#steps" class="nav-link">Steps</a></li>
+          <li><a href="#collapse" class="nav-link">Collapse</a></li>
+          <li><a href="#skeleton" class="nav-link">Skeleton</a></li>
+          <li><a href="#empty" class="nav-link">Empty State</a></li>
+          <li><a href="#segmented" class="nav-link">Segmented</a></li>
+          <li><a href="#rate" class="nav-link">Rate</a></li>
+          <li><a href="#tree" class="nav-link">Tree</a></li>
+          <li><a href="#descriptions" class="nav-link">Descriptions</a></li>
+        </ul>
+
+        <div class="nav-group-label" id="nav-evaluation">Evaluation</div>
+        <ul aria-labelledby="nav-evaluation">
+          <li><a href="#pros-cons" class="nav-link">Pros &amp; Cons</a></li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="theme-toggle" onclick="toggleTheme()" aria-pressed="false" aria-label="Toggle dark mode">
+          <div class="theme-toggle-track" aria-hidden="true"><div class="theme-toggle-thumb"></div></div>
+          <span id="theme-label">Dark Mode</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main" id="main-content">
+      <div class="content">
+
+        <!-- Hero -->
+        <div class="hero">
+          <div class="hero-badge">Ant Design v5 Base</div>
+          <h1>VSee Design System</h1>
+          <p>Ant Design Edition — Enterprise-grade component library themed with VSee brand tokens</p>
+        </div>
+
+        <!-- ============================================================
+             COLORS
+             ============================================================ -->
+        <section id="colors" class="section">
+          <div class="section-header">
+            <h2 class="section-title">Colors</h2>
+            <p class="section-desc">VSee brand palette applied as Ant Design custom theme tokens</p>
+          </div>
+
+          <div class="subsection">
+            <h3 class="subsection-title">Brand Colors</h3>
+            <div class="color-grid">
+              <div class="color-swatch"><div class="color-swatch-block" style="background:#0D875C"></div><div class="color-swatch-info"><div class="color-swatch-name">Primary</div><div class="color-swatch-hex">#0D875C</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:#0B7550"></div><div class="color-swatch-info"><div class="color-swatch-name">Hover</div><div class="color-swatch-hex">#0B7550</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:#096843"></div><div class="color-swatch-info"><div class="color-swatch-name">Active</div><div class="color-swatch-hex">#096843</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:#E6F5EE"></div><div class="color-swatch-info"><div class="color-swatch-name">Light</div><div class="color-swatch-hex">#E6F5EE</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:#F0FAF5"></div><div class="color-swatch-info"><div class="color-swatch-name">50</div><div class="color-swatch-hex">#F0FAF5</div></div></div>
+            </div>
+          </div>
+
+          <div class="subsection">
+            <h3 class="subsection-title">Semantic Colors</h3>
+            <div class="color-grid">
+              <div class="color-swatch"><div class="color-swatch-block" style="background:#0D875C"></div><div class="color-swatch-info"><div class="color-swatch-name">Success</div><div class="color-swatch-hex">#0D875C</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:#0575AD"></div><div class="color-swatch-info"><div class="color-swatch-name">Info</div><div class="color-swatch-hex">#0575AD</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:#F59E0B"></div><div class="color-swatch-info"><div class="color-swatch-name">Warning</div><div class="color-swatch-hex">#F59E0B</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:#DC2626"></div><div class="color-swatch-info"><div class="color-swatch-name">Danger</div><div class="color-swatch-hex">#DC2626</div></div></div>
+            </div>
+          </div>
+
+          <div class="subsection">
+            <h3 class="subsection-title">Neutrals</h3>
+            <div class="color-grid">
+              <div class="color-swatch"><div class="color-swatch-block" style="background:#111827"></div><div class="color-swatch-info"><div class="color-swatch-name">900</div><div class="color-swatch-hex">#111827</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:#1F2937"></div><div class="color-swatch-info"><div class="color-swatch-name">800</div><div class="color-swatch-hex">#1F2937</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:#374151"></div><div class="color-swatch-info"><div class="color-swatch-name">700</div><div class="color-swatch-hex">#374151</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:#4B5563"></div><div class="color-swatch-info"><div class="color-swatch-name">600</div><div class="color-swatch-hex">#4B5563</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:#6B7280"></div><div class="color-swatch-info"><div class="color-swatch-name">500</div><div class="color-swatch-hex">#6B7280</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:#9CA3AF"></div><div class="color-swatch-info"><div class="color-swatch-name">400</div><div class="color-swatch-hex">#9CA3AF</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:#D1D5DB"></div><div class="color-swatch-info"><div class="color-swatch-name">300</div><div class="color-swatch-hex">#D1D5DB</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:#E5E7EB"></div><div class="color-swatch-info"><div class="color-swatch-name">200</div><div class="color-swatch-hex">#E5E7EB</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:#F3F4F6"></div><div class="color-swatch-info"><div class="color-swatch-name">100</div><div class="color-swatch-hex">#F3F4F6</div></div></div>
+              <div class="color-swatch"><div class="color-swatch-block" style="background:#F9FAFB"></div><div class="color-swatch-info"><div class="color-swatch-name">50</div><div class="color-swatch-hex">#F9FAFB</div></div></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             TYPOGRAPHY
+             ============================================================ -->
+        <section id="typography" class="section">
+          <div class="section-header">
+            <h2 class="section-title">Typography</h2>
+            <p class="section-desc">Inter font family with Ant Design's type scale</p>
+          </div>
+
+          <div class="demo-box">
+            <div class="type-specimen"><span class="type-label">5xl / 48px</span><span style="font-size:48px;font-weight:800;color:var(--text-primary);line-height:1.1">Heading</span></div>
+            <div class="type-specimen"><span class="type-label">4xl / 36px</span><span style="font-size:36px;font-weight:700;color:var(--text-primary);line-height:1.15">Heading</span></div>
+            <div class="type-specimen"><span class="type-label">3xl / 30px</span><span style="font-size:30px;font-weight:700;color:var(--text-primary);line-height:1.2">Heading</span></div>
+            <div class="type-specimen"><span class="type-label">2xl / 24px</span><span style="font-size:24px;font-weight:600;color:var(--text-primary);line-height:1.25">Heading</span></div>
+            <div class="type-specimen"><span class="type-label">xl / 20px</span><span style="font-size:20px;font-weight:600;color:var(--text-primary);line-height:1.3">Section Title</span></div>
+            <div class="type-specimen"><span class="type-label">lg / 16px</span><span style="font-size:16px;font-weight:500;color:var(--text-primary);line-height:1.5">Large Body Text</span></div>
+            <div class="type-specimen"><span class="type-label">base / 14px</span><span style="font-size:14px;font-weight:400;color:var(--text-primary);line-height:1.57">Default body text for most content</span></div>
+            <div class="type-specimen"><span class="type-label">sm / 13px</span><span style="font-size:13px;font-weight:400;color:var(--text-secondary);line-height:1.5">Secondary text and captions</span></div>
+            <div class="type-specimen"><span class="type-label">xs / 12px</span><span style="font-size:12px;font-weight:400;color:var(--text-tertiary);line-height:1.5">Small labels and helper text</span></div>
+          </div>
+
+          <div class="subsection">
+            <h3 class="subsection-title">Font Weights</h3>
+            <div class="demo-box">
+              <div class="type-specimen"><span class="type-label">Light 300</span><span style="font-weight:300;font-size:16px;color:var(--text-primary)">The quick brown fox jumps over the lazy dog</span></div>
+              <div class="type-specimen"><span class="type-label">Regular 400</span><span style="font-weight:400;font-size:16px;color:var(--text-primary)">The quick brown fox jumps over the lazy dog</span></div>
+              <div class="type-specimen"><span class="type-label">Medium 500</span><span style="font-weight:500;font-size:16px;color:var(--text-primary)">The quick brown fox jumps over the lazy dog</span></div>
+              <div class="type-specimen"><span class="type-label">Semi 600</span><span style="font-weight:600;font-size:16px;color:var(--text-primary)">The quick brown fox jumps over the lazy dog</span></div>
+              <div class="type-specimen"><span class="type-label">Bold 700</span><span style="font-weight:700;font-size:16px;color:var(--text-primary)">The quick brown fox jumps over the lazy dog</span></div>
+              <div class="type-specimen"><span class="type-label">Extra 800</span><span style="font-weight:800;font-size:16px;color:var(--text-primary)">The quick brown fox jumps over the lazy dog</span></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             SPACING
+             ============================================================ -->
+        <section id="spacing" class="section">
+          <div class="section-header">
+            <h2 class="section-title">Spacing</h2>
+            <p class="section-desc">4px base unit scale, consistent with Ant Design's spacing system</p>
+          </div>
+
+          <div class="demo-box">
+            <div class="spacing-item"><span class="spacing-label">1 (4px)</span><div class="spacing-bar" style="width:4px"></div><span class="spacing-value">4px</span></div>
+            <div class="spacing-item"><span class="spacing-label">2 (8px)</span><div class="spacing-bar" style="width:8px"></div><span class="spacing-value">8px</span></div>
+            <div class="spacing-item"><span class="spacing-label">3 (12px)</span><div class="spacing-bar" style="width:12px"></div><span class="spacing-value">12px</span></div>
+            <div class="spacing-item"><span class="spacing-label">4 (16px)</span><div class="spacing-bar" style="width:16px"></div><span class="spacing-value">16px</span></div>
+            <div class="spacing-item"><span class="spacing-label">5 (20px)</span><div class="spacing-bar" style="width:20px"></div><span class="spacing-value">20px</span></div>
+            <div class="spacing-item"><span class="spacing-label">6 (24px)</span><div class="spacing-bar" style="width:24px"></div><span class="spacing-value">24px</span></div>
+            <div class="spacing-item"><span class="spacing-label">8 (32px)</span><div class="spacing-bar" style="width:32px"></div><span class="spacing-value">32px</span></div>
+            <div class="spacing-item"><span class="spacing-label">10 (40px)</span><div class="spacing-bar" style="width:40px"></div><span class="spacing-value">40px</span></div>
+            <div class="spacing-item"><span class="spacing-label">12 (48px)</span><div class="spacing-bar" style="width:48px"></div><span class="spacing-value">48px</span></div>
+            <div class="spacing-item"><span class="spacing-label">16 (64px)</span><div class="spacing-bar" style="width:64px"></div><span class="spacing-value">64px</span></div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             BUTTONS
+             ============================================================ -->
+        <section id="buttons" class="section">
+          <div class="section-header">
+            <h2 class="section-title">Buttons</h2>
+            <p class="section-desc">Ant Design button variants themed with VSee brand green</p>
+          </div>
+
+          <div class="subsection">
+            <h3 class="subsection-title">Variants</h3>
+            <div class="component-row">
+              <button class="ant-btn ant-btn-primary">Primary</button>
+              <button class="ant-btn ant-btn-default">Default</button>
+              <button class="ant-btn ant-btn-dashed">Dashed</button>
+              <button class="ant-btn ant-btn-text">Text</button>
+              <button class="ant-btn ant-btn-link">Link</button>
+              <button class="ant-btn ant-btn-ghost">Ghost</button>
+            </div>
+          </div>
+
+          <div class="subsection">
+            <h3 class="subsection-title">Danger</h3>
+            <div class="component-row">
+              <button class="ant-btn ant-btn-dangerous ant-btn-primary">Danger Primary</button>
+              <button class="ant-btn ant-btn-dangerous">Danger Default</button>
+            </div>
+          </div>
+
+          <div class="subsection">
+            <h3 class="subsection-title">Sizes</h3>
+            <div class="component-row">
+              <button class="ant-btn ant-btn-primary ant-btn-sm">Small</button>
+              <button class="ant-btn ant-btn-primary">Default</button>
+              <button class="ant-btn ant-btn-primary ant-btn-lg">Large</button>
+            </div>
+          </div>
+
+          <div class="subsection">
+            <h3 class="subsection-title">Loading</h3>
+            <div class="component-row">
+              <button class="ant-btn ant-btn-primary ant-btn-loading">Loading</button>
+              <button class="ant-btn ant-btn-default ant-btn-loading">Loading</button>
+            </div>
+          </div>
+
+          <div class="subsection">
+            <h3 class="subsection-title">Icon Buttons</h3>
+            <div class="component-row">
+              <button class="ant-btn ant-btn-primary ant-btn-icon-only">+</button>
+              <button class="ant-btn ant-btn-default ant-btn-icon-only">?</button>
+              <button class="ant-btn ant-btn-primary ant-btn-icon-only ant-btn-sm">+</button>
+              <button class="ant-btn ant-btn-primary ant-btn-icon-only ant-btn-lg">+</button>
+            </div>
+          </div>
+
+          <div class="subsection">
+            <h3 class="subsection-title">Button Group</h3>
+            <div class="component-row">
+              <div class="ant-btn-group">
+                <button class="ant-btn ant-btn-default">Left</button>
+                <button class="ant-btn ant-btn-default">Center</button>
+                <button class="ant-btn ant-btn-default">Right</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="subsection">
+            <h3 class="subsection-title">Disabled</h3>
+            <div class="component-row">
+              <button class="ant-btn ant-btn-primary" disabled>Disabled</button>
+              <button class="ant-btn ant-btn-default" disabled>Disabled</button>
+            </div>
+          </div>
+
+          <div class="subsection">
+            <h3 class="subsection-title">Block Button</h3>
+            <button class="ant-btn ant-btn-primary ant-btn-block">Block Button</button>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             FORMS
+             ============================================================ -->
+        <section id="forms" class="section">
+          <div class="section-header">
+            <h2 class="section-title">Forms</h2>
+            <p class="section-desc">Input components following Ant Design's form patterns</p>
+          </div>
+
+          <div class="demo-box" style="max-width:480px">
+            <div class="subsection">
+              <h3 class="subsection-title">Text Inputs</h3>
+              <div class="ant-form-item">
+                <label class="ant-form-item-label required" for="input-fullname">Full Name</label>
+                <input class="ant-input" id="input-fullname" placeholder="Enter your name" value="Jane Smith" aria-required="true" required>
+              </div>
+              <div class="ant-form-item">
+                <label class="ant-form-item-label" for="input-email">Email</label>
+                <input class="ant-input" id="input-email" placeholder="Enter email address" type="email">
+              </div>
+              <div class="ant-form-item">
+                <label class="ant-form-item-label" for="input-error">Error State</label>
+                <input class="ant-input ant-input-status-error" id="input-error" value="Invalid input" aria-invalid="true" aria-describedby="error-msg-required">
+                <div class="ant-form-item-help error" id="error-msg-required">This field is required</div>
+              </div>
+              <div class="ant-form-item">
+                <label class="ant-form-item-label" for="input-disabled">Disabled</label>
+                <input class="ant-input ant-input-disabled" id="input-disabled" value="Cannot edit" disabled>
+              </div>
+            </div>
+
+            <div class="subsection">
+              <h3 class="subsection-title">Input Sizes</h3>
+              <div class="ant-form-item">
+                <input class="ant-input ant-input-sm" placeholder="Small input">
+              </div>
+              <div class="ant-form-item">
+                <input class="ant-input" placeholder="Default input">
+              </div>
+              <div class="ant-form-item">
+                <input class="ant-input ant-input-lg" placeholder="Large input">
+              </div>
+            </div>
+
+            <div class="subsection">
+              <h3 class="subsection-title">Input with Prefix/Suffix</h3>
+              <div class="ant-form-item">
+                <div class="ant-input-affix-wrapper">
+                  <span class="ant-input-prefix">$</span>
+                  <input class="ant-input" placeholder="Amount">
+                  <span class="ant-input-suffix">USD</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="subsection">
+              <h3 class="subsection-title">Input Group</h3>
+              <div class="ant-form-item">
+                <div class="ant-input-group">
+                  <span class="ant-input-group-addon">https://</span>
+                  <input class="ant-input" placeholder="example.com" style="border-radius:0">
+                  <span class="ant-input-group-addon">.com</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="subsection">
+              <h3 class="subsection-title">Search</h3>
+              <div class="ant-form-item">
+                <div class="ant-input-search">
+                  <input class="ant-input" placeholder="Search patients...">
+                  <button class="ant-btn ant-btn-primary" style="border-radius:0 var(--radius-md) var(--radius-md) 0">Search</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="subsection">
+              <h3 class="subsection-title">Textarea</h3>
+              <div class="ant-form-item">
+                <label class="ant-form-item-label" for="input-notes">Notes</label>
+                <textarea class="ant-input" id="input-notes" placeholder="Enter clinical notes..." rows="3" aria-describedby="notes-help"></textarea>
+                <div class="ant-form-item-help" id="notes-help">Max 500 characters</div>
+              </div>
+            </div>
+
+            <div class="subsection">
+              <h3 class="subsection-title">Select</h3>
+              <div class="ant-form-item">
+                <label class="ant-form-item-label" for="input-department">Department</label>
+                <select class="ant-select" id="input-department" style="width:100%">
+                  <option>Select a department...</option>
+                  <option>Cardiology</option>
+                  <option>Dermatology</option>
+                  <option>Neurology</option>
+                  <option>Pediatrics</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="subsection">
+              <h3 class="subsection-title">Checkbox</h3>
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <label class="ant-checkbox-wrapper"><input type="checkbox" checked><span class="ant-checkbox checked" aria-hidden="true"></span>Option A (checked)</label>
+                <label class="ant-checkbox-wrapper"><input type="checkbox"><span class="ant-checkbox" aria-hidden="true"></span>Option B</label>
+                <label class="ant-checkbox-wrapper"><input type="checkbox"><span class="ant-checkbox" aria-hidden="true"></span>Option C</label>
+              </div>
+            </div>
+
+            <div class="subsection" style="margin-top:16px">
+              <h3 class="subsection-title">Radio</h3>
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <label class="ant-radio-wrapper"><input type="radio" name="visit-type" checked><span class="ant-radio checked" aria-hidden="true"></span>In-Person Visit</label>
+                <label class="ant-radio-wrapper"><input type="radio" name="visit-type"><span class="ant-radio" aria-hidden="true"></span>Video Visit</label>
+                <label class="ant-radio-wrapper"><input type="radio" name="visit-type"><span class="ant-radio" aria-hidden="true"></span>Phone Call</label>
+              </div>
+            </div>
+
+            <div class="subsection" style="margin-top:16px">
+              <h3 class="subsection-title">Switch / Toggle</h3>
+              <div style="display:flex;flex-direction:column;gap:12px">
+                <div style="display:flex;align-items:center;gap:12px">
+                  <button class="ant-switch checked" role="switch" aria-checked="true" aria-label="Enable notifications" onclick="this.classList.toggle('checked');this.setAttribute('aria-checked',this.classList.contains('checked'))"></button>
+                  <span>Enable notifications</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:12px">
+                  <button class="ant-switch" role="switch" aria-checked="false" aria-label="Auto-save drafts" onclick="this.classList.toggle('checked');this.setAttribute('aria-checked',this.classList.contains('checked'))"></button>
+                  <span>Auto-save drafts</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             TAGS & BADGES
+             ============================================================ -->
+        <section id="tags" class="section">
+          <div class="section-header">
+            <h2 class="section-title">Tags &amp; Badges</h2>
+            <p class="section-desc">Ant Design Tag and Badge components</p>
+          </div>
+
+          <div class="subsection">
+            <h3 class="subsection-title">Tags</h3>
+            <div class="component-row">
+              <span class="ant-tag ant-tag-default">Default</span>
+              <span class="ant-tag ant-tag-success">Success</span>
+              <span class="ant-tag ant-tag-info">Info</span>
+              <span class="ant-tag ant-tag-warning">Warning</span>
+              <span class="ant-tag ant-tag-error">Error</span>
+            </div>
+          </div>
+
+          <div class="subsection">
+            <h3 class="subsection-title">Bordered Tags</h3>
+            <div class="component-row">
+              <span class="ant-tag ant-tag-bordered ant-tag-success">Success</span>
+              <span class="ant-tag ant-tag-bordered ant-tag-info">Info</span>
+              <span class="ant-tag ant-tag-bordered ant-tag-warning">Warning</span>
+              <span class="ant-tag ant-tag-bordered ant-tag-error">Error</span>
+            </div>
+          </div>
+
+          <div class="subsection">
+            <h3 class="subsection-title">Closeable Tags</h3>
+            <div class="component-row">
+              <span class="ant-tag ant-tag-default ant-tag-closeable">Closeable <button class="ant-tag-close" aria-label="Remove Closeable tag" style="background:none;border:none;padding:0;font-family:inherit;color:inherit;cursor:pointer;opacity:0.85;font-size:10px;margin-left:4px">x</button></span>
+              <span class="ant-tag ant-tag-success ant-tag-closeable">Tag 1 <button class="ant-tag-close" aria-label="Remove Tag 1" style="background:none;border:none;padding:0;font-family:inherit;color:inherit;cursor:pointer;opacity:0.85;font-size:10px;margin-left:4px">x</button></span>
+              <span class="ant-tag ant-tag-info ant-tag-closeable">Tag 2 <button class="ant-tag-close" aria-label="Remove Tag 2" style="background:none;border:none;padding:0;font-family:inherit;color:inherit;cursor:pointer;opacity:0.85;font-size:10px;margin-left:4px">x</button></span>
+            </div>
+          </div>
+
+          <div class="subsection">
+            <h3 class="subsection-title">Badge with Count</h3>
+            <div class="component-row" style="gap:32px">
+              <span class="ant-badge">
+                <button class="ant-btn ant-btn-default" style="padding:0 12px;">Notifications</button>
+                <span class="ant-badge-count" aria-label="5 notifications">5</span>
+              </span>
+              <span class="ant-badge">
+                <button class="ant-btn ant-btn-default" style="padding:0 12px;">Messages</button>
+                <span class="ant-badge-count" aria-label="12 messages">12</span>
+              </span>
+              <span class="ant-badge">
+                <button class="ant-btn ant-btn-default" style="padding:0 12px;">Alerts</button>
+                <span class="ant-badge-count" aria-label="99 or more alerts">99+</span>
+              </span>
+            </div>
+          </div>
+
+          <div class="subsection">
+            <h3 class="subsection-title">Status Dots</h3>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div class="ant-badge-status"><span class="ant-badge-status-dot status-success" aria-hidden="true"></span> Success</div>
+              <div class="ant-badge-status"><span class="ant-badge-status-dot status-info" aria-hidden="true"></span> Info</div>
+              <div class="ant-badge-status"><span class="ant-badge-status-dot status-warning" aria-hidden="true"></span> Warning</div>
+              <div class="ant-badge-status"><span class="ant-badge-status-dot status-error" aria-hidden="true"></span> Error</div>
+              <div class="ant-badge-status"><span class="ant-badge-status-dot status-default" aria-hidden="true"></span> Default</div>
+              <div class="ant-badge-status"><span class="ant-badge-status-dot status-processing" aria-hidden="true"></span> Processing</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             STATUS BADGES
+             ============================================================ -->
+        <section id="status" class="section">
+          <div class="section-header">
+            <h2 class="section-title">Status Badges</h2>
+            <p class="section-desc">Clinical and workflow status indicators</p>
+          </div>
+
+          <div class="component-row">
+            <span class="status-badge status-ordered"><span class="status-badge-dot" aria-hidden="true"></span>Ordered</span>
+            <span class="status-badge status-scheduled"><span class="status-badge-dot" aria-hidden="true"></span>Scheduled</span>
+            <span class="status-badge status-overdue"><span class="status-badge-dot" aria-hidden="true"></span>Overdue</span>
+            <span class="status-badge status-in-progress"><span class="status-badge-dot" aria-hidden="true"></span>In Progress</span>
+            <span class="status-badge status-cancelled"><span class="status-badge-dot" aria-hidden="true"></span>Cancelled</span>
+            <span class="status-badge status-completed"><span class="status-badge-dot" aria-hidden="true"></span>Completed</span>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             ALERTS
+             ============================================================ -->
+        <section id="alerts" class="section">
+          <div class="section-header">
+            <h2 class="section-title">Alerts</h2>
+            <p class="section-desc">Ant Design Alert component with description</p>
+          </div>
+
+          <div class="ant-alert ant-alert-success" role="alert">
+            <span class="ant-alert-icon" aria-hidden="true">&#10003;</span>
+            <div class="ant-alert-content">
+              <div class="ant-alert-message">Visit Completed</div>
+              <div class="ant-alert-description">The telehealth visit was successfully completed and notes have been saved.</div>
+            </div>
+          </div>
+
+          <div class="ant-alert ant-alert-info" role="alert">
+            <span class="ant-alert-icon" aria-hidden="true">&#9432;</span>
+            <div class="ant-alert-content">
+              <div class="ant-alert-message">System Update</div>
+              <div class="ant-alert-description">A new version of the platform is available. Please refresh to update.</div>
+            </div>
+          </div>
+
+          <div class="ant-alert ant-alert-warning" role="alert">
+            <span class="ant-alert-icon" aria-hidden="true">&#9888;</span>
+            <div class="ant-alert-content">
+              <div class="ant-alert-message">Session Expiring</div>
+              <div class="ant-alert-description">Your session will expire in 5 minutes. Please save your work.</div>
+            </div>
+          </div>
+
+          <div class="ant-alert ant-alert-error" role="alert">
+            <span class="ant-alert-icon" aria-hidden="true">&#10007;</span>
+            <div class="ant-alert-content">
+              <div class="ant-alert-message">Connection Failed</div>
+              <div class="ant-alert-description">Unable to establish a video connection. Please check your network settings.</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             CARDS
+             ============================================================ -->
+        <section id="cards" class="section">
+          <div class="section-header">
+            <h2 class="section-title">Cards</h2>
+            <p class="section-desc">Ant Design Card component with header, body, and footer</p>
+          </div>
+
+          <div class="component-grid">
+            <div class="ant-card">
+              <div class="ant-card-head">
+                <span class="ant-card-head-title">Patient Summary</span>
+                <button class="ant-card-head-extra" style="background:none;border:none;font-family:inherit;font-size:13px;color:var(--brand-primary);cursor:pointer">View All</button>
+              </div>
+              <div class="ant-card-body">
+                <p>Active patients this week: 24. Upcoming visits: 8. Pending follow-ups: 3.</p>
+              </div>
+              <div class="ant-card-footer">
+                <span class="text-sm">Last updated 2 minutes ago</span>
+              </div>
+            </div>
+
+            <div class="ant-card ant-card-shadow">
+              <div class="ant-card-head">
+                <span class="ant-card-head-title">Appointment Details</span>
+              </div>
+              <div class="ant-card-body">
+                <div class="ant-card-meta-title">Dr. Sarah Chen</div>
+                <div class="ant-card-meta-description">Cardiology - Follow-up Consultation</div>
+                <p style="margin-top:12px">Scheduled for March 28, 2026 at 2:30 PM EST via video call.</p>
+              </div>
+              <div class="ant-card-footer">
+                <div class="component-row" style="margin:0">
+                  <button class="ant-btn ant-btn-primary ant-btn-sm">Join Visit</button>
+                  <button class="ant-btn ant-btn-default ant-btn-sm">Reschedule</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ant-card ant-card-shadow-lg" style="max-width:360px">
+            <div class="ant-card-body" style="text-align:center;padding:32px">
+              <div class="ant-avatar ant-avatar-xxl" style="background:var(--brand-primary);margin:0 auto 16px">JS</div>
+              <div class="ant-card-meta-title" style="font-size:18px">Jane Smith</div>
+              <div class="ant-card-meta-description">Primary Care Patient</div>
+              <div style="margin-top:16px;display:flex;justify-content:center;gap:8px">
+                <span class="ant-tag ant-tag-success">Active</span>
+                <span class="ant-tag ant-tag-info">Insured</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             TABS
+             ============================================================ -->
+        <section id="tabs" class="section">
+          <div class="section-header">
+            <h2 class="section-title">Tabs</h2>
+            <p class="section-desc">Line and card-style tab navigation</p>
+          </div>
+
+          <div class="subsection">
+            <h3 class="subsection-title">Line Tabs</h3>
+            <div class="ant-tabs">
+              <div class="ant-tabs-nav" role="tablist">
+                <button class="ant-tabs-tab active" role="tab" aria-selected="true">Overview</button>
+                <button class="ant-tabs-tab" role="tab" aria-selected="false">Visits</button>
+                <button class="ant-tabs-tab" role="tab" aria-selected="false">Lab Results</button>
+                <button class="ant-tabs-tab" role="tab" aria-selected="false">Medications</button>
+                <button class="ant-tabs-tab disabled" role="tab" aria-selected="false" aria-disabled="true" disabled>Billing</button>
+              </div>
+            </div>
+            <div class="demo-box">
+              <p style="color:var(--text-secondary)">Patient overview content appears here. This tab shows a summary of the patient's health record, recent visits, and active care plans.</p>
+            </div>
+          </div>
+
+          <div class="subsection">
+            <h3 class="subsection-title">Card Tabs</h3>
+            <div class="ant-tabs ant-tabs-card">
+              <div class="ant-tabs-nav" role="tablist">
+                <button class="ant-tabs-tab active" role="tab" aria-selected="true">Demographics</button>
+                <button class="ant-tabs-tab" role="tab" aria-selected="false">Insurance</button>
+                <button class="ant-tabs-tab" role="tab" aria-selected="false">Emergency Contact</button>
+              </div>
+            </div>
+            <div class="demo-box" style="border-radius:0 var(--radius-xl) var(--radius-xl) var(--radius-xl)">
+              <p style="color:var(--text-secondary)">Demographics form content area with card-style tabs.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             TABLE
+             ============================================================ -->
+        <section id="table" class="section">
+          <div class="section-header">
+            <h2 class="section-title">Table</h2>
+            <p class="section-desc">Ant Design Table with sorting indicators and row hover</p>
+          </div>
+
+          <div class="ant-table-wrapper">
+            <table class="ant-table">
+              <thead>
+                <tr>
+                  <th>Patient Name</th>
+                  <th>MRN</th>
+                  <th>Department</th>
+                  <th>Status</th>
+                  <th>Next Visit</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="font-weight:500">Jane Smith</td>
+                  <td><code style="background:var(--code-bg);color:var(--text-secondary)">MRN-001234</code></td>
+                  <td>Cardiology</td>
+                  <td><span class="ant-tag ant-tag-success">Active</span></td>
+                  <td>Mar 28, 2026</td>
+                  <td><a href="#" style="color:var(--brand-primary);text-decoration:none;font-weight:500;cursor:pointer">View</a></td>
+                </tr>
+                <tr>
+                  <td style="font-weight:500">Robert Johnson</td>
+                  <td><code style="background:var(--code-bg);color:var(--text-secondary)">MRN-001235</code></td>
+                  <td>Neurology</td>
+                  <td><span class="ant-tag ant-tag-warning">Pending</span></td>
+                  <td>Apr 02, 2026</td>
+                  <td><a href="#" style="color:var(--brand-primary);text-decoration:none;font-weight:500;cursor:pointer">View</a></td>
+                </tr>
+                <tr>
+                  <td style="font-weight:500">Maria Garcia</td>
+                  <td><code style="background:var(--code-bg);color:var(--text-secondary)">MRN-001236</code></td>
+                  <td>Pediatrics</td>
+                  <td><span class="ant-tag ant-tag-info">Scheduled</span></td>
+                  <td>Apr 05, 2026</td>
+                  <td><a href="#" style="color:var(--brand-primary);text-decoration:none;font-weight:500;cursor:pointer">View</a></td>
+                </tr>
+                <tr>
+                  <td style="font-weight:500">David Lee</td>
+                  <td><code style="background:var(--code-bg);color:var(--text-secondary)">MRN-001237</code></td>
+                  <td>Dermatology</td>
+                  <td><span class="ant-tag ant-tag-error">Overdue</span></td>
+                  <td>Mar 15, 2026</td>
+                  <td><a href="#" style="color:var(--brand-primary);text-decoration:none;font-weight:500;cursor:pointer">View</a></td>
+                </tr>
+                <tr>
+                  <td style="font-weight:500">Emily Chen</td>
+                  <td><code style="background:var(--code-bg);color:var(--text-secondary)">MRN-001238</code></td>
+                  <td>Primary Care</td>
+                  <td><span class="ant-tag ant-tag-default">Inactive</span></td>
+                  <td>--</td>
+                  <td><a href="#" style="color:var(--brand-primary);text-decoration:none;font-weight:500;cursor:pointer">View</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             MODAL
+             ============================================================ -->
+        <section id="modal" class="section">
+          <div class="section-header">
+            <h2 class="section-title">Modal</h2>
+            <p class="section-desc">Ant Design Modal dialog</p>
+          </div>
+
+          <div class="ant-modal-demo">
+            <div class="ant-modal" style="position:relative" role="dialog" aria-modal="true" aria-labelledby="modal-title-1">
+              <button class="ant-modal-close" aria-label="Close">&times;</button>
+              <div class="ant-modal-header">
+                <div class="ant-modal-title" id="modal-title-1">Confirm Appointment</div>
+              </div>
+              <div class="ant-modal-body">
+                <p>Are you sure you want to schedule a video visit with <strong>Dr. Sarah Chen</strong> on March 28, 2026 at 2:30 PM EST?</p>
+                <p style="margin-top:12px">You will receive a confirmation email and a reminder 15 minutes before the visit.</p>
+              </div>
+              <div class="ant-modal-footer">
+                <button class="ant-btn ant-btn-default">Cancel</button>
+                <button class="ant-btn ant-btn-primary">Confirm</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             AVATARS
+             ============================================================ -->
+        <section id="avatars" class="section">
+          <div class="section-header">
+            <h2 class="section-title">Avatars</h2>
+            <p class="section-desc">User avatar sizes, shapes, and groups</p>
+          </div>
+
+          <div class="subsection">
+            <h3 class="subsection-title">Sizes</h3>
+            <div class="component-row">
+              <div class="ant-avatar ant-avatar-sm" style="background:#0575AD">S</div>
+              <div class="ant-avatar ant-avatar-default" style="background:var(--brand-primary)">MD</div>
+              <div class="ant-avatar ant-avatar-lg" style="background:#7C3AED">LG</div>
+              <div class="ant-avatar ant-avatar-xl" style="background:#DB2777">XL</div>
+              <div class="ant-avatar ant-avatar-xxl" style="background:#EA580C">2X</div>
+            </div>
+          </div>
+
+          <div class="subsection">
+            <h3 class="subsection-title">Square Avatars</h3>
+            <div class="component-row">
+              <div class="ant-avatar ant-avatar-default ant-avatar-square" style="background:var(--brand-primary)">SC</div>
+              <div class="ant-avatar ant-avatar-lg ant-avatar-square" style="background:#0575AD">DR</div>
+              <div class="ant-avatar ant-avatar-xl ant-avatar-square" style="background:#7C3AED">PT</div>
+            </div>
+          </div>
+
+          <div class="subsection">
+            <h3 class="subsection-title">Avatar Colors</h3>
+            <div class="component-row">
+              <div class="ant-avatar ant-avatar-lg" style="background:#0D875C">AB</div>
+              <div class="ant-avatar ant-avatar-lg" style="background:#0575AD">CD</div>
+              <div class="ant-avatar ant-avatar-lg" style="background:#7C3AED">EF</div>
+              <div class="ant-avatar ant-avatar-lg" style="background:#DB2777">GH</div>
+              <div class="ant-avatar ant-avatar-lg" style="background:#EA580C">IJ</div>
+              <div class="ant-avatar ant-avatar-lg" style="background:#CA8A04">KL</div>
+            </div>
+          </div>
+
+          <div class="subsection">
+            <h3 class="subsection-title">Avatar Group</h3>
+            <div class="ant-avatar-group">
+              <div class="ant-avatar ant-avatar-lg" style="background:#0D875C">JS</div>
+              <div class="ant-avatar ant-avatar-lg" style="background:#0575AD">RJ</div>
+              <div class="ant-avatar ant-avatar-lg" style="background:#7C3AED">MG</div>
+              <div class="ant-avatar ant-avatar-lg" style="background:#DB2777">DL</div>
+              <div class="ant-avatar ant-avatar-lg" style="background:var(--neutral-400);font-size:13px">+3</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             PAGINATION
+             ============================================================ -->
+        <section id="pagination" class="section">
+          <div class="section-header">
+            <h2 class="section-title">Pagination</h2>
+            <p class="section-desc">Ant Design Pagination component</p>
+          </div>
+
+          <nav aria-label="Pagination">
+            <div class="ant-pagination">
+              <button class="ant-pagination-item disabled" aria-label="Previous page" disabled>&lsaquo;</button>
+              <button class="ant-pagination-item active" aria-current="page">1</button>
+              <button class="ant-pagination-item">2</button>
+              <button class="ant-pagination-item">3</button>
+              <button class="ant-pagination-item">4</button>
+              <button class="ant-pagination-item">5</button>
+              <span class="ant-pagination-ellipsis">&hellip;</span>
+              <button class="ant-pagination-item">20</button>
+              <button class="ant-pagination-item" aria-label="Next page">&rsaquo;</button>
+            </div>
+          </nav>
+        </section>
+
+        <!-- ============================================================
+             BREADCRUMBS
+             ============================================================ -->
+        <section id="breadcrumbs" class="section">
+          <div class="section-header">
+            <h2 class="section-title">Breadcrumbs</h2>
+            <p class="section-desc">Navigation breadcrumb trail</p>
+          </div>
+
+          <div class="demo-box">
+            <nav aria-label="Breadcrumb" class="ant-breadcrumb">
+              <ol>
+                <li><a href="#" class="ant-breadcrumb-link">Home</a><span class="ant-breadcrumb-separator" aria-hidden="true">/</span></li>
+                <li><a href="#" class="ant-breadcrumb-link">Patients</a><span class="ant-breadcrumb-separator" aria-hidden="true">/</span></li>
+                <li><a href="#" class="ant-breadcrumb-link">Jane Smith</a><span class="ant-breadcrumb-separator" aria-hidden="true">/</span></li>
+                <li><span class="ant-breadcrumb-link current" aria-current="page">Visit History</span></li>
+              </ol>
+            </nav>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             TOOLTIPS & POPOVERS
+             ============================================================ -->
+        <section id="tooltips" class="section">
+          <div class="section-header">
+            <h2 class="section-title">Tooltips &amp; Popovers</h2>
+            <p class="section-desc">Overlay hint components</p>
+          </div>
+
+          <div class="subsection">
+            <h3 class="subsection-title">Tooltips</h3>
+            <div class="component-row" style="gap:32px;padding-top:48px">
+              <div class="ant-tooltip-demo">
+                <div class="ant-tooltip">Edit patient record</div>
+                <button class="ant-btn ant-btn-default">Hover me</button>
+              </div>
+              <div class="ant-tooltip-demo">
+                <div class="ant-tooltip">Schedule an appointment</div>
+                <button class="ant-btn ant-btn-primary">Another tooltip</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="subsection" style="margin-top:32px">
+            <h3 class="subsection-title">Popover</h3>
+            <div style="padding-top:120px;display:flex;justify-content:center">
+              <div class="ant-tooltip-demo">
+                <div class="ant-popover">
+                  <div class="ant-popover-title">Patient Quick View</div>
+                  <div class="ant-popover-content">
+                    <p style="margin:0 0 4px"><strong>Name:</strong> Jane Smith</p>
+                    <p style="margin:0 0 4px"><strong>MRN:</strong> MRN-001234</p>
+                    <p style="margin:0 0 4px"><strong>DOB:</strong> Jan 15, 1985</p>
+                    <p style="margin:0"><strong>Provider:</strong> Dr. Sarah Chen</p>
+                  </div>
+                </div>
+                <button class="ant-btn ant-btn-default">Show Popover</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             PROGRESS
+             ============================================================ -->
+        <section id="progress" class="section">
+          <div class="section-header">
+            <h2 class="section-title">Progress</h2>
+            <p class="section-desc">Progress bars and circular indicators</p>
+          </div>
+
+          <div class="subsection">
+            <h3 class="subsection-title">Line Progress</h3>
+            <div class="demo-box" style="max-width:480px">
+              <div class="ant-progress ant-progress-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" aria-label="Success progress">
+                <div class="ant-progress-outer"><div class="ant-progress-inner" style="width:100%"></div></div>
+                <span class="ant-progress-text">100%</span>
+              </div>
+              <div class="ant-progress ant-progress-info" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100" aria-label="Info progress">
+                <div class="ant-progress-outer"><div class="ant-progress-inner" style="width:72%"></div></div>
+                <span class="ant-progress-text">72%</span>
+              </div>
+              <div class="ant-progress ant-progress-warning" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" aria-label="Warning progress">
+                <div class="ant-progress-outer"><div class="ant-progress-inner" style="width:45%"></div></div>
+                <span class="ant-progress-text">45%</span>
+              </div>
+              <div class="ant-progress ant-progress-danger" role="progressbar" aria-valuenow="18" aria-valuemin="0" aria-valuemax="100" aria-label="Danger progress">
+                <div class="ant-progress-outer"><div class="ant-progress-inner" style="width:18%"></div></div>
+                <span class="ant-progress-text">18%</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="subsection">
+            <h3 class="subsection-title">Circle Progress</h3>
+            <div class="component-row" style="gap:24px">
+              <div class="ant-progress-circle" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" aria-label="Success circle progress">
+                <svg width="80" height="80" viewBox="0 0 80 80" aria-hidden="true">
+                  <circle cx="40" cy="40" r="34" fill="none" stroke="var(--neutral-200)" stroke-width="6"/>
+                  <circle cx="40" cy="40" r="34" fill="none" stroke="var(--color-success)" stroke-width="6" stroke-dasharray="213.6" stroke-dashoffset="0" stroke-linecap="round"/>
+                </svg>
+                <span class="ant-progress-circle-text">100%</span>
+              </div>
+              <div class="ant-progress-circle" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100" aria-label="Info circle progress">
+                <svg width="80" height="80" viewBox="0 0 80 80" aria-hidden="true">
+                  <circle cx="40" cy="40" r="34" fill="none" stroke="var(--neutral-200)" stroke-width="6"/>
+                  <circle cx="40" cy="40" r="34" fill="none" stroke="var(--color-info)" stroke-width="6" stroke-dasharray="213.6" stroke-dashoffset="59.8" stroke-linecap="round"/>
+                </svg>
+                <span class="ant-progress-circle-text">72%</span>
+              </div>
+              <div class="ant-progress-circle" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" aria-label="Warning circle progress">
+                <svg width="80" height="80" viewBox="0 0 80 80" aria-hidden="true">
+                  <circle cx="40" cy="40" r="34" fill="none" stroke="var(--neutral-200)" stroke-width="6"/>
+                  <circle cx="40" cy="40" r="34" fill="none" stroke="var(--color-warning)" stroke-width="6" stroke-dasharray="213.6" stroke-dashoffset="117.5" stroke-linecap="round"/>
+                </svg>
+                <span class="ant-progress-circle-text">45%</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             TIMELINE
+             ============================================================ -->
+        <section id="timeline" class="section">
+          <div class="section-header">
+            <h2 class="section-title">Timeline</h2>
+            <p class="section-desc">Chronological activity timeline</p>
+          </div>
+
+          <div class="demo-box" style="max-width:480px">
+            <ol class="ant-timeline">
+              <li class="ant-timeline-item">
+                <div class="ant-timeline-item-dot success" aria-hidden="true"></div>
+                <div class="ant-timeline-item-content">
+                  Visit completed with Dr. Chen
+                  <small>March 28, 2026 - 3:15 PM</small>
+                </div>
+              </li>
+              <li class="ant-timeline-item">
+                <div class="ant-timeline-item-dot info" aria-hidden="true"></div>
+                <div class="ant-timeline-item-content">
+                  Lab results received - CBC Panel
+                  <small>March 25, 2026 - 10:30 AM</small>
+                </div>
+              </li>
+              <li class="ant-timeline-item">
+                <div class="ant-timeline-item-dot warning" aria-hidden="true"></div>
+                <div class="ant-timeline-item-content">
+                  Prescription refill requested
+                  <small>March 20, 2026 - 2:00 PM</small>
+                </div>
+              </li>
+              <li class="ant-timeline-item">
+                <div class="ant-timeline-item-dot" aria-hidden="true"></div>
+                <div class="ant-timeline-item-content">
+                  Video visit scheduled
+                  <small>March 15, 2026 - 9:00 AM</small>
+                </div>
+              </li>
+              <li class="ant-timeline-item">
+                <div class="ant-timeline-item-dot error" aria-hidden="true"></div>
+                <div class="ant-timeline-item-content">
+                  Missed appointment
+                  <small>March 10, 2026 - 11:00 AM</small>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             DROPDOWN
+             ============================================================ -->
+        <section id="dropdown" class="section">
+          <div class="section-header">
+            <h2 class="section-title">Dropdown</h2>
+            <p class="section-desc">Context menus and action dropdowns</p>
+          </div>
+
+          <div class="component-row" style="gap:24px;align-items:flex-start">
+            <div>
+              <div class="text-sm mb-8">Actions Menu</div>
+              <div class="ant-dropdown" role="menu">
+                <button class="ant-dropdown-item active" role="menuitem">View Profile</button>
+                <button class="ant-dropdown-item" role="menuitem">Edit Patient</button>
+                <button class="ant-dropdown-item" role="menuitem">Schedule Visit</button>
+                <button class="ant-dropdown-item" role="menuitem">Send Message</button>
+                <div class="ant-dropdown-divider" role="separator"></div>
+                <button class="ant-dropdown-item" role="menuitem">Export Records</button>
+                <button class="ant-dropdown-item disabled" role="menuitem" aria-disabled="true" disabled>Archive (Disabled)</button>
+                <div class="ant-dropdown-divider" role="separator"></div>
+                <button class="ant-dropdown-item danger" role="menuitem">Delete Patient</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             LIST
+             ============================================================ -->
+        <section id="list" class="section">
+          <div class="section-header">
+            <h2 class="section-title">List</h2>
+            <p class="section-desc">Ant Design List component with items</p>
+          </div>
+
+          <div class="ant-list" style="max-width:560px">
+            <div class="ant-list-item">
+              <div class="ant-avatar ant-avatar-default" style="background:var(--brand-primary)">JS</div>
+              <div class="ant-list-item-content">
+                <div class="ant-list-item-title">Jane Smith</div>
+                <div class="ant-list-item-description">Cardiology - Follow-up in 3 days</div>
+              </div>
+              <div class="ant-list-item-action">
+                <button class="ant-btn ant-btn-default ant-btn-sm">View</button>
+              </div>
+            </div>
+            <div class="ant-list-item">
+              <div class="ant-avatar ant-avatar-default" style="background:#0575AD">RJ</div>
+              <div class="ant-list-item-content">
+                <div class="ant-list-item-title">Robert Johnson</div>
+                <div class="ant-list-item-description">Neurology - Pending lab results</div>
+              </div>
+              <div class="ant-list-item-action">
+                <button class="ant-btn ant-btn-default ant-btn-sm">View</button>
+              </div>
+            </div>
+            <div class="ant-list-item">
+              <div class="ant-avatar ant-avatar-default" style="background:#7C3AED">MG</div>
+              <div class="ant-list-item-content">
+                <div class="ant-list-item-title">Maria Garcia</div>
+                <div class="ant-list-item-description">Pediatrics - Annual checkup scheduled</div>
+              </div>
+              <div class="ant-list-item-action">
+                <button class="ant-btn ant-btn-default ant-btn-sm">View</button>
+              </div>
+            </div>
+            <div class="ant-list-item">
+              <div class="ant-avatar ant-avatar-default" style="background:#DB2777">DL</div>
+              <div class="ant-list-item-content">
+                <div class="ant-list-item-title">David Lee</div>
+                <div class="ant-list-item-description">Dermatology - Overdue follow-up</div>
+              </div>
+              <div class="ant-list-item-action">
+                <button class="ant-btn ant-btn-default ant-btn-sm">View</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             DRAWER
+             ============================================================ -->
+        <section id="drawer" class="section">
+          <div class="section-header">
+            <h2 class="section-title">Drawer</h2>
+            <p class="section-desc">Slide-out panel from the edge of the screen</p>
+          </div>
+
+          <div class="ant-drawer-demo">
+            <div class="ant-drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title-1">
+              <div class="ant-drawer-header">
+                <span class="ant-drawer-title" id="drawer-title-1">Patient Details</span>
+                <button class="ant-modal-close" style="position:static" aria-label="Close">&times;</button>
+              </div>
+              <div class="ant-drawer-body">
+                <p><strong>Name:</strong> Jane Smith</p>
+                <p><strong>MRN:</strong> MRN-001234</p>
+                <p><strong>DOB:</strong> January 15, 1985</p>
+                <p><strong>Phone:</strong> (555) 123-4567</p>
+                <p><strong>Email:</strong> jane.smith@email.com</p>
+                <p><strong>Insurance:</strong> Blue Cross Blue Shield</p>
+                <p style="margin-top:8px"><strong>Primary Provider:</strong> Dr. Sarah Chen</p>
+              </div>
+              <div class="ant-drawer-footer">
+                <button class="ant-btn ant-btn-default">Close</button>
+                <button class="ant-btn ant-btn-primary">Edit</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             RESULT
+             ============================================================ -->
+        <section id="result" class="section">
+          <div class="section-header">
+            <h2 class="section-title">Result</h2>
+            <p class="section-desc">Feedback pages for completed or failed operations</p>
+          </div>
+
+          <div class="component-grid">
+            <div class="ant-card">
+              <div class="ant-result">
+                <div class="ant-result-icon" style="color:var(--color-success)" aria-hidden="true">&#10003;</div>
+                <div class="ant-result-title">Visit Completed</div>
+                <div class="ant-result-subtitle">The telehealth visit with Dr. Chen has been successfully completed.</div>
+                <div class="component-row" style="justify-content:center">
+                  <button class="ant-btn ant-btn-primary">View Summary</button>
+                  <button class="ant-btn ant-btn-default">Back to Dashboard</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="ant-card">
+              <div class="ant-result">
+                <div class="ant-result-icon" style="color:var(--color-danger)" aria-hidden="true">&#10007;</div>
+                <div class="ant-result-title">Connection Failed</div>
+                <div class="ant-result-subtitle">Unable to establish video connection. Please check your camera and network.</div>
+                <div class="component-row" style="justify-content:center">
+                  <button class="ant-btn ant-btn-primary">Try Again</button>
+                  <button class="ant-btn ant-btn-default">Get Help</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             SPINNER
+             ============================================================ -->
+        <section id="spinner" class="section">
+          <div class="section-header">
+            <h2 class="section-title">Spinner / Loading</h2>
+            <p class="section-desc">Loading indicators in different sizes</p>
+          </div>
+
+          <div class="component-row" style="gap:40px">
+            <div style="text-align:center">
+              <div class="ant-spin ant-spin-sm" role="status" aria-label="Loading"><div class="ant-spin-dot"></div></div>
+              <div class="text-sm mt-12">Small</div>
+            </div>
+            <div style="text-align:center">
+              <div class="ant-spin" role="status" aria-label="Loading"><div class="ant-spin-dot"></div></div>
+              <div class="text-sm mt-12">Default</div>
+            </div>
+            <div style="text-align:center">
+              <div class="ant-spin ant-spin-lg" role="status" aria-label="Loading"><div class="ant-spin-dot"></div></div>
+              <div class="text-sm mt-12">Large</div>
+            </div>
+          </div>
+
+          <div class="demo-box mt-12" style="text-align:center;padding:40px" role="status" aria-live="polite">
+            <div class="ant-spin" style="display:block;margin:0 auto"><div class="ant-spin-dot"></div></div>
+            <div class="ant-spin-text" style="margin-top:12px">Loading patient records...</div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             STEPS
+             ============================================================ -->
+        <section id="steps" class="section">
+          <div class="section-header">
+            <h2 class="section-title">Steps</h2>
+            <p class="section-desc">Step-by-step navigation for multi-step workflows</p>
+          </div>
+
+          <div class="demo-box">
+            <ol class="ant-steps">
+              <li class="ant-step finish">
+                <div class="ant-step-icon" aria-hidden="true">&#10003;</div>
+                <div class="ant-step-content">
+                  <div class="ant-step-title">Patient Info</div>
+                  <div class="ant-step-description">Basic demographics</div>
+                  <span class="visually-hidden">(completed)</span>
+                </div>
+              </li>
+              <li class="ant-step finish">
+                <div class="ant-step-icon" aria-hidden="true">&#10003;</div>
+                <div class="ant-step-content">
+                  <div class="ant-step-title">Insurance</div>
+                  <div class="ant-step-description">Coverage details</div>
+                  <span class="visually-hidden">(completed)</span>
+                </div>
+              </li>
+              <li class="ant-step active" aria-current="step">
+                <div class="ant-step-icon" aria-hidden="true">3</div>
+                <div class="ant-step-content">
+                  <div class="ant-step-title">Visit Reason</div>
+                  <div class="ant-step-description">Chief complaint</div>
+                </div>
+              </li>
+              <li class="ant-step">
+                <div class="ant-step-icon" aria-hidden="true">4</div>
+                <div class="ant-step-content">
+                  <div class="ant-step-title">Confirm</div>
+                  <div class="ant-step-description">Review &amp; submit</div>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             COLLAPSE / ACCORDION
+             ============================================================ -->
+        <section id="collapse" class="section">
+          <div class="section-header">
+            <h2 class="section-title">Collapse / Accordion</h2>
+            <p class="section-desc">Expandable content panels</p>
+          </div>
+
+          <div class="ant-collapse" style="max-width:560px">
+            <div class="ant-collapse-item open">
+              <button class="ant-collapse-header" aria-expanded="true" aria-controls="collapse-panel-1">
+                <span>Patient Demographics</span>
+                <span class="ant-collapse-arrow" aria-hidden="true">&#9656;</span>
+              </button>
+              <div class="ant-collapse-content" id="collapse-panel-1">
+                Name: Jane Smith, DOB: January 15, 1985, Gender: Female, Address: 123 Health St, San Jose, CA 95120. Primary language: English. Emergency contact: John Smith (spouse).
+              </div>
+            </div>
+            <div class="ant-collapse-item">
+              <button class="ant-collapse-header" aria-expanded="false" aria-controls="collapse-panel-2">
+                <span>Insurance Information</span>
+                <span class="ant-collapse-arrow" aria-hidden="true">&#9656;</span>
+              </button>
+              <div class="ant-collapse-content" id="collapse-panel-2" style="display:none">
+                Provider: Blue Cross Blue Shield, Plan: PPO Gold, Member ID: BCB-789456, Group: GRP-123. Co-pay: $30 for specialist visits.
+              </div>
+            </div>
+            <div class="ant-collapse-item">
+              <button class="ant-collapse-header" aria-expanded="false" aria-controls="collapse-panel-3">
+                <span>Medical History</span>
+                <span class="ant-collapse-arrow" aria-hidden="true">&#9656;</span>
+              </button>
+              <div class="ant-collapse-content" id="collapse-panel-3" style="display:none">
+                Active conditions: Hypertension (managed), Type 2 Diabetes (managed). Allergies: Penicillin (moderate). Surgeries: Appendectomy (2015).
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             SKELETON
+             ============================================================ -->
+        <section id="skeleton" class="section">
+          <div class="section-header">
+            <h2 class="section-title">Skeleton</h2>
+            <p class="section-desc">Placeholder loading states for content</p>
+          </div>
+
+          <div class="demo-box" style="max-width:480px">
+            <div class="ant-skeleton mb-24">
+              <div class="ant-skeleton-avatar"></div>
+              <div class="ant-skeleton-content">
+                <div class="ant-skeleton-title"></div>
+                <div class="ant-skeleton-paragraph">
+                  <div class="ant-skeleton-line" style="width:100%"></div>
+                  <div class="ant-skeleton-line" style="width:80%"></div>
+                  <div class="ant-skeleton-line" style="width:60%"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="ant-skeleton">
+              <div class="ant-skeleton-avatar"></div>
+              <div class="ant-skeleton-content">
+                <div class="ant-skeleton-title"></div>
+                <div class="ant-skeleton-paragraph">
+                  <div class="ant-skeleton-line" style="width:90%"></div>
+                  <div class="ant-skeleton-line" style="width:70%"></div>
+                  <div class="ant-skeleton-line" style="width:50%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             EMPTY STATE
+             ============================================================ -->
+        <section id="empty" class="section">
+          <div class="section-header">
+            <h2 class="section-title">Empty State</h2>
+            <p class="section-desc">Placeholder for when there is no data</p>
+          </div>
+
+          <div class="ant-card" style="max-width:400px">
+            <div class="ant-empty">
+              <div class="ant-empty-image" aria-hidden="true">
+                <svg viewBox="0 0 64 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <rect x="8" y="8" width="48" height="32" rx="4" stroke="var(--neutral-400)" stroke-width="2" fill="none"/>
+                  <line x1="16" y1="20" x2="48" y2="20" stroke="var(--neutral-300)" stroke-width="2"/>
+                  <line x1="16" y1="28" x2="40" y2="28" stroke="var(--neutral-300)" stroke-width="2"/>
+                  <line x1="16" y1="36" x2="32" y2="36" stroke="var(--neutral-300)" stroke-width="2"/>
+                </svg>
+              </div>
+              <div class="ant-empty-description">No appointments found</div>
+              <div style="margin-top:16px">
+                <button class="ant-btn ant-btn-primary ant-btn-sm">Schedule Visit</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             SEGMENTED
+             ============================================================ -->
+        <section id="segmented" class="section">
+          <div class="section-header">
+            <h2 class="section-title">Segmented Control</h2>
+            <p class="section-desc">Toggle between a set of options</p>
+          </div>
+
+          <div class="component-row" style="flex-direction:column;align-items:flex-start;gap:16px">
+            <div class="ant-segmented">
+              <button class="ant-segmented-item active" aria-pressed="true" onclick="selectSegment(this)">Daily</button>
+              <button class="ant-segmented-item" aria-pressed="false" onclick="selectSegment(this)">Weekly</button>
+              <button class="ant-segmented-item" aria-pressed="false" onclick="selectSegment(this)">Monthly</button>
+              <button class="ant-segmented-item" aria-pressed="false" onclick="selectSegment(this)">Yearly</button>
+            </div>
+
+            <div class="ant-segmented">
+              <button class="ant-segmented-item active" aria-pressed="true" onclick="selectSegment(this)">All Patients</button>
+              <button class="ant-segmented-item" aria-pressed="false" onclick="selectSegment(this)">Active</button>
+              <button class="ant-segmented-item" aria-pressed="false" onclick="selectSegment(this)">Inactive</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             RATE
+             ============================================================ -->
+        <section id="rate" class="section">
+          <div class="section-header">
+            <h2 class="section-title">Rate / Stars</h2>
+            <p class="section-desc">Star rating input component</p>
+          </div>
+
+          <div class="component-row" style="flex-direction:column;align-items:flex-start;gap:12px">
+            <div>
+              <span class="text-sm" id="rate-visit">Visit satisfaction:</span>
+              <div class="ant-rate" style="margin-top:4px" role="radiogroup" aria-labelledby="rate-visit">
+                <span class="ant-rate-star active" role="radio" aria-checked="true" aria-label="1 star" tabindex="0">&#9733;</span>
+                <span class="ant-rate-star active" role="radio" aria-checked="true" aria-label="2 stars" tabindex="0">&#9733;</span>
+                <span class="ant-rate-star active" role="radio" aria-checked="true" aria-label="3 stars" tabindex="0">&#9733;</span>
+                <span class="ant-rate-star active" role="radio" aria-checked="true" aria-label="4 stars" tabindex="0">&#9733;</span>
+                <span class="ant-rate-star" role="radio" aria-checked="false" aria-label="5 stars" tabindex="0">&#9733;</span>
+              </div>
+            </div>
+            <div>
+              <span class="text-sm" id="rate-provider">Provider rating:</span>
+              <div class="ant-rate" style="margin-top:4px" role="radiogroup" aria-labelledby="rate-provider">
+                <span class="ant-rate-star active" role="radio" aria-checked="true" aria-label="1 star" tabindex="0">&#9733;</span>
+                <span class="ant-rate-star active" role="radio" aria-checked="true" aria-label="2 stars" tabindex="0">&#9733;</span>
+                <span class="ant-rate-star active" role="radio" aria-checked="true" aria-label="3 stars" tabindex="0">&#9733;</span>
+                <span class="ant-rate-star active" role="radio" aria-checked="true" aria-label="4 stars" tabindex="0">&#9733;</span>
+                <span class="ant-rate-star active" role="radio" aria-checked="true" aria-label="5 stars" tabindex="0">&#9733;</span>
+              </div>
+            </div>
+            <div>
+              <span class="text-sm" id="rate-ease">Ease of use:</span>
+              <div class="ant-rate" style="margin-top:4px" role="radiogroup" aria-labelledby="rate-ease">
+                <span class="ant-rate-star active" role="radio" aria-checked="true" aria-label="1 star" tabindex="0">&#9733;</span>
+                <span class="ant-rate-star active" role="radio" aria-checked="true" aria-label="2 stars" tabindex="0">&#9733;</span>
+                <span class="ant-rate-star active" role="radio" aria-checked="true" aria-label="3 stars" tabindex="0">&#9733;</span>
+                <span class="ant-rate-star" role="radio" aria-checked="false" aria-label="4 stars" tabindex="0">&#9733;</span>
+                <span class="ant-rate-star" role="radio" aria-checked="false" aria-label="5 stars" tabindex="0">&#9733;</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             TREE
+             ============================================================ -->
+        <section id="tree" class="section">
+          <div class="section-header">
+            <h2 class="section-title">Tree</h2>
+            <p class="section-desc">Hierarchical data display</p>
+          </div>
+
+          <div class="demo-box" style="max-width:400px">
+            <div class="ant-tree">
+              <div class="ant-tree-node">
+                <div class="ant-tree-node-content">
+                  <span class="ant-tree-switcher" aria-hidden="true">&#9662;</span>
+                  <span class="ant-tree-icon" aria-hidden="true">&#128193;</span>
+                  <span class="ant-tree-title" style="font-weight:500">VSee Clinic</span>
+                </div>
+                <div class="ant-tree-children">
+                  <div class="ant-tree-node">
+                    <div class="ant-tree-node-content">
+                      <span class="ant-tree-switcher">&#9662;</span>
+                      <span class="ant-tree-icon">&#128193;</span>
+                      <span class="ant-tree-title">Departments</span>
+                    </div>
+                    <div class="ant-tree-children">
+                      <div class="ant-tree-node">
+                        <div class="ant-tree-node-content">
+                          <span class="ant-tree-switcher" style="visibility:hidden" aria-hidden="true">&#9656;</span>
+                          <span class="ant-tree-icon" aria-hidden="true">&#128196;</span>
+                          <span class="ant-tree-title">Cardiology</span>
+                        </div>
+                      </div>
+                      <div class="ant-tree-node">
+                        <div class="ant-tree-node-content">
+                          <span class="ant-tree-switcher" style="visibility:hidden" aria-hidden="true">&#9656;</span>
+                          <span class="ant-tree-icon" aria-hidden="true">&#128196;</span>
+                          <span class="ant-tree-title">Neurology</span>
+                        </div>
+                      </div>
+                      <div class="ant-tree-node">
+                        <div class="ant-tree-node-content">
+                          <span class="ant-tree-switcher" style="visibility:hidden" aria-hidden="true">&#9656;</span>
+                          <span class="ant-tree-icon" aria-hidden="true">&#128196;</span>
+                          <span class="ant-tree-title">Pediatrics</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ant-tree-node">
+                    <div class="ant-tree-node-content">
+                      <span class="ant-tree-switcher">&#9662;</span>
+                      <span class="ant-tree-icon">&#128193;</span>
+                      <span class="ant-tree-title">Providers</span>
+                    </div>
+                    <div class="ant-tree-children">
+                      <div class="ant-tree-node">
+                        <div class="ant-tree-node-content">
+                          <span class="ant-tree-switcher" style="visibility:hidden" aria-hidden="true">&#9656;</span>
+                          <span class="ant-tree-icon" aria-hidden="true">&#128100;</span>
+                          <span class="ant-tree-title">Dr. Sarah Chen</span>
+                        </div>
+                      </div>
+                      <div class="ant-tree-node">
+                        <div class="ant-tree-node-content">
+                          <span class="ant-tree-switcher" style="visibility:hidden" aria-hidden="true">&#9656;</span>
+                          <span class="ant-tree-icon" aria-hidden="true">&#128100;</span>
+                          <span class="ant-tree-title">Dr. James Wilson</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             DESCRIPTIONS
+             ============================================================ -->
+        <section id="descriptions" class="section">
+          <div class="section-header">
+            <h2 class="section-title">Descriptions</h2>
+            <p class="section-desc">Key-value display layout for record details</p>
+          </div>
+
+          <div class="ant-descriptions" style="max-width:560px">
+            <div class="ant-descriptions-header">Patient Record</div>
+            <div class="ant-descriptions-row">
+              <div class="ant-descriptions-label">Patient Name</div>
+              <div class="ant-descriptions-value">Jane Smith</div>
+            </div>
+            <div class="ant-descriptions-row">
+              <div class="ant-descriptions-label">MRN</div>
+              <div class="ant-descriptions-value"><code>MRN-001234</code></div>
+            </div>
+            <div class="ant-descriptions-row">
+              <div class="ant-descriptions-label">Date of Birth</div>
+              <div class="ant-descriptions-value">January 15, 1985</div>
+            </div>
+            <div class="ant-descriptions-row">
+              <div class="ant-descriptions-label">Phone</div>
+              <div class="ant-descriptions-value">(555) 123-4567</div>
+            </div>
+            <div class="ant-descriptions-row">
+              <div class="ant-descriptions-label">Insurance</div>
+              <div class="ant-descriptions-value">Blue Cross Blue Shield - PPO Gold</div>
+            </div>
+            <div class="ant-descriptions-row">
+              <div class="ant-descriptions-label">Status</div>
+              <div class="ant-descriptions-value"><span class="ant-tag ant-tag-success">Active</span></div>
+            </div>
+            <div class="ant-descriptions-row">
+              <div class="ant-descriptions-label">Provider</div>
+              <div class="ant-descriptions-value">Dr. Sarah Chen - Cardiology</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             PROS & CONS
+             ============================================================ -->
+        <section id="pros-cons" class="section">
+          <div class="section-header">
+            <h2 class="section-title">Pros &amp; Cons</h2>
+            <p class="section-desc">Evaluation of Ant Design v5 as the base framework for VSee Design System</p>
+          </div>
+
+          <div class="pros-cons">
+            <div class="pros">
+              <h4>Pros</h4>
+              <ul>
+                <li>Rich component library out of the box -- 50+ production-ready components</li>
+                <li>Built-in accessibility (ARIA, keyboard nav, screen reader support)</li>
+                <li>Design token system for systematic theming and brand customization</li>
+                <li>Enterprise-grade quality -- battle-tested by Alibaba and thousands of companies</li>
+                <li>Excellent Table and Form components with built-in validation, sorting, filtering</li>
+                <li>Consistent design language reduces design-dev handoff friction</li>
+                <li>Active community and long-term maintenance commitment</li>
+              </ul>
+            </div>
+            <div class="cons">
+              <h4>Cons</h4>
+              <ul>
+                <li>Larger bundle size (~200KB+ min+gz) compared to utility-first approaches</li>
+                <li>Opinionated styling is harder to customize beyond the token system</li>
+                <li>React-centric -- needs full antd library for interactive components</li>
+                <li>Learning curve for the design token and theme customization system</li>
+                <li>Less flexibility for highly custom or non-standard UI patterns</li>
+                <li>Updating major versions can require significant migration effort</li>
+                <li>CSS-in-JS runtime adds overhead compared to static CSS (Tailwind)</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </div><!-- /.content -->
+    </main>
+  </div><!-- /.layout -->
+
+  <script>
+    // ==========================================
+    // Dark Mode Toggle
+    // ==========================================
+    function toggleTheme() {
+      const html = document.documentElement;
+      const current = html.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      document.getElementById('theme-label').textContent = next === 'dark' ? 'Light Mode' : 'Dark Mode';
+      const btn = document.querySelector('.theme-toggle');
+      if (btn) btn.setAttribute('aria-pressed', next === 'dark');
+      localStorage.setItem('vsee-antd-theme', next);
+    }
+
+    // Restore theme
+    (function() {
+      const saved = localStorage.getItem('vsee-antd-theme');
+      if (saved === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.getElementById('theme-label').textContent = 'Light Mode';
+        const btn = document.querySelector('.theme-toggle');
+        if (btn) btn.setAttribute('aria-pressed', 'true');
+      }
+    })();
+
+    // ==========================================
+    // Active Nav Link Tracking
+    // ==========================================
+    (function() {
+      const sections = document.querySelectorAll('.section[id]');
+      const navLinks = document.querySelectorAll('.nav-link');
+
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            navLinks.forEach(link => link.classList.remove('active'));
+            const activeLink = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+            if (activeLink) activeLink.classList.add('active');
+          }
+        });
+      }, { rootMargin: '-20% 0px -75% 0px' });
+
+      sections.forEach(section => observer.observe(section));
+    })();
+
+    // ==========================================
+    // Collapse / Accordion
+    // ==========================================
+    document.querySelectorAll('.ant-collapse-header').forEach(header => {
+      header.addEventListener('click', function() {
+        const content = this.nextElementSibling;
+        const item = this.parentElement;
+        if (item.classList.contains('open')) {
+          content.style.display = 'none';
+          item.classList.remove('open');
+          this.setAttribute('aria-expanded', 'false');
+        } else {
+          content.style.display = 'block';
+          item.classList.add('open');
+          this.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+
+    // Initialize open items
+    document.querySelectorAll('.ant-collapse-item.open .ant-collapse-content').forEach(el => {
+      el.style.display = 'block';
+    });
+
+    // ==========================================
+    // Segmented Control
+    // ==========================================
+    function selectSegment(el) {
+      el.parentElement.querySelectorAll('.ant-segmented-item').forEach(item => {
+        item.classList.remove('active');
+        item.setAttribute('aria-pressed', 'false');
+      });
+      el.classList.add('active');
+      el.setAttribute('aria-pressed', 'true');
+    }
+  </script>
+</body>
+</html>
